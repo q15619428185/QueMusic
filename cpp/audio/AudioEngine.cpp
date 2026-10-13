@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: Apache-2.0
-// Copyright (c) 2025-2026 QueMusic Contributors
+// Copyright (c) 2025-2026 SmyunMusic Contributors
 //
 #include "AudioEngine.h"
 
@@ -115,7 +115,7 @@ AudioEngine::AudioEngine(QObject *parent)
 
     m_outputContext = new QObject;
     m_outputContext->moveToThread(&m_outputThread);
-    m_outputThread.setObjectName(QStringLiteral("QueMusicAudioOutput"));
+    m_outputThread.setObjectName(QStringLiteral("SmyunMusicAudioOutput"));
     m_outputThread.start();
 
     setupSink();

@@ -46,7 +46,7 @@ foreach ($k in $modules.Keys) {
     Copy-Item (Join-Path $QtBin "$k.dll") (Join-Path $dest "bin") -Force
 }
 
-$tmp = Join-Path $env:TEMP "quemusic-ffmpeg-def"
+$tmp = Join-Path $env:TEMP "smyunmusic-ffmpeg-def"
 Remove-Item $tmp -Recurse -Force -ErrorAction SilentlyContinue
 New-Item -ItemType Directory -Force -Path $tmp | Out-Null
 Push-Location $tmp

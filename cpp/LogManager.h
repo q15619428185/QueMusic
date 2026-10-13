@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: Apache-2.0
-// Copyright (c) 2025-2026 QueMusic Contributors
+// Copyright (c) 2025-2026 SmyunMusic Contributors
 //
 #ifndef LOGMANAGER_H
 #define LOGMANAGER_H
@@ -18,7 +18,7 @@ class QJSEngine;
 
 // 应用级日志管理器。
 // - 接管 Qt 全局消息（qDebug/qInfo/qWarning/qCritical/qFatal），同时保留控制台输出。
-// - 中文日志，写入“安装目录/logs/QueMusic_yyyyMMdd.log”（每日一个文件，UTF-8）。
+// - 中文日志，写入“安装目录/logs/SmyunMusic_yyyyMMdd.log”（每日一个文件，UTF-8）。
 // - 多平台：安装目录不可写时回退到用户数据目录。
 // - 支持分级筛选（默认记录“信息”及以上），默认开启。
 class LogManager : public QObject

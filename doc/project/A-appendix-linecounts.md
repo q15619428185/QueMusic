@@ -1,6 +1,6 @@
 # 附录 A · 逐文件行数快照
 
-> 本文件是 [QueMusic 项目全景文档索引](README.md) 的一个分片；任务定位与其它部分请见 [README.md](README.md)。
+> 本文件是 [SmyunMusic 项目全景文档索引](README.md) 的一个分片；任务定位与其它部分请见 [README.md](README.md)。
 
 > 统计方法：`[System.IO.File]::ReadAllLines(path).Length`（与编辑器、`read`、ripgrep 的行号一致）。覆盖范围：`cpp/`、`api/`、`components/`、`pages/`、`layout/`、`lyricsui/`、`shaders/`、`cmake/`、`packaging/`、`tests/`、`.github/` 与根目录的 `main.cpp` / `main.qml` / `SettingsView.qml` / `CMakeLists.txt` / `CMakePresets.json` / `justfile`。**不含** `doc/`、`resources/`、`ThirdParty/`、`build/`、`ffmpeg/`、`api/QCloudMusicApi/3rdparty/` 与二进制资源。
 

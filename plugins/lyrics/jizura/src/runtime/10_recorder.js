@@ -1,5 +1,5 @@
 /* ============================================================================
-   JIZURA for QueMusic — fragment 1/4: the Canvas2D -> display-list recorder
+   JIZURA for SmyunMusic — fragment 1/4: the Canvas2D -> display-list recorder
    ----------------------------------------------------------------------------
    JIZURA draws every frame with the Canvas2D API.  A QML renderer cannot replay
    raw Canvas2D (it is an immediate-mode raster API), but JIZURA's content is

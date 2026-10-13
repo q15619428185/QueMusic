@@ -1,11 +1,11 @@
 // SPDX-License-Identifier: Apache-2.0
-// Copyright (c) 2025-2026 QueMusic Contributors
+// Copyright (c) 2025-2026 SmyunMusic Contributors
 //
 // 沉浸播放页宿主框架：页面壳（沉浸偏移、自动隐藏控件、控制按钮、主题色动画）+ 歌词界面加载。
 // 歌词界面是 layout/MainLyric.qml 或 lyricsui/*（见 lyricThemes），只依赖下方注入契约，可整包替换。
 pragma ComponentBehavior: Bound
 import QtQuick
-import QueMusic 1.0
+import SmyunMusic 1.0
 
 Rectangle {
     id: musicControlMax
@@ -59,7 +59,7 @@ Rectangle {
             currentIndex: () => MusicApi.lyricIndex,
             title: () => Playback.musicTitle,
             artist: () => Playback.musicArtist,
-            coverUrl: () => Playback.player.urlStr || "qrc:/QueMusic/resources/app/musicpic.png",
+            coverUrl: () => Playback.player.urlStr || "qrc:/SmyunMusic/resources/app/musicpic.png",
             mainColor: () => musicControlMax.mainColor,
             secondColor: () => musicControlMax.secondColor,
             thirdColor: () => musicControlMax.thirdColor,
@@ -258,7 +258,7 @@ Rectangle {
                         radius3: 10
                         radius4: 10
                         source: themeRow.preview ? themeRow.preview
-                                                  : "qrc:/QueMusic/resources/app/musicpic.png"
+                                                  : "qrc:/SmyunMusic/resources/app/musicpic.png"
                     }
 
                     Column {

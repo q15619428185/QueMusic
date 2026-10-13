@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: Apache-2.0
-// Copyright (c) 2024-2026 QueMusic Contributors
+// Copyright (c) 2024-2026 SmyunMusic Contributors
 //
 // qrcode.js — 轻量二维码生成器（纯 JS，无依赖）
 // 算法结构参考 kazuhikoarase/qrcode-generator（MIT License）：

@@ -1,8 +1,8 @@
-# QueMusic 项目全景文档（AI 快速解析用）
+# SmyunMusic 项目全景文档（AI 快速解析用）
 
 > 本文档的**唯一目的**：让后续任何一次对话在不重新通读源码的情况下，快速定位到需要改的文件、需要遵守的约定、以及容易踩的坑，从而节省 token 与时间。
 >
-> - 生成时间：2026-10-11；对应工作区 `quemusicproject`（git 分支 `main`）。
+> - 生成时间：2026-10-11；对应工作区 `smyunmusicproject`（git 分支 `main`）。
 > - 全文分 9 个部分 + 附录 A。**章节编号是全局唯一的**（`§3.2` 只在第 3 部分出现），跨部分引用写「第 N 部分」。
 > - 事实优先：凡是从代码/运行产物直接读出的事实都写精确标识符；不确定的标为「未确认」。
 > - 第 9 部分是**对第 1–8 部分的交叉核对与勘误**（含 README 过期项、QML→C++ 引用热力表）。如果某处描述与代码冲突，以第 9 部分和代码为准。
@@ -39,7 +39,7 @@
 | 改主窗口、全局对象装配、页面导航、托盘/桌面歌词接线 | `main.qml` |
 | 新增"全局可见对象"（新对话框、新 Loader、新动画） | `components/Options.qml` + `main.qml`（在 main.qml 里赋值给 `Options.xxx`） |
 | 新增 C++ 类型给 QML 用 | 目标类的 `.h`（加 `QML_ELEMENT` / `QML_SINGLETON`）→ 若不在 `CMakeLists.txt` 的 `SOURCES` 里则补上 |
-| 新增数据模型单例 | `cpp/AppModels.h`（用 `QUEMUSIC_DECLARE_MODEL_SINGLETON` 宏） |
+| 新增数据模型单例 | `cpp/AppModels.h`（用 `SMYUNMUSIC_DECLARE_MODEL_SINGLETON` 宏） |
 | 改应用图标 / 名称 / 组织名 / AppUserModelID | `main.cpp`、`icon.rc`、`resources/icon.ico` |
 
 ### 0.2 播放链路
@@ -122,7 +122,7 @@
 | 功能插件（单例 `FunctionPlugins`） | `cpp/plugins/FunctionPluginStore.{h,cpp}` |
 | 插件挂载 API / 宿主容器 | `components/PluginApi.qml`、`components/PluginHost.qml`、`components/PluginSlot.qml`、`components/PluginSlots.qml` |
 | 插件管理界面 | `components/PluginManager.qml`（设置页内） |
-| 插件目录与实例参考 | `%APPDATA%\BroNekoX\QueMusic\plugins\{lyrics,function}\<名字>\`（`info.json` + 入口 QML） |
+| 插件目录与实例参考 | `%APPDATA%\BroNekoX\SmyunMusic\plugins\{lyrics,function}\<名字>\`（`info.json` + 入口 QML） |
 
 ### 0.8 构建 / 发布
 

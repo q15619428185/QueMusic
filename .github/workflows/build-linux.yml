@@ -29,7 +29,7 @@ concurrency:
 env:
   QT_VERSION: '6.10.3'
   QT_DIR: ${{ github.workspace }}/Qt
-  APPIMAGE_NAME: QueMusic-x86_64.AppImage
+  APPIMAGE_NAME: SmyunMusic-x86_64.AppImage
 
 jobs:
   build:
@@ -125,7 +125,7 @@ jobs:
 
       - name: Configure (CMake)
         run: |
-          # -DQUEMUSIC_FFMPEG_USE_QT=ON：让解码层也用 Qt 自带的那套 FFmpeg（libavcodec.so.61 = 7.1.3）。
+          # -DSMYUNMUSIC_FFMPEG_USE_QT=ON：让解码层也用 Qt 自带的那套 FFmpeg（libavcodec.so.61 = 7.1.3）。
           # 不开的话会退回 pkg-config 拿构建机的系统 ffmpeg（Ubuntu 24.04 = 6.1 / libavcodec.so.60），
           # linuxdeploy 就会顺着它把整套系统编解码栈也塞进 AppImage：
           #   libcodec2 16MB / libx265 16MB / libSvtAv1Enc 7MB / libaom 5MB / libjxl / libvpx / librav1e …
@@ -135,7 +135,7 @@ jobs:
           cmake -B build \
             -DCMAKE_BUILD_TYPE=Release \
             -DCMAKE_PREFIX_PATH="${QT_DIR}/${QT_VERSION}/gcc_64" \
-            -DQUEMUSIC_FFMPEG_USE_QT=ON
+            -DSMYUNMUSIC_FFMPEG_USE_QT=ON
 
       - name: Build
         run: cmake --build build -j"$(nproc)"
@@ -238,8 +238,8 @@ jobs:
           mkdir -p AppDir/usr/bin AppDir/usr/lib AppDir/usr/plugins \
                    AppDir/usr/share/applications AppDir/usr/share/icons/hicolor/256x256/apps
 
-          cp packaging/QueMusic.desktop AppDir/usr/share/applications/
-          cp resources/icon.png AppDir/usr/share/icons/hicolor/256x256/apps/quemusic.png
+          cp packaging/SmyunMusic.desktop AppDir/usr/share/applications/
+          cp resources/icon.png AppDir/usr/share/icons/hicolor/256x256/apps/smyunmusic.png
 
           # ---- 平台插件：xcb + 全部 wayland ----
           # Qt 6.10 的 Wayland 平台插件叫 libqwayland.so（Qt5 才叫 libqwayland-generic.so），
@@ -436,7 +436,7 @@ jobs:
 
           # ---- 图形后端 ----
           # 默认交给 Qt 自动选择（桌面通常 OpenGL / GLES）。
-          # 想跑 Vulkan： ./QueMusic-x86_64.AppImage --vulkan   （等价 QSG_RHI_BACKEND=vulkan）
+          # 想跑 Vulkan： ./SmyunMusic-x86_64.AppImage --vulkan   （等价 QSG_RHI_BACKEND=vulkan）
           # 排查用： --opengl / --software / --x11 / --wayland / --debug-plugins
           # 注意：这里不设 QT_SCALE_FALLING_ROUNDING_POLICY=PassThrough，
           #       它在 XWayland 下会放大缩放取整偏差，导致窗口尺寸异常。
@@ -454,7 +454,7 @@ jobs:
             esac
           done
 
-          exec "${HERE}/usr/bin/QueMusic" "${ARGS[@]}"
+          exec "${HERE}/usr/bin/SmyunMusic" "${ARGS[@]}"
           EOF
           chmod +x AppRun.sh
 
@@ -491,9 +491,9 @@ jobs:
 
           ./linuxdeploy-x86_64.AppImage --appimage-extract-and-run \
             --appdir AppDir \
-            --executable build/bin/QueMusic \
-            --desktop-file AppDir/usr/share/applications/QueMusic.desktop \
-            --icon-file AppDir/usr/share/icons/hicolor/256x256/apps/quemusic.png \
+            --executable build/bin/SmyunMusic \
+            --desktop-file AppDir/usr/share/applications/SmyunMusic.desktop \
+            --icon-file AppDir/usr/share/icons/hicolor/256x256/apps/smyunmusic.png \
             --plugin qt \
             --custom-apprun AppRun.sh \
             --exclude-library libwayland-client.so.0 \
@@ -501,10 +501,10 @@ jobs:
             --exclude-library libvulkan.so.1 \
             --output appimage
 
-          # 注意：linuxdeploy 产出的名字由 AppDir 推导，常常就已经是 QueMusic-x86_64.AppImage，
+          # 注意：linuxdeploy 产出的名字由 AppDir 推导，常常就已经是 SmyunMusic-x86_64.AppImage，
           # 这时 `mv a a` 会报 "'a' and 'a' are the same file" 并以 1 退出，
           # 在 set -e 下把整个步骤带崩（#31 就是这么挂的）。先比名字再搬。
-          for f in QueMusic-*.AppImage; do
+          for f in SmyunMusic-*.AppImage; do
             [ -e "$f" ] || continue
             if [ "$f" != "$APPIMAGE_NAME" ]; then
               mv -f "$f" "$APPIMAGE_NAME"
@@ -570,14 +570,14 @@ jobs:
             "$R/usr/lib/libQt6QuickControls2FluentWinUI3.so*"
 
           # 只应有一套 ffmpeg（Qt 自带的 7.1.3 = libavcodec.so.61）。
-          # 冒出第二套（系统 ffmpeg 6.1 的 .60）说明 Configure 没带 -DQUEMUSIC_FFMPEG_USE_QT=ON，
+          # 冒出第二套（系统 ffmpeg 6.1 的 .60）说明 Configure 没带 -DSMYUNMUSIC_FFMPEG_USE_QT=ON，
           # 实测会把整套系统编解码栈（x265/aom/vpx/rav1e/codec2…）连同它拖来的系统 ICU
           # 一起打进包，AppImage 由 62MB 涨到 116MB，所以这里直接判失败。
           AV_VERS="$(ls -1 "$R/usr/lib" 2>/dev/null | grep -oE '^libavcodec\.so\.[0-9]+' | sort -u | tr '\n' ' ')"
           if [ "$(echo $AV_VERS | wc -w)" -le 1 ]; then
             echo "✅ 只有一套 ffmpeg：${AV_VERS:-（无）}"
           else
-            echo "❌ 包里出现多套 ffmpeg（$AV_VERS）：确认 Configure 带了 -DQUEMUSIC_FFMPEG_USE_QT=ON"
+            echo "❌ 包里出现多套 ffmpeg（$AV_VERS）：确认 Configure 带了 -DSMYUNMUSIC_FFMPEG_USE_QT=ON"
             MISSING=1
           fi
 
@@ -707,7 +707,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
-          name: QueMusic-Linux-AppImage
+          name: SmyunMusic-Linux-AppImage
           path: ${{ env.APPIMAGE_NAME }}
 
       # ↓↓↓ 发布段沿用你原来的逻辑，不需要可直接删除 ↓↓↓
@@ -722,5 +722,5 @@ jobs:
           if gh release view "$TAG" > /dev/null 2>&1; then
             echo "❌ Release tag '$TAG' 已存在，请换一个 tag。"; exit 1
           fi
-          gh release create "$TAG" --title "QueMusic $TAG" --generate-notes
+          gh release create "$TAG" --title "SmyunMusic $TAG" --generate-notes
           gh release upload "$TAG" "$APPIMAGE_NAME" --clobber

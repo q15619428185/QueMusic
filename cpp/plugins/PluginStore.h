@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: Apache-2.0
-// Copyright (c) 2025-2026 QueMusic Contributors
+// Copyright (c) 2025-2026 SmyunMusic Contributors
 //
 // 插件目录通用逻辑：扫描 / 安装（复制目录）/ 删除 / 打开目录；两类插件各自的启用状态由派生类补上。
 // 派生类构造函数里要调一次 load()（它会回调 builtinPlugins()）。

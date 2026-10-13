@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: Apache-2.0
-// Copyright (c) 2025-2026 QueMusic Contributors
+// Copyright (c) 2025-2026 SmyunMusic Contributors
 #include "plugins/LyricsPluginStore.h"
 
 #include <QSettings>
@@ -14,7 +14,7 @@ QVariantList builtins()
         return QVariantMap{
             {QStringLiteral("id"), QStringLiteral("builtin.") + id},
             {QStringLiteral("name"), name},
-            {QStringLiteral("author"), QStringLiteral("QueMusic")},
+            {QStringLiteral("author"), QStringLiteral("SmyunMusic")},
             {QStringLiteral("description"), description},
             {QStringLiteral("source"), source},
             {QStringLiteral("builtin"), true},
@@ -23,14 +23,14 @@ QVariantList builtins()
         };
     };
     return {
-        make(QStringLiteral("default"), QStringLiteral("默认"), QStringLiteral("qrc:/QueMusic/layout/MainLyric.qml")),
-        make(QStringLiteral("free"), QStringLiteral("自由"), QStringLiteral("qrc:/QueMusic/lyricsui/LyricsFree.qml")),
-        make(QStringLiteral("3d(Beta)"), QStringLiteral("3D(Beta)"), QStringLiteral("qrc:/QueMusic/lyricsui/Lyrics3D.qml")),
+        make(QStringLiteral("default"), QStringLiteral("默认"), QStringLiteral("qrc:/SmyunMusic/layout/MainLyric.qml")),
+        make(QStringLiteral("free"), QStringLiteral("自由"), QStringLiteral("qrc:/SmyunMusic/lyricsui/LyricsFree.qml")),
+        make(QStringLiteral("3d(Beta)"), QStringLiteral("3D(Beta)"), QStringLiteral("qrc:/SmyunMusic/lyricsui/Lyrics3D.qml")),
         // JIZURA 自动编排：源码在 plugins/lyrics/jizura/，同时被 CMake 收进本模块的
         // QML_FILES，由 qmlcachegen 预编译成字节码，因此加载是瞬时的
         // （同一份文件也可以作为外置插件安装，见该目录 README）
         make(QStringLiteral("jizura"), QStringLiteral("JIZURA 文字PV"),
-             QStringLiteral("qrc:/QueMusic/plugins/lyrics/jizura/jizura.qml"),
+             QStringLiteral("qrc:/SmyunMusic/plugins/lyrics/jizura/jizura.qml"),
              QStringLiteral("按歌词自动编排的矢量 PV")) };
 }
 

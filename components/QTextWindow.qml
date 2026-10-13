@@ -1,5 +1,5 @@
 import QtQuick
-import QueMusic 1.0
+import SmyunMusic 1.0
 
 Window {
     id: root
@@ -23,7 +23,7 @@ Window {
         readOnly: true
         wrapMode: TextEdit.Wrap
 
-        text: '      QueMusic 使用 Apache License 2.0授权开源
+        text: '      SmyunMusic 使用 Apache License 2.0授权开源
                                  Apache License
                            Version 2.0, January 2004
                         http://www.apache.org/licenses/
@@ -84,7 +84,7 @@ Window {
 
       To apply the Apache License to your work, attach the followingboilerplate notice, with the fields enclosed by brackets "[]"replaced with your own identifying information. (Do not includethe brackets!)  The text should be enclosed in the appropriatecomment syntax for the file format. We also recommend that afile or class name and description of purpose be included on thesame "printed page" as the copyright notice for easieridentification within third-party archives.
 
-   Copyright 2024-2026 QueMusic Contributors
+   Copyright 2024-2026 SmyunMusic Contributors
 
    Licensed under the Apache License, Version 2.0 (the "License");
    you may not use this file except in compliance with the License.

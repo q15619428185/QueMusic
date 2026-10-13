@@ -1,15 +1,15 @@
 #!/usr/bin/env bash
 # ============================================================
-# QueMusic - Linux ARM64 (aarch64) AppImage 一键打包脚本
+# SmyunMusic - Linux ARM64 (aarch64) AppImage 一键打包脚本
 # 适用: 任意 aarch64 发行版（Arch ARM / Ubuntu arm64 / Debian arm64 / 树莓派 OS 等）
 # 用法: bash packaging/build-linux-arm.sh
-# 产物: QueMusic-aarch64.AppImage
+# 产物: SmyunMusic-aarch64.AppImage
 #
 # 说明:
 #   - 与 build-linux.sh 一一对应，只换了架构相关的部分：
 #       Qt kit          linux_gcc_arm64（安装目录 gcc_arm64）
 #       linuxdeploy     linuxdeploy-aarch64.AppImage
-#       产物            QueMusic-aarch64.AppImage
+#       产物            SmyunMusic-aarch64.AppImage
 #   - AppImage 的架构 = 运行本脚本的机器架构，所以本脚本必须在 aarch64 机器上跑，
 #     不能在 x86_64 上交叉编译出 arm64 包（Qt 的 arm64 包里 moc/rcc 等 host 工具
 #     本身就是 arm64 二进制，x86 主机跑不了）。
@@ -24,10 +24,10 @@ QT_KIT="gcc_arm64"
 QT_DIR="${HOME}/Qt"
 BUILD_DIR="build-linux-arm"
 APP_DIR="AppDir"
-OUTPUT_APPIMAGE="QueMusic-aarch64.AppImage"
+OUTPUT_APPIMAGE="SmyunMusic-aarch64.AppImage"
 
 echo "============================================="
-echo " QueMusic Linux ARM64 AppImage 打包"
+echo " SmyunMusic Linux ARM64 AppImage 打包"
 echo " Qt: ${QT_VERSION}  Arch: ${QT_ARCH}"
 echo "============================================="
 
@@ -108,8 +108,8 @@ mkdir -p "${APP_DIR}/usr/share/icons/hicolor/256x256/apps"
 mkdir -p "${APP_DIR}/usr/plugins/platforminputcontexts"
 # 应用图标 (Linux 需要 png, 这里用 resources/icon.png，由 icon.ico 转换，与 Windows 图标一致)
 cp resources/icon.png \
-    "${APP_DIR}/usr/share/icons/hicolor/256x256/apps/quemusic.png"
-cp packaging/QueMusic.desktop "${APP_DIR}/usr/share/applications/"
+    "${APP_DIR}/usr/share/icons/hicolor/256x256/apps/smyunmusic.png"
+cp packaging/SmyunMusic.desktop "${APP_DIR}/usr/share/applications/"
 
 # ---------- 5. linuxdeploy 打包 ----------
 echo "==> [5/5] 打包 AppImage..."
@@ -191,24 +191,24 @@ rm -f "${QT_DIR}/${QT_VERSION}/${QT_KIT}/plugins/sqldrivers/libqsqlmimer.so"
 
 ./packaging/tools/linuxdeploy-aarch64.AppImage \
     --appdir "${APP_DIR}" \
-    --executable "${BUILD_DIR}/bin/QueMusic" \
-    --desktop-file "${APP_DIR}/usr/share/applications/QueMusic.desktop" \
-    --icon-file "${APP_DIR}/usr/share/icons/hicolor/256x256/apps/quemusic.png" \
+    --executable "${BUILD_DIR}/bin/SmyunMusic" \
+    --desktop-file "${APP_DIR}/usr/share/applications/SmyunMusic.desktop" \
+    --icon-file "${APP_DIR}/usr/share/icons/hicolor/256x256/apps/smyunmusic.png" \
     --plugin qt \
     --output appimage \
     || { echo "!! AppImage 打包失败，尝试兼容模式..."; \
          ./packaging/tools/linuxdeploy-aarch64.AppImage --appimage-extract-and-run \
          --appdir "${APP_DIR}" \
-         --executable "${BUILD_DIR}/bin/QueMusic" \
-         --desktop-file "${APP_DIR}/usr/share/applications/QueMusic.desktop" \
-         --icon-file "${APP_DIR}/usr/share/icons/hicolor/256x256/apps/quemusic.png" \
+         --executable "${BUILD_DIR}/bin/SmyunMusic" \
+         --desktop-file "${APP_DIR}/usr/share/applications/SmyunMusic.desktop" \
+         --icon-file "${APP_DIR}/usr/share/icons/hicolor/256x256/apps/smyunmusic.png" \
          --plugin qt --output appimage; }
 
 # linuxdeploy 产出的名字带版本号/架构，统一成固定名
 if [ -f "${OUTPUT_APPIMAGE}" ]; then
     :
 else
-    mv QueMusic-*.AppImage "${OUTPUT_APPIMAGE}" 2>/dev/null || true
+    mv SmyunMusic-*.AppImage "${OUTPUT_APPIMAGE}" 2>/dev/null || true
 fi
 
 echo "============================================="

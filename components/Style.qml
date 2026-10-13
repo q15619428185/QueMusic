@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: Apache-2.0
-// Copyright (c) 2026 QueMusic Contributors
+// Copyright (c) 2026 SmyunMusic Contributors
 //
 // 样式配置存储。
 pragma Singleton
@@ -67,5 +67,5 @@ Settings {
     property string fontFamily
 
     // 背景图片
-    property string backgroundImage: "qrc:/QueMusic/resources/pic/back2.jpg"
+    property string backgroundImage: "qrc:/SmyunMusic/resources/pic/back2.jpg"
 }

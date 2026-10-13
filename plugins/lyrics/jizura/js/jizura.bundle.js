@@ -1,5 +1,5 @@
 .pragma library
-/*! JIZURA for QueMusic - generated bundle, do not edit.
+/*! JIZURA for SmyunMusic - generated bundle, do not edit.
  *
  * JIZURA - lyric motion video engine, sources included verbatim.
  * https://github.com/hakoniwa/JIZURA   version 0.10.1   MIT licensed.
@@ -41,7 +41,7 @@
 
 /* ===================== src/runtime/00_prelude.js ===================== */
 /* ============================================================================
-   JIZURA for QueMusic — fragment 0/4: prelude
+   JIZURA for SmyunMusic — fragment 0/4: prelude
    ----------------------------------------------------------------------------
    The whole plugin runtime is generated into ONE QML JavaScript library file by
    tools/build_bundle.py, in this order:
@@ -108,7 +108,7 @@ JZB.allFrames = [];
 
 /* ===================== src/runtime/10_recorder.js ===================== */
 /* ============================================================================
-   JIZURA for QueMusic — fragment 1/4: the Canvas2D -> display-list recorder
+   JIZURA for SmyunMusic — fragment 1/4: the Canvas2D -> display-list recorder
    ----------------------------------------------------------------------------
    JIZURA draws every frame with the Canvas2D API.  A QML renderer cannot replay
    raw Canvas2D (it is an immediate-mode raster API), but JIZURA's content is
@@ -967,7 +967,7 @@ JZB.opCount = function () { return opTop; };
 
 /* ===================== src/runtime/20_dom.js ===================== */
 /* ============================================================================
-   JIZURA for QueMusic — fragment 2/4: the browser surface JIZURA expects
+   JIZURA for SmyunMusic — fragment 2/4: the browser surface JIZURA expects
    ----------------------------------------------------------------------------
    JIZURA is written for a browser: it reads `window`, creates offscreen
    canvases with `document.createElement('canvas')`, measures text with
@@ -1268,7 +1268,7 @@ J.fmtTime = (t, fps) => {
 
 /* ===================== src/runtime/30_fonts.js ===================== */
 /* ============================================================================
-   JIZURA for QueMusic — fragment 3/4a: fonts, metrics, glyphs
+   JIZURA for SmyunMusic — fragment 3/4a: fonts, metrics, glyphs
    ----------------------------------------------------------------------------
    JIZURA's own src/02_fonts.js is a *browser* font layer: it injects Google
    Fonts stylesheets, loads FontFace objects, and measures advances with
@@ -19690,7 +19690,7 @@ J.randomOk = (project, g, k) => {
 
 /* ===================== src/runtime/40_bridge.js ===================== */
 /* ============================================================================
-   JIZURA for QueMusic — fragment 4/4: renderer bridge + public API
+   JIZURA for SmyunMusic — fragment 4/4: renderer bridge + public API
    ----------------------------------------------------------------------------
    Loaded last.  It
      * wires Qt's font engine into JIZURA's metrics/glyph layer,

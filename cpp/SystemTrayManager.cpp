@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: Apache-2.0
-// Copyright (c) 2026 QueMusic Contributors
+// Copyright (c) 2026 SmyunMusic Contributors
 //
 #include "SystemTrayManager.h"
 
@@ -79,7 +79,7 @@ SystemTrayManager::SystemTrayManager(QObject *parent)
 
     m_menu->addSeparator();
 
-    QAction *quitAction = m_menu->addAction(QStringLiteral("退出 QueMusic"));
+    QAction *quitAction = m_menu->addAction(QStringLiteral("退出 SmyunMusic"));
     connect(quitAction, &QAction::triggered, this, &SystemTrayManager::quitRequested);
 
     m_tray->setContextMenu(m_menu);

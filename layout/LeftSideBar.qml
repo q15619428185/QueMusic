@@ -1,9 +1,9 @@
 // SPDX-License-Identifier: Apache-2.0
-// Copyright (c) 2025-2026 QueMusic Contributors
+// Copyright (c) 2025-2026 SmyunMusic Contributors
 //
 pragma ComponentBehavior: Bound
 import QtQuick
-import QueMusic 1.0
+import SmyunMusic 1.0
 
 // 左侧边栏
 Rectangle {
@@ -133,14 +133,14 @@ Rectangle {
             x: 15
             width: 24
             height: 24
-            source: "qrc:/QueMusic/resources/icon.ico"
+            source: "qrc:/SmyunMusic/resources/icon.ico"
             sourceSize: Qt.size(24, 24)
         }
         Text {
             y: 11
             x: 51
             height: 18
-            text: "QueMusic"
+            text: "SmyunMusic"
             font.family: Fonts.text
             font.pixelSize: 16
             font.bold: true

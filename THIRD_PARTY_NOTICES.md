@@ -1,9 +1,9 @@
 # 第三方组件声明 / Third-Party Notices
 
-本文件记录 QueMusic 项目中使用的第三方开源组件及其许可信息。
-The following third-party components are used in QueMusic.
+本文件记录 SmyunMusic 项目中使用的第三方开源组件及其许可信息。
+The following third-party components are used in SmyunMusic.
 
-QueMusic 主体代码以 **Apache License 2.0** 授权（见根目录 `LICENSE`）。
+SmyunMusic 主体代码以 **Apache License 2.0** 授权（见根目录 `LICENSE`）。
 
 ---
 
@@ -12,7 +12,7 @@ QueMusic 主体代码以 **Apache License 2.0** 授权（见根目录 `LICENSE`�
 （如后续引入其他第三方组件，请在此处补充声明。）
 
 - **FFmpeg 7.1.3**（libavcodec 61.19.101 / libavformat 61 / libavutil 59 / libswresample 5）：音频后端的
-  解封装、解码与重采样。**动态链接、未修改上游源码**，不构成派生作品，因此 QueMusic 主体代码无需据此开源。
+  解封装、解码与重采样。**动态链接、未修改上游源码**，不构成派生作品，因此 SmyunMusic 主体代码无需据此开源。
   - 许可证：**LGPL version 2.1 or later**。该结论取自库自身的 `avutil_license()` 输出，非人工推断；
     构建参数（`avutil_configuration()`）为
     `--disable-programs --disable-doc --disable-debug --enable-network --disable-lzma --enable-pic
@@ -36,7 +36,7 @@ QueMusic 主体代码以 **Apache License 2.0** 授权（见根目录 `LICENSE`�
 - **Qt 6.10.3**（Core / Gui / Qml / Quick / Network / Multimedia / Concurrent / Sql / ShaderTools / Widgets）：
   界面框架、音频输出设备（`QAudioSink`）、网络请求与本地数据库。发行包内随附 Qt 运行时 DLL。
   - 授权：**LGPL v3**（亦提供 GPL 与商业授权）。本项目以**动态链接**方式按 LGPLv3 使用，
-    故 QueMusic 主体代码无需据此开源
+    故 SmyunMusic 主体代码无需据此开源
   - 义务：随包附上 LGPLv3 许可证文本；不得限制用户替换这些库（本项目为 Apache-2.0，无此类限制）；
     不得修改 Qt 源码后仍按 LGPLv3 分发（本项目未修改）
   - 许可证文本见 Qt 安装目录的 `LICENSES/`；源码：<https://download.qt.io/official_releases/qt/6.10/>

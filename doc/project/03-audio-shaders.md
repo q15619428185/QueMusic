@@ -1,6 +1,6 @@
 # 第 3 部分 · 音频引擎与着色器（cpp/audio/、shaders/）
 
-> 本文件是 [QueMusic 项目全景文档索引](README.md) 的一个分片；任务定位与其它部分请见 [README.md](README.md)。
+> 本文件是 [SmyunMusic 项目全景文档索引](README.md) 的一个分片；任务定位与其它部分请见 [README.md](README.md)。
 
 范围：自研音频引擎 `cpp/audio/`（10 文件）+ `shaders/` 的 C++ 侧（`LyricsStage`、`MeshGradientItem`）与 `shaders/*.frag|*.vert`。
 行数基准（见附录 A）：AudioEngine 1338/380、AudioDsp 410/139、AudioRing 85、AudioSpectrumSink 57、FfmpegDecoder 383/88、PitchShifter 90/38、TimeStretch 165/39、LyricsStage 273/132、MeshGradientItem 493/102。
@@ -21,7 +21,7 @@ GUI 线程：setSource/setPosition/… 只写状态 + 置标志，不碰音频�
    → m_rings[m_ringGen & 1].write()          （SPSC 无锁环，2 秒容量）
    │
    ▼
-输出线程 QThread("QueMusicAudioOutput")
+输出线程 QThread("SmyunMusicAudioOutput")
    QAudioSink(拉模式) → 内部定时器 → EngineIoDevice::readData()
    → AudioEngine::render(data, maxlen)                     ← 音频回调
         ring.read() → [可选] PitchShifter(SOLA+重采样) → AudioDsp::process()
@@ -352,7 +352,7 @@ AudioEngine.render()  --pushSamples(交错 float, 设备采样率)-->  GetWave(c
 - **支持格式 = 链接的 FFmpeg 全量支持**，代码内无白名单/黑名单；只要求存在可解码音频流（`av_find_best_stream(AVMEDIA_TYPE_AUDIO)`）。
 - 输出统一 `AV_SAMPLE_FMT_FLT` 交错，声道 1..2（`setTargetFormat` 钳制），采样率 8000..384000（钳制后送 `swr`）。
 - 网络：`std::call_once` 里 `avformat_network_init()`；`rw_timeout=15000000`、`timeout=15000000`、`reconnect=1`、`reconnect_streamed=1`、`reconnect_delay_max=5`。
-- UA/Referer：URL 含 `bilivideo`/`bilibili`（不区分大小写）→ Chrome UA + `referer=https://www.bilibili.com`（B 站 CDN 校验）；否则 `user_agent=QueMusic`。
+- UA/Referer：URL 含 `bilivideo`/`bilibili`（不区分大小写）→ Chrome UA + `referer=https://www.bilibili.com`（B 站 CDN 校验）；否则 `user_agent=SmyunMusic`。
 - 自定义请求头：调用方拼 `"Key: Value\r\n"` 字符串传 `httpHeaders`，经 `av_dict_set(&opts,"headers",…)` 下发（WebDAV 的 `Authorization` 走这条）。
 - `setTargetFormat()` 仅在 rate/channels 变化且 `m_codecCtx` 存在时重建 `swr`。
 - `convertFrame()` 用 `swr_get_out_samples()` 预估容量 → `m_stage` 复用（`reserve` 后 `resize`，不每帧 new）。

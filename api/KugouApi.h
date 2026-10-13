@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: Apache-2.0
-// Copyright (c) 2026 QueMusic Contributors
+// Copyright (c) 2026 SmyunMusic Contributors
 //
 // KugouApi — 酷狗音乐在线接口（替代 api/kugouapi.mjs + api/pako.mjs）
 // 走 mobilecdnbj 系列公开接口（GET 无签名），KRC 歌词解码原生实现。

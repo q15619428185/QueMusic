@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 # ============================================================
-# QueMusic Linux 便携包启动脚本
+# SmyunMusic Linux 便携包启动脚本
 #
-#   用法：./run.sh [传给 QueMusic 的参数]
+#   用法：./run.sh [传给 SmyunMusic 的参数]
 #
-# 逻辑就两件事：切到包目录、启动 bin/QueMusic。
+# 逻辑就两件事：切到包目录、启动 bin/SmyunMusic。
 # 包内所有库（bin/ 与 _deps/）在打包时已写成 $ORIGIN 相对 RPATH，程序自己就能找到；
 # 其中自带的 FFmpeg 运行库（libav*/libsw*）就放在 bin/ 里 —— 和 Windows 包自带
 # avcodec-61.dll 是一个道理，所以宿主机装不装 ffmpeg 都能跑，也不要求解压到固定位置。
@@ -49,4 +49,4 @@ else
 fi
 export LD_LIBRARY_PATH="$LIB_PATH${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}"
 
-exec "./bin/QueMusic" "$@"
+exec "./bin/SmyunMusic" "$@"

@@ -1,7 +1,7 @@
 {
   "apiVersion": 1,
   "name": "JIZURA 文字PV",
-  "author": "JIZURA (MIT) × QueMusic",
+  "author": "JIZURA (MIT) × SmyunMusic",
   "version": "1.0.0",
   "description": "把整首歌词自动编排成一段文字 PV：编排交给 JIZURA 原版引擎（JS），渲染由 QtQuick.Shapes 逐帧绘制。",
   "entry": "jizura.qml",

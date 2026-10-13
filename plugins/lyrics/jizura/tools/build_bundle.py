@@ -109,7 +109,7 @@ def main():
 
     banner = (
         ".pragma library\n"
-        "/*! JIZURA for QueMusic - generated bundle, do not edit.\n"
+        "/*! JIZURA for SmyunMusic - generated bundle, do not edit.\n"
         " *\n"
         " * JIZURA - lyric motion video engine, sources included verbatim.\n"
         " * https://github.com/hakoniwa/JIZURA   version %s   MIT licensed.\n"

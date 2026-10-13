@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: Apache-2.0
-// Copyright (c) 2026 QueMusic Contributors
+// Copyright (c) 2026 SmyunMusic Contributors
 //
 #include "MusicApiService.h"
 
@@ -162,7 +162,7 @@ MusicApiService::MusicApiService(QObject *parent)
 
     // 音质初值：QML 侧还有 Binding 同步，这里读 ini 只为保证 Binding 生效前也正确
     QSettings opt(QStandardPaths::writableLocation(QStandardPaths::ConfigLocation)
-                      + QStringLiteral("/BroNekoX/QueMusic.ini"),
+                      + QStringLiteral("/BroNekoX/SmyunMusic.ini"),
                   QSettings::IniFormat);
     m_soundQuality = opt.value(QStringLiteral("Options/soundQuality"), 1).toInt();
 
@@ -266,7 +266,7 @@ QString MusicApiService::qualityCachePath() const
     const QString dir = QStandardPaths::writableLocation(QStandardPaths::ConfigLocation)
                         + QStringLiteral("/BroNekoX");
     QDir().mkpath(dir);
-    return dir + QStringLiteral("/QueMusicQuality.json");
+    return dir + QStringLiteral("/SmyunMusicQuality.json");
 }
 
 void MusicApiService::loadQualityCache()
@@ -352,14 +352,14 @@ void MusicApiService::syncSource(int source)
 // 内部变量名加前缀：避免调用点传入与外层同名变量时被自身初始化式遮蔽（曾误传 s 导致读到未初始化值）
 #define DISPATCH(source, expr)                                              \
     do {                                                                    \
-        const int quemusicSource = resolve(source);                         \
-        syncSource(quemusicSource);                                         \
-        switch (quemusicSource) {                                           \
+        const int smyunmusicSource = resolve(source);                         \
+        syncSource(smyunmusicSource);                                         \
+        switch (smyunmusicSource) {                                           \
         case kSourceNetease:  m_netease.expr; break;                        \
         case kSourceKugou:    m_kugou.expr; break;                          \
         case kSourceBilibili: m_bilibili.expr; break;                       \
         default:                                                            \
-            qWarning() << "[api] 未实现的平台:" << quemusicSource;            \
+            qWarning() << "[api] 未实现的平台:" << smyunmusicSource;            \
         }                                                                   \
     } while (0)
 

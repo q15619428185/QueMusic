@@ -1,10 +1,10 @@
 // SPDX-License-Identifier: Apache-2.0
-// Copyright (c) 2025-2026 QueMusic Contributors
+// Copyright (c) 2025-2026 SmyunMusic Contributors
 //
 pragma Singleton
 import QtQuick
 import QtQuick.Controls.Basic
-import QueMusic 1.0
+import SmyunMusic 1.0
 
 QtObject {
     // 跨文件共享对象：main.qml 启动时注入

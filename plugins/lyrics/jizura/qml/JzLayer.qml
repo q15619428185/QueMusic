@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: MIT
 //
-// JIZURA × QueMusic — one compositing layer of a recorded frame.
+// JIZURA × SmyunMusic — one compositing layer of a recorded frame.
 //
 // Five of these make up a frame (background+back decor, vectors under the text,
 // the text, vectors over the text, front decor+HUD) because Shapes cannot be

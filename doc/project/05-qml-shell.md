@@ -1,6 +1,6 @@
 # 第 5 部分 · QML 外壳、布局与页面（main.qml、SettingsView.qml、layout/、pages/）
 
-> 本文件是 [QueMusic 项目全景文档索引](README.md) 的一个分片；任务定位与其它部分请见 [README.md](README.md)。
+> 本文件是 [SmyunMusic 项目全景文档索引](README.md) 的一个分片；任务定位与其它部分请见 [README.md](README.md)。
 
 > 覆盖范围：`main.cpp` → `main.qml`、`SettingsView.qml`、`layout/*.qml`（7 个）、`pages/*.qml`（7 个）。
 > 行号以**当前工作区文件**为准（LF 计数）。本部分撰写过程中曾出现行数口径差异，现已统一：
@@ -14,27 +14,27 @@
 
 | # | 动作 | 关键约束 |
 |---|---|---|
-| 1 | `registerSmtcAppIdentity()`（`#if defined(Q_OS_WIN)`） | 设置进程 AppUserModelID `BroNekoX.QueMusic`、写 `HKCU\Software\Classes\AppUserModelId\...`、建开始菜单 `.lnk` 并写 `PKEY_AppUserModel_ID`。**必须早于任何 UI** |
-| 2 | 读 `ConfigLocation/BroNekoX/QueMusic.ini`，按 `Options/gpuRenderMode`(0默认/1 opengl/2 vulkan/3 software)、`Options/timerAnimator`、`Options/qmlAnimator` 调用 `qputenv` | 必须在 `QApplication` 构造前；改动需**重启进程**才生效 |
+| 1 | `registerSmtcAppIdentity()`（`#if defined(Q_OS_WIN)`） | 设置进程 AppUserModelID `BroNekoX.SmyunMusic`、写 `HKCU\Software\Classes\AppUserModelId\...`、建开始菜单 `.lnk` 并写 `PKEY_AppUserModel_ID`。**必须早于任何 UI** |
+| 2 | 读 `ConfigLocation/BroNekoX/SmyunMusic.ini`，按 `Options/gpuRenderMode`(0默认/1 opengl/2 vulkan/3 software)、`Options/timerAnimator`、`Options/qmlAnimator` 调用 `qputenv` | 必须在 `QApplication` 构造前；改动需**重启进程**才生效 |
 | 3 | `QApplication`（非 `QGuiApplication`，托盘用 QtWidgets）；`setQuitOnLastWindowClosed(false)` | 退出统一走 QML 侧 `Qt.quit()` |
 | 4 | `QQuickWindow::setDefaultAlphaBuffer(true)`；`QQmlApplicationEngine engine` | — |
-| 5 | `qml_register_types_QueMusic()`；`engine.addImportPath("qrc:/")` | 该函数由 `qt6_add_qml_module` 生成，注册全部 `QML_ELEMENT` |
-| 6 | `setOrganizationName("BroNekoX")`、`setOrganizationDomain(...)`、`setWindowIcon(QIcon(":/QueMusic/resources/icon.ico"))`、`setApplicationName("QueMusic")` | QIcon 只认 `:/` 前缀，`qrc:/` 会失败 |
+| 5 | `qml_register_types_SmyunMusic()`；`engine.addImportPath("qrc:/")` | 该函数由 `qt6_add_qml_module` 生成，注册全部 `QML_ELEMENT` |
+| 6 | `setOrganizationName("BroNekoX")`、`setOrganizationDomain(...)`、`setWindowIcon(QIcon(":/SmyunMusic/resources/icon.ico"))`、`setApplicationName("SmyunMusic")` | QIcon 只认 `:/` 前缀，`qrc:/` 会失败 |
 | 7 | `QSettings::setDefaultFormat(IniFormat)` + `setPath(UserScope, configPath)` | — |
 | 8 | `LogManager::create(&engine,&engine)`；`AccountManager *accountManager = AccountManager::create(&engine,&engine)` | 两个 QML 单例工厂 |
 | 9 | `MusicApiService::setSharedAccountManager(accountManager)` | 在线 API 单例拿账号单例 |
 | 10 | `engine.rootContext()->setContextProperty("configDir", configPath)` | **全项目唯一 context property** |
-| 11 | `QWK::registerTypes(&engine)`；`engine.load("qrc:/QueMusic/main.qml")` | — |
+| 11 | `QWK::registerTypes(&engine)`；`engine.load("qrc:/SmyunMusic/main.qml")` | — |
 
 ### 5.1.2 `main.qml` 根对象
 
 ```qml
 pragma ComponentBehavior: Bound
-import QtQuick / QueMusic 1.0 / QtCore / QtMultimedia / QWindowKit 1.0 / QtQuick.Controls.Basic
+import QtQuick / SmyunMusic 1.0 / QtCore / QtMultimedia / QWindowKit 1.0 / QtQuick.Controls.Basic
 Window {                 // 不是 ApplicationWindow
     id: window
     width: 1140; height: 760; minimumWidth: 810; minimumHeight: 540
-    color: Theme.primaryColor; title: "QueMusic"
+    color: Theme.primaryColor; title: "SmyunMusic"
 }
 ```
 
@@ -92,9 +92,9 @@ Window {                 // 不是 ApplicationWindow
 | `LyricsFreeConfig` | `lyricsui/LyricsFreeConfig.qml` (24) | `Settings { category:"LyricsFree" }` | 「自由」歌词界面自有设置 |
 | `Lyrics3DConfig` | `lyricsui/Lyrics3DConfig.qml` (29) | `Settings { category:"Lyrics3D" }` | 「3D」歌词界面自有设置 |
 
-注册路径：全部在 `qt6_add_qml_module(... URI QueMusic VERSION 1.0 QML_FILES ...)` 的**同一个模块**里，QML 侧一句 `import QueMusic 1.0` 即可见（无需 import 子目录）。
+注册路径：全部在 `qt6_add_qml_module(... URI SmyunMusic VERSION 1.0 QML_FILES ...)` 的**同一个模块**里，QML 侧一句 `import SmyunMusic 1.0` 即可见（无需 import 子目录）。
 
-### 5.2.2 C++ 单例（`QML_ELEMENT` + `QML_SINGLETON` → `qml_register_types_QueMusic()`）
+### 5.2.2 C++ 单例（`QML_ELEMENT` + `QML_SINGLETON` → `qml_register_types_SmyunMusic()`）
 
 | QML 名 | C++ 类 | 头文件 | 备注 |
 |---|---|---|---|
@@ -105,7 +105,7 @@ Window {                 // 不是 ApplicationWindow
 | `FunctionPlugins` | `FunctionPluginStore` | `cpp/plugins/FunctionPluginStore.h:16` | `QML_NAMED_ELEMENT(FunctionPlugins)` |
 | `WebDav` | `WebDavStore` | `cpp/webdav/WebDavStore.h:17` | `QML_NAMED_ELEMENT(WebDav)` |
 | `WebDavCache` | `WebDavCache` | `cpp/webdav/WebDavCache.h:19` | 单例 |
-| `MyFolders` / `LocalFolders` | `FolderModel` 子类 | `cpp/AppModels.h:38-39` | 宏 `QUEMUSIC_DECLARE_MODEL_SINGLETON`，过滤类型 `"my"` / `"local"` |
+| `MyFolders` / `LocalFolders` | `FolderModel` 子类 | `cpp/AppModels.h:38-39` | 宏 `SMYUNMUSIC_DECLARE_MODEL_SINGLETON`，过滤类型 `"my"` / `"local"` |
 | `Songs` | `SongModel` 子类 | `cpp/AppModels.h:42` | — |
 | `FavoriteSongs` / `FavoritePlaylists` / `FavoriteArtists` | `FavoritesModel` 子类 | `cpp/AppModels.h:56-58` | 过滤类型 `"song"` / `"playlist"` / `"artist"` |
 
@@ -396,7 +396,7 @@ Window { id: window }
 
 ```qml
 pragma ComponentBehavior: Bound
-import QtQuick / QtQuick.Controls.Basic / QtQuick.Dialogs / QtCore / QueMusic 1.0
+import QtQuick / QtQuick.Controls.Basic / QtQuick.Dialogs / QtCore / SmyunMusic 1.0
 
 Item {                       // 不是 Page/Dialog；由 main.qml 的 Loader 承载
     id: settingsView
@@ -528,12 +528,12 @@ Item {                       // 不是 Page/Dialog；由 main.qml 的 Loader 承
 
 | 分组 | 内容 |
 |---|---|
-| 应用信息 | `SettingItem label: "QueMusic Beta (测试版本)"` + 「检查更新」→ `updater.checkForUpdate()` |
+| 应用信息 | `SettingItem label: "SmyunMusic Beta (测试版本)"` + 「检查更新」→ `updater.checkForUpdate()` |
 | 软件信息 (2384) | 长文案（免费开源声明、项目定位等） |
 | 主要开发者 (2402) | `AccountCard { title:"BroNekoX Studio" }` |
 | 技术与版本信息 (2419) | `Options.version` / `Options.versionCode` / `Options.pluginApi` / Qt `6.10.3`(Community) / `QRHI/Qt Scene Graph` / `C++/JS/QtQuick` |
 | 第三方项目 (2497) | `AccountCard` ×3：QWindowKit / Qt Community / QCloudMusicApi |
-| 联系开发者 (2530) | QQ `241422517`、Email `uihg@outlook.com`、Bilibili `695207057`、QQ群 `1105114511` + 4 个 QButton（Github / QueMusic Web / Bug issue / 开源许可，均 `Qt.openUrlExternally`） |
+| 联系开发者 (2530) | QQ `241422517`、Email `uihg@outlook.com`、Bilibili `695207057`、QQ群 `1105114511` + 4 个 QButton（Github / SmyunMusic Web / Bug issue / 开源许可，均 `Qt.openUrlExternally`） |
 | （尾部） | `Item updater` + `QAlertDialog updateDialog`（`onConfirm` → releases 页） |
 
 **页面 7「Debug」`debugset`**
@@ -596,7 +596,7 @@ Item {                       // 不是 Page/Dialog；由 main.qml 的 Loader 承
 | `layout/SmtcBridge.qml` | `WindowsSmtcManager`(+`Playing/Paused/Stopped/Closed`)、`AudioEngine`、`QueueModel`、`Playback` |
 | `layout/WindowControls.qml` | `SystemTrayManager`(+`Information`)、`Config`、`Playback`、`Options` |
 | `layout/LeftSideBar.qml` · `components/AnimatorWindow.qml` · `components/QLocalView.qml` · `components/QLoadSign.qml` | 仅 `MusicApi`（`recommendSongs/getRecommendSongs/searchSongsResults/songSource/loadState`） |
-| `layout/MainContent.qml` | 无直接触点（只 `import 'qrc:/QueMusic/pages'`） |
+| `layout/MainContent.qml` | 无直接触点（只 `import 'qrc:/SmyunMusic/pages'`） |
 | `pages/HomePage.qml` | `MusicApi`（`getHotlistMenu/getHotPlaylistMenu/getHotPlaylists/getPersonalRadar/getMusicPlaylists/getPlaylistSongs/getMusicInfo` 等）、`Options.lastSongs`、`Options.queue` |
 | `pages/SearchPage.qml` | `MusicApi`（`songSource/searchSongs/searchSongsResults/playlistSong/nowIndex/getMusicInfo/getPlaylistSongs/loadState`） |
 | `pages/PlaylistPage.qml` | `MusicApi`（`playlistSong/newSongs/musicPlaylists/toplistList/allPlaylistMenu/singerList/songFilter/globalid/globaltagid/get*`） |

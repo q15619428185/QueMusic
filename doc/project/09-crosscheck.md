@@ -1,6 +1,6 @@
 # 第 9 部分 · 交叉核对与勘误（独立验证）
 
-> 本文件是 [QueMusic 项目全景文档索引](README.md) 的一个分片；任务定位与其它部分请见 [README.md](README.md)。
+> 本文件是 [SmyunMusic 项目全景文档索引](README.md) 的一个分片；任务定位与其它部分请见 [README.md](README.md)。
 
 > 本部分由文档生成时的**独立验证**得到（grep 实际引用位置 + 读取运行时产物），用于校正第 1–8 部分里可能存在的偏差，以及纠正仓库文档（README）里的过期描述。
 
@@ -61,7 +61,7 @@
 | README 里的 `FullCenterView.qml` | **不存在**（仓库根目录没有该文件）；旧版本遗留描述 |
 | README 说"歌词视图 `layout/MainLyric.qml`" | 正确 |
 | README 未提及 `cpp/webdav/`、`cpp/plugins/`、`pages/WebDavPage.qml`、`lyricsui/` 与插件系统 | 这些是新功能，README 的目录树尚未更新；**以第 2、5、6 部分为准** |
-| `CMakeLists.txt` 的 `project(QueMusic VERSION 0.1)` | QML 侧实际版本是 `0.6.0`；不要据 CMake 版本号判断应用版本 |
+| `CMakeLists.txt` 的 `project(SmyunMusic VERSION 0.1)` | QML 侧实际版本是 `0.6.0`；不要据 CMake 版本号判断应用版本 |
 | 插件 `info.json` 的 `apiVersion: 1` | 与宿主 `Options.pluginApi = 10` 不是同一套编号；判断宿主 API 版本要看 `Options.pluginApi` |
 | README 说"`build/<preset>`" | 本机实际构建目录是 `build/Desktop_Qt_6_10_3_llvm_mingw_64_bit_Release`（Qt Creator 生成）；preset 构建会用 `build/<presetName>` |
 
@@ -82,15 +82,15 @@
 | `AudioEngine::m_chunkFrames` | `cpp/audio/AudioEngine.h` | 死字段，只在初始化处赋值 | 无功能影响 |
 | `FfmpegDecoder::readFrames` | `cpp/audio/FfmpegDecoder.cpp` | 头注释说会返回 `-1` 表示出错，实现从不返回 | 调用方若判断 `-1` 则该分支永不触发 |
 | `libqrencode` | `api/QCloudMusicApi/3rdparty/libqrencode` | 目录存在，但 CMake 未构建、源码未引用（二维码实际走 `api/qrcode.js`） | 不要去找它的调用点 |
-| qmltc | `cmake/qmltc.cmake` | 白名单 19 项里有 4 个文件已删除（`StyleThemes/StyleSettings/OptionsSettings/OptionsShortCuts.qml`），其余 15 个都在 `components/` 子目录 | `QUEMUSIC_ENABLE_QMLTC=ON` **实际永远不会启用**，只会 WARNING 后降级 |
+| qmltc | `cmake/qmltc.cmake` | 白名单 19 项里有 4 个文件已删除（`StyleThemes/StyleSettings/OptionsSettings/OptionsShortCuts.qml`），其余 15 个都在 `components/` 子目录 | `SMYUNMUSIC_ENABLE_QMLTC=ON` **实际永远不会启用**，只会 WARNING 后降级 |
 | `qt_deploy_runtime()` 的 APPLE 分支 | `cmake/qtruntime.cmake` | 只在非 Apple 非 Debug 调用；macOS 部署由 `build-macos.yml` 自己做 | APPLE 分支是死代码 |
-| Windows 打包脚本 | 仓库内 | **没有** Windows 打包脚本，也**没有任何 Inno Setup `.iss` 文件**（`packaging/README` 与 README 提到的 `QueMusic-setup.exe` 属未实现） | 想在本地复现安装包是做不到的 |
+| Windows 打包脚本 | 仓库内 | **没有** Windows 打包脚本，也**没有任何 Inno Setup `.iss` 文件**（`packaging/README` 与 README 提到的 `SmyunMusic-setup.exe` 属未实现） | 想在本地复现安装包是做不到的 |
 | Windows 单元测试 | 全仓库 | 无 CTest / QTest / `add_test` | 「跑测试」只有 `tests/smoke-stderr.sh`（12s offscreen 启动冒烟） |
 | 行数口径 | 文档生成过程中出现过 `Get-Content` 统计 | 会漏空行 | 全文已统一为 `ReadAllLines`，见 §9.6 |
 | `Options.exitIndex` 注释 | `components/Options.qml:30` | 注释写「要求主界面切到的页」，实际是**返回层级计数器** | 按注释理解会写出错误逻辑，见第 5 部分 §5.3.4 |
 | `pages/WebDavPage.qml` | 不在 `layout/MainContent.qml` 的 `pages` 列表里 | 由 `pages/FilePage.qml:292` 作为子页内嵌 | 侧栏到不了 WebDAV，要经本地文件页 |
-| `windowsConfigPath` / 多份 INI | 文件系统 | `%APPDATA%\BroNekoX\QueMusic.ini` 与 `%LOCALAPPDATA%\BroNekoX\QueMusic\BroNekoX\QueMusic.ini` 是遗留 | 只有 `%LOCALAPPDATA%\BroNekoX\QueMusic.ini` 生效，见第 8 部分 |
-| `Account.ini` | `<exe 目录>\Account.ini` | 账号 Cookie 与**主配置分离**，不受 `QSettings::setPath` 影响 | 排查登录态要看这个文件，不在 `QueMusic.ini` 里 |
+| `windowsConfigPath` / 多份 INI | 文件系统 | `%APPDATA%\BroNekoX\SmyunMusic.ini` 与 `%LOCALAPPDATA%\BroNekoX\SmyunMusic\BroNekoX\SmyunMusic.ini` 是遗留 | 只有 `%LOCALAPPDATA%\BroNekoX\SmyunMusic.ini` 生效，见第 8 部分 |
+| `Account.ini` | `<exe 目录>\Account.ini` | 账号 Cookie 与**主配置分离**，不受 `QSettings::setPath` 影响 | 排查登录态要看这个文件，不在 `SmyunMusic.ini` 里 |
 
 ## 9.5 本部分相对第 1–8 部分的勘误汇总
 

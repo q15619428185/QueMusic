@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 # ============================================================
-# QueMusic - Linux (AppImage) 一键打包脚本
+# SmyunMusic - Linux (AppImage) 一键打包脚本
 # 适用: Arch / Nyarch / Debian / Ubuntu 等主流发行版
 # 用法: bash packaging/build-linux.sh
-# 产物: QueMusic-<version>-x86_64.AppImage
+# 产物: SmyunMusic-<version>-x86_64.AppImage
 #
 # 说明:
 #   - 使用 aqtinstall 安装与 Windows 一致的 Qt 6.10.3,
@@ -17,10 +17,10 @@ QT_ARCH="linux_gcc_64"
 QT_DIR="${HOME}/Qt"
 BUILD_DIR="build-linux"
 APP_DIR="AppDir"
-OUTPUT_APPIMAGE="QueMusic-x86_64.AppImage"
+OUTPUT_APPIMAGE="SmyunMusic-x86_64.AppImage"
 
 echo "============================================="
-echo " QueMusic Linux AppImage 打包"
+echo " SmyunMusic Linux AppImage 打包"
 echo " Qt: ${QT_VERSION}  Arch: ${QT_ARCH}"
 echo "============================================="
 
@@ -88,8 +88,8 @@ mkdir -p "${APP_DIR}/usr/share/icons/hicolor/256x256/apps"
 mkdir -p "${APP_DIR}/usr/plugins/platforminputcontexts"
 # 应用图标 (Linux 需要 png, 这里用 resources/icon.png，由 icon.ico 转换，与 Windows 图标一致)
 cp resources/icon.png \
-    "${APP_DIR}/usr/share/icons/hicolor/256x256/apps/quemusic.png"
-cp packaging/QueMusic.desktop "${APP_DIR}/usr/share/applications/"
+    "${APP_DIR}/usr/share/icons/hicolor/256x256/apps/smyunmusic.png"
+cp packaging/SmyunMusic.desktop "${APP_DIR}/usr/share/applications/"
 
 # ---------- 5. linuxdeploy 打包 ----------
 echo "==> [5/5] 打包 AppImage..."
@@ -170,17 +170,17 @@ rm -f "${QT_DIR}/${QT_VERSION}/gcc_64/plugins/sqldrivers/libqsqlmimer.so"
 
 ./packaging/tools/linuxdeploy-x86_64.AppImage \
     --appdir "${APP_DIR}" \
-    --executable "${BUILD_DIR}/bin/QueMusic" \
-    --desktop-file "${APP_DIR}/usr/share/applications/QueMusic.desktop" \
-    --icon-file "${APP_DIR}/usr/share/icons/hicolor/256x256/apps/quemusic.png" \
+    --executable "${BUILD_DIR}/bin/SmyunMusic" \
+    --desktop-file "${APP_DIR}/usr/share/applications/SmyunMusic.desktop" \
+    --icon-file "${APP_DIR}/usr/share/icons/hicolor/256x256/apps/smyunmusic.png" \
     --plugin qt \
     --output appimage \
     || { echo "!! AppImage 打包失败，尝试兼容模式..."; \
          ./packaging/tools/linuxdeploy-x86_64.AppImage --appimage-extract-and-run \
          --appdir "${APP_DIR}" \
-         --executable "${BUILD_DIR}/bin/QueMusic" \
-         --desktop-file "${APP_DIR}/usr/share/applications/QueMusic.desktop" \
-         --icon-file "${APP_DIR}/usr/share/icons/hicolor/256x256/apps/quemusic.png" \
+         --executable "${BUILD_DIR}/bin/SmyunMusic" \
+         --desktop-file "${APP_DIR}/usr/share/applications/SmyunMusic.desktop" \
+         --icon-file "${APP_DIR}/usr/share/icons/hicolor/256x256/apps/smyunmusic.png" \
          --plugin qt --output appimage; }
 
 echo "============================================="

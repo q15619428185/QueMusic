@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: Apache-2.0
-// Copyright (c) 2026 QueMusic Contributors
+// Copyright (c) 2026 SmyunMusic Contributors
 //
 // ApiCommon — 在线音乐 API 统一字段层（纯头文件）
 // 所有平台解析结果都转换为同一套字段，QML ListModel 直接消费。

@@ -1,9 +1,9 @@
 // SPDX-License-Identifier: Apache-2.0
-// Copyright (c) 2025-2026 QueMusic Contributors
+// Copyright (c) 2025-2026 SmyunMusic Contributors
 
 // 声明一个扩展点：target 传该处的容器（Row / Column / Item），插件挂上来的界面以它为 parent。
 import QtQuick
-import QueMusic 1.0
+import SmyunMusic 1.0
 
 QtObject {
     id: slot

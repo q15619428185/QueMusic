@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: Apache-2.0
-// Copyright (c) 2025-2026 QueMusic Contributors
+// Copyright (c) 2025-2026 SmyunMusic Contributors
 //
 // 音频处理链：10 段参数均衡 + 前级/余量 + 声道工具 + ReplayGain + 峰值限幅
 #pragma once

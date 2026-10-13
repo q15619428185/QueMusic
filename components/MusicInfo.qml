@@ -1,9 +1,9 @@
 // SPDX-License-Identifier: Apache-2.0
-// Copyright (c) 2026 QueMusic Contributors
+// Copyright (c) 2026 SmyunMusic Contributors
 //
 pragma ComponentBehavior: Bound
 import QtQuick
-import QueMusic 1.0
+import SmyunMusic 1.0
 import QtQuick.Controls.Basic
 
 // 音乐详情侧栏：封面与标题固定在顶部，下方按分页切换（本地音乐没有评论页）
@@ -96,7 +96,7 @@ Popup {
                 height: 112
                 MouseArea {
                     anchors.fill: parent
-                    onClicked: Options.picWatch.dialog(Playback.player.urlStr || "qrc:/QueMusic/resources/app/musicpic.png",
+                    onClicked: Options.picWatch.dialog(Playback.player.urlStr || "qrc:/SmyunMusic/resources/app/musicpic.png",
                                                Playback.musicTitle)
                 }
             }
@@ -370,7 +370,7 @@ Popup {
                     width: 30
                     height: 30
                     radius: 15
-                    source: commentItem.avatar || "qrc:/QueMusic/resources/app/musicpic.png"
+                    source: commentItem.avatar || "qrc:/SmyunMusic/resources/app/musicpic.png"
                 }
                 Column {
                     id: body

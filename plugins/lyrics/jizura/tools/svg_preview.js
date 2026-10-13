@@ -6,7 +6,7 @@
  * It loads js/jizura.bundle.js in a bare VM (no DOM: the bundle brings its own
  * shim), plans a sample song, records frames and writes them as SVG.  Handy to
  * check a JIZURA upgrade, a new pack, or a change to the recorder - and to see
- * the display list without starting QueMusic.
+ * the display list without starting SmyunMusic.
  *
  * Font advances come from the shim's built-in approximations here (the QML
  * stage uses Qt's real FontMetrics), so glyph spacing differs slightly from the
@@ -149,7 +149,7 @@ function main() {
 
   JZ.install({ fontFamilies: [] });
   const project = JZ.makeProject({
-    lyrics: LYRICS, title: 'JIZURA × QueMusic', artist: 'smoke test',
+    lyrics: LYRICS, title: 'JIZURA × SmyunMusic', artist: 'smoke test',
     style: opt('style', 'noir'), aspect: opt('aspect', '16:9'), seed: 20260922,
     fx: { motion: 0.7, glitch: 0.55, chroma: 0.7, decor: 0.5, density: 0.55, texture: 0.6, koma: 12 }
   });

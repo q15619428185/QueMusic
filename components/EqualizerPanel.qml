@@ -1,11 +1,11 @@
 // SPDX-License-Identifier: Apache-2.0
-// Copyright (c) 2025-2026 QueMusic Contributors
+// Copyright (c) 2025-2026 SmyunMusic Contributors
 //
 // 均衡器与音频处理面板：10 段参数均衡 + 声道工具 + ReplayGain + 限幅喵~
 pragma ComponentBehavior: Bound
 import QtQuick
 import QtQuick.Effects
-import QueMusic 1.0
+import SmyunMusic 1.0
 
 Column {
     id: panel

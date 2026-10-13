@@ -1,4 +1,4 @@
-# JIZURA 文字PV — QueMusic 歌词界面
+# JIZURA 文字PV — SmyunMusic 歌词界面
 
 把整首歌词自动编排成一段文字 PV，跑在沉浸播放页里。
 
@@ -24,7 +24,7 @@ file(GLOB LYRICS_JIZURA_JS  ... "plugins/lyrics/jizura/js/*.js")
 **1.2 MB 的 JS 库**一起编译成字节码嵌进二进制（`jizura.bundle_js.cpp` ≈ 8.8 MB，exe 增大 ≈ 2.8 MB），
 运行时不需要再编译 JS。主题在 `cpp/plugins/LyricsPluginStore.cpp` 的 `builtins()` 注册，名为「JIZURA 文字PV」。
 
-**外置插件** —— 同一份文件复制到 `%APPDATA%\BroNekoX\QueMusic\plugins\lyrics\jizura` 也可用
+**外置插件** —— 同一份文件复制到 `%APPDATA%\BroNekoX\SmyunMusic\plugins\lyrics\jizura` 也可用
 （需要 `info.json`）。代价是运行时现场编译那 1.2 MB 库，启动要慢约一秒。
 
 需要 **Qt 6.10+**。
@@ -235,7 +235,7 @@ qml tests/harness.qml -- --run 20                 # 有 Qt 自检：真实渲染
 所以排查路径记在这里，下次不必重新摸索。
 
 **先看崩溃落在哪个模块。** 转储在 `%LOCALAPPDATA%\CrashDumps`，WER 报告在
-`%ProgramData%\Microsoft\Windows\WER\ReportArchive\AppCrash_QueMusic.exe_*`；
+`%ProgramData%\Microsoft\Windows\WER\ReportArchive\AppCrash_SmyunMusic.exe_*`；
 报告里 `Sig[3]` 是模块、`Sig[6]` 是异常码、`Sig[7]` 是模块内偏移。
 `python tools/analyze_dump.py` 会把偏移解析成函数名并扫出调用栈：
 

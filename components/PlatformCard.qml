@@ -1,5 +1,5 @@
 import QtQuick
-import QueMusic 1.0
+import SmyunMusic 1.0
 
 Rectangle {
     id: root

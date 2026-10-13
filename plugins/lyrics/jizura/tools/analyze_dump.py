@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Turn a Windows minidump of a Qt crash into a readable stack.
 
-    python tools/analyze_dump.py "%LOCALAPPDATA%\\CrashDumps\\QueMusic.exe.1234.dmp"
+    python tools/analyze_dump.py "%LOCALAPPDATA%\\CrashDumps\\SmyunMusic.exe.1234.dmp"
 
 Why this exists: a crash inside V4 (Qt's JS engine) usually reports a location
 in unrelated code - `QV4::Value::sameValueZero`, the memory manager - because the

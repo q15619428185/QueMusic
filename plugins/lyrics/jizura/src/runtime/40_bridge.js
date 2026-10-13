@@ -1,5 +1,5 @@
 /* ============================================================================
-   JIZURA for QueMusic — fragment 4/4: renderer bridge + public API
+   JIZURA for SmyunMusic — fragment 4/4: renderer bridge + public API
    ----------------------------------------------------------------------------
    Loaded last.  It
      * wires Qt's font engine into JIZURA's metrics/glyph layer,

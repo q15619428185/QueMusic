@@ -1,10 +1,10 @@
 // SPDX-License-Identifier: Apache-2.0
-// Copyright (c) 2025-2026 QueMusic Contributors
+// Copyright (c) 2025-2026 SmyunMusic Contributors
 
 // 功能插件接口：宿主为每个插件创建一个，作为初始属性注入插件根的 api。
 import QtQuick
 import QtCore
-import QueMusic 1.0
+import SmyunMusic 1.0
 
 QtObject {
     id: api

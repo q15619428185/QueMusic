@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: Apache-2.0
-// Copyright (c) 2026 QueMusic Contributors
+// Copyright (c) 2026 SmyunMusic Contributors
 //
 // NeteaseCloudApi —— 基于 QCloudMusicApi（第三方网易云音乐在线接口，
 // 完整复刻 NeteaseCloudMusicApi 的 weapi 加密协议）的网易云实现，

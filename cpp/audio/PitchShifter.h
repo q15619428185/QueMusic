@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: Apache-2.0
-// Copyright (c) 2025-2026 QueMusic Contributors
+// Copyright (c) 2025-2026 SmyunMusic Contributors
 //
 // 变调不变速：先按 pitch 做时长伸缩，再按同倍率重采样把时长还原
 // 设源为 S、目标时长倍率 1/speed、目标音高倍率 pitch：

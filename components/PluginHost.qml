@@ -1,11 +1,11 @@
 // SPDX-License-Identifier: Apache-2.0
-// Copyright (c) 2025-2026 QueMusic Contributors
+// Copyright (c) 2025-2026 SmyunMusic Contributors
 
 // 功能插件宿主：放进主窗口末尾（此时扩展点已登记）。按启用状态给每个插件起一个加载器，
 // 入口异步编译；停用/删除时把插件挂出来的界面一起回收，加载失败自动停用。
 pragma ComponentBehavior: Bound
 import QtQuick
-import QueMusic 1.0
+import SmyunMusic 1.0
 
 Item {
     id: host

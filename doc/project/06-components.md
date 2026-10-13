@@ -1,6 +1,6 @@
 # 第 6 部分 · QML 组件库与歌词界面（components/、lyricsui/）
 
-> 本文件是 [QueMusic 项目全景文档索引](README.md) 的一个分片；任务定位与其它部分请见 [README.md](README.md)。
+> 本文件是 [SmyunMusic 项目全景文档索引](README.md) 的一个分片；任务定位与其它部分请见 [README.md](README.md)。
 
 统计口径：`components/*.qml` 61 个文件 + `lyricsui/*.qml` 4 个文件；`根类型` 取文件首个非注释类型声明；`单例` 指带 `pragma Singleton` 且已在 CMake 登记的类型。
 `关键属性/信号/方法` 中的属性均为 QML 可写公共属性（`readonly` 已标注），delegate 内 `required property` 在末列以 `delegate:` 前缀给出。
@@ -91,7 +91,7 @@
 
 ## 6.2 单例清单
 
-`import QueMusic 1.0` 后按类型名直接引用。共 10 个单例：components/ 8 个 + lyricsui/ 2 个。
+`import SmyunMusic 1.0` 后按类型名直接引用。共 10 个单例：components/ 8 个 + lyricsui/ 2 个。
 
 | 单例 | 根类型 | 文件 | 持有内容 | 类别 |
 |---|---|---|---|---|
@@ -134,7 +134,7 @@
 
 | 前缀/后缀 | 含义 | 例 |
 |---|---|---|
-| `Q*` | 项目自研通用控件（Q = QueMusic 自有），跨页面复用、无业务依赖 | `QButton`, `QDrop`, `QListView`, `QBlurCard` |
+| `Q*` | 项目自研通用控件（Q = SmyunMusic 自有），跨页面复用、无业务依赖 | `QButton`, `QDrop`, `QListView`, `QBlurCard` |
 | `S*` | 小型/次级控件（Small / Simple），更薄一层、常用于图标按钮 | `SButton`（唯一一个） |
 | `SettingItem` / `SettingItemCard` | 设置页专用行容器 | 无前缀，属设置页配套件 |
 | `Theme` / `Style` | `Theme`=颜色，`Style`=度量与开关（见 2.1） | — |
@@ -227,12 +227,12 @@
 
 ```qml
 // SPDX-License-Identifier: Apache-2.0
-// Copyright (c) 2026 QueMusic Contributors
+// Copyright (c) 2026 SmyunMusic Contributors
 //
 // 一句话职责。
 pragma ComponentBehavior: Bound          // 仅当 delegate 里要用 required 顶层属性时加
 import QtQuick
-import QueMusic 1.0
+import SmyunMusic 1.0
 import QtQuick.Controls.Basic
 import QtQuick.Effects
 
@@ -312,7 +312,7 @@ QOptionDialog {                            // 继承而非重写：自带模糊�
 | `translateModel` : var | `MusicApi.lyricsTranslate \|\| []` | 译文，与行同下标 |
 | `currentIndex` : int | `MusicApi.lyricIndex` | 当前行，宿主算好 |
 | `title` / `artist` : string | `Playback.musicTitle` / `Playback.musicArtist` | — |
-| `coverUrl` : string | `Playback.player.urlStr`（回退 `qrc:/QueMusic/resources/app/musicpic.png`） | — |
+| `coverUrl` : string | `Playback.player.urlStr`（回退 `qrc:/SmyunMusic/resources/app/musicpic.png`） | — |
 | `mainColor` / `secondColor` / `thirdColor` : color | `PlayerMaxCenter` 抽色结果（封面色动画） | 背景着色器主色 |
 | `hideHeight` : int | `PlayerMaxCenter.hideHeight` | 沉浸模式偏移（0 / 76） |
 | `lyricSize` : int | `Style.lyricSize` | 歌词字号档 |
@@ -376,7 +376,7 @@ QOptionDialog {                            // 继承而非重写：自带模糊�
 
 | 文件 | family（name 表 ID 1/6） | 用途 | 注册/打包 |
 |---|---|---|---|
-| resources/fonts/feather.ttf | `feather` | 图标字体（`Fonts.icon`） | `Fonts.qml` 的 `FontLoader{source:"qrc:/QueMusic/resources/fonts/feather.ttf"}`；CMake `RESOURCES` 第 182 行 |
+| resources/fonts/feather.ttf | `feather` | 图标字体（`Fonts.icon`） | `Fonts.qml` 的 `FontLoader{source:"qrc:/SmyunMusic/resources/fonts/feather.ttf"}`；CMake `RESOURCES` 第 182 行 |
 | resources/fonts/poppins.ttf | `Poppins` | 正文/界面字体（`Fonts.text`） | 同上，第 183 行 |
 | resources/fonts/IconData.js | — | Material Design Icons 名字数组（`var icons = [...]`） | **全库未被任何 QML/C++ 引用**（仅出现在本文档附录 A 的文件清单里）→ 视为死资源，勿据此以为项目用 MDI |
 

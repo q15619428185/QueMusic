@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: Apache-2.0
-// Copyright (c) 2026 QueMusic Contributors
+// Copyright (c) 2026 SmyunMusic Contributors
 //
 // 模拟 QML ListModel 的动态列表模型：count/get/clear/append/remove
 // roleNames 随 append 动态生成，委托里任意字段可直接访问。

@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: Apache-2.0
-// Copyright (c) 2026 QueMusic Contributors
+// Copyright (c) 2026 SmyunMusic Contributors
 //
 // 可播放媒体后缀的唯一来源：本地扫描、WebDAV 列表、已下载列表共用一份，
 // 避免三处白名单分叉（同一文件在网盘能播、下载页却不显示）。

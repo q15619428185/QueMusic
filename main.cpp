@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: Apache-2.0
-// Copyright (c) 2025-2026 QueMusic Contributors
+// Copyright (c) 2025-2026 SmyunMusic Contributors
 //
 // Portions based on QWindowKit example code:
 // Copyright (C) 2023-2024 Stdware Collections (https://www.github.com/stdware)
@@ -17,7 +17,7 @@
 #include "api/MusicApiService.h"
 #include <QWKQuick/qwkquickglobal.h>
 
-extern void qml_register_types_QueMusic();
+extern void qml_register_types_SmyunMusic();
 
 #if defined(Q_OS_WIN)
 // Windows SMTC（系统媒体控制）身份注册所需 API
@@ -30,7 +30,7 @@ extern void qml_register_types_QueMusic();
 
 static void registerSmtcAppIdentity()
 {
-    const wchar_t *appId = L"BroNekoX.QueMusic";
+    const wchar_t *appId = L"BroNekoX.SmyunMusic";
 
     // 1) 设置当前进程的显式 AppUserModelID（需在展示任何 UI 之前调用）
     typedef HRESULT (WINAPI *SetAppUserModelIDFn)(PCWSTR);
@@ -48,9 +48,9 @@ static void registerSmtcAppIdentity()
     // 2) 注册表 DisplayName + IconUri（通知等系统部件解析显示名/图标用）
     HKEY key = nullptr;
     if (RegCreateKeyExW(HKEY_CURRENT_USER,
-                        L"Software\\Classes\\AppUserModelId\\BroNekoX.QueMusic",
+                        L"Software\\Classes\\AppUserModelId\\BroNekoX.SmyunMusic",
                         0, nullptr, 0, KEY_SET_VALUE, nullptr, &key, nullptr) == ERROR_SUCCESS) {
-        const wchar_t *displayName = L"QueMusic";
+        const wchar_t *displayName = L"SmyunMusic";
         RegSetValueExW(key, L"DisplayName", 0, REG_SZ,
                        reinterpret_cast<const BYTE *>(displayName),
                        (DWORD)((wcslen(displayName) + 1) * sizeof(wchar_t)));
@@ -70,14 +70,14 @@ static void registerSmtcAppIdentity()
         wchar_t appData[MAX_PATH] = {};
         if (GetEnvironmentVariableW(L"APPDATA", appData, MAX_PATH)) {
             const std::wstring lnkPath = std::wstring(appData)
-                + L"\\Microsoft\\Windows\\Start Menu\\Programs\\QueMusic.lnk";
+                + L"\\Microsoft\\Windows\\Start Menu\\Programs\\SmyunMusic.lnk";
 
             IShellLinkW *shellLink = nullptr;
             hr = CoCreateInstance(CLSID_ShellLink, nullptr, CLSCTX_INPROC_SERVER,
                                   IID_IShellLinkW, reinterpret_cast<void **>(&shellLink));
             if (SUCCEEDED(hr) && shellLink) {
                 shellLink->SetPath(exePath);
-                shellLink->SetDescription(L"QueMusic");
+                shellLink->SetDescription(L"SmyunMusic");
                 shellLink->SetIconLocation(exePath, 0);
 
                 IPropertyStore *propStore = nullptr;
@@ -116,7 +116,7 @@ int main(int argc, char *argv[])
 #endif
     // 渲染后端 / 垂直同步 / 动画驱动开关（须在 QApplication 之前设环境变量）
     QString configPath = QStandardPaths::writableLocation(QStandardPaths::ConfigLocation);
-    QSettings opt(configPath + QStringLiteral("/BroNekoX/QueMusic.ini"), QSettings::IniFormat);
+    QSettings opt(configPath + QStringLiteral("/BroNekoX/SmyunMusic.ini"), QSettings::IniFormat);
     switch (opt.value(QStringLiteral("Options/gpuRenderMode"), 0).toInt()) {
     case 1: qputenv("QSG_RHI_BACKEND", "opengl"); break;
     case 2: qputenv("QSG_RHI_BACKEND", "vulkan"); break;
@@ -135,14 +135,14 @@ int main(int argc, char *argv[])
     QQuickWindow::setDefaultAlphaBuffer(true);
     QQmlApplicationEngine engine;
 
-    qml_register_types_QueMusic();   // 注册 QML_ELEMENT 类型
+    qml_register_types_SmyunMusic();   // 注册 QML_ELEMENT 类型
     engine.addImportPath(QStringLiteral("qrc:/"));
 
     application.setOrganizationName("BroNekoX");
-    application.setOrganizationDomain("com.bronekox.quemusic");
+    application.setOrganizationDomain("com.bronekox.smyunmusic");
     // QIcon 只识别 ":/xxx" 资源路径（"qrc:/xxx" 会加载失败）
-    application.setWindowIcon(QIcon(QStringLiteral(":/QueMusic/resources/icon.ico")));
-    application.setApplicationName("QueMusic");
+    application.setWindowIcon(QIcon(QStringLiteral(":/SmyunMusic/resources/icon.ico")));
+    application.setApplicationName("SmyunMusic");
 
     QSettings::setDefaultFormat(QSettings::IniFormat);
     QSettings::setPath(QSettings::IniFormat, QSettings::UserScope, configPath);
@@ -155,6 +155,6 @@ int main(int argc, char *argv[])
     engine.rootContext()->setContextProperty("configDir", configPath);
 
     QWK::registerTypes(&engine);
-    engine.load(QUrl(QStringLiteral("qrc:/QueMusic/main.qml")));
+    engine.load(QUrl(QStringLiteral("qrc:/SmyunMusic/main.qml")));
     return application.exec();
 }

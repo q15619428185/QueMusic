@@ -8,7 +8,7 @@ macOS 对「从网上下载的 App」有一道额外检查（Gatekeeper）。本
 
 | 你看到的提示 | 真实含义 |
 |---|---|
-| **「QueMusic」已损坏，无法打开。你应该将它移到废纸篓。** | 最常见。App 的签名无法被系统验证 → 被直接判为不可信 |
+| **「SmyunMusic」已损坏，无法打开。你应该将它移到废纸篓。** | 最常见。App 的签名无法被系统验证 → 被直接判为不可信 |
 | 「无法打开，因为 Apple 无法检查其是否包含恶意软件」 | App 没有公证 |
 | 「无法打开，因为来自身份不明的开发者」 | 同上，措辞不同 |
 
@@ -18,16 +18,16 @@ macOS 对「从网上下载的 App」有一道额外检查（Gatekeeper）。本
 
 ## 方法一：一条命令（推荐，最快）
 
-1. 双击 `.dmg`，把里面的 **QueMusic** 拖进「应用程序」（Applications）。
+1. 双击 `.dmg`，把里面的 **SmyunMusic** 拖进「应用程序」（Applications）。
 2. 打开「**终端**」：访达 → 应用程序 → 实用工具 → 终端（或按 `⌘ + 空格` 搜索 “终端”）。
 3. 复制下面这行，粘贴到终端，按回车：
 
 ```bash
-sudo xattr -cr /Applications/QueMusic.app
+sudo xattr -cr /Applications/SmyunMusic.app
 ```
 
 4. 提示 `Password:` 时输入你的**开机密码**（输入时屏幕上不会显示任何字符，这是正常的），回车。
-5. 现在正常双击打开 QueMusic 即可。
+5. 现在正常双击打开 SmyunMusic 即可。
 
 > 第 3 步只是删除「这个文件来自网络」的标记，不会改动 App 内容。
 
@@ -36,16 +36,16 @@ sudo xattr -cr /Applications/QueMusic.app
 ## 方法二：不用终端（右键打开 / 系统设置放行）
 
 **先试右键：**
-1. 在「应用程序」里**右键**（或按住 `Control` 点击）QueMusic →「**打开**」；
+1. 在「应用程序」里**右键**（或按住 `Control` 点击）SmyunMusic →「**打开**」；
 2. 弹出的窗口里再点一次「**打开**」。
 
 > 只在第一次需要这样做，之后双击即可。注意：**不能**双击打开（双击没有「打开」按钮）。
 
 **如果右键没有「打开」，或提示仍是「已损坏」，走系统设置：**
-1. 先双击一次 QueMusic，让系统弹出拦截提示，点「完成 / 好」关掉；
+1. 先双击一次 SmyunMusic，让系统弹出拦截提示，点「完成 / 好」关掉；
 2. 打开「系统设置」→「**隐私与安全性**」；
-3. 一直往下滚到「安全性」区域，会看到「已阻止使用 ‘QueMusic’」→ 点「**仍要打开**」；
-4. 输入开机密码确认，然后再打开 QueMusic。
+3. 一直往下滚到「安全性」区域，会看到「已阻止使用 ‘SmyunMusic’」→ 点「**仍要打开**」；
+4. 输入开机密码确认，然后再打开 SmyunMusic。
 
 ---
 
@@ -55,13 +55,13 @@ sudo xattr -cr /Applications/QueMusic.app
 
 ```bash
 # 1) 先确认文件本身没坏：输出 "verified" 说明文件完好，是系统拦截
-hdiutil verify ~/Downloads/QueMusic-*.dmg
+hdiutil verify ~/Downloads/SmyunMusic-*.dmg
 
 # 2) 用终端挂载（不会做下载来源检查）
-hdiutil attach ~/Downloads/QueMusic-*.dmg
+hdiutil attach ~/Downloads/SmyunMusic-*.dmg
 ```
 
-挂载后把里面的 QueMusic 拖到「应用程序」，再执行**方法一第 3 步**。
+挂载后把里面的 SmyunMusic 拖到「应用程序」，再执行**方法一第 3 步**。
 
 > 如果第 1 步就报错（不是 verified），说明文件下载不完整或已损坏，请**重新下载**（别用下载工具续传，浏览器直下最稳）。
 
@@ -88,7 +88,7 @@ A：不会。`xattr -cr` 只清除文件的扩展属性（主要就是「来自�
 A：只有 macOS 有这套公证机制，与 App 本身质量无关。
 
 **Q：做完还是打不开？**
-1. 确认 App 确实在 `/Applications/QueMusic.app`（如果你拖到了别的位置，命令里的路径要一起改）；
+1. 确认 App 确实在 `/Applications/SmyunMusic.app`（如果你拖到了别的位置，命令里的路径要一起改）；
 2. 确认没有把 App **直接在 DMG 里**双击运行 —— 必须先拖到「应用程序」；
 3. 重新执行一次方法一，再试右键「打开」；
 4. 还是不行：删除 App 重新从 `.dmg` 拖一次（不要用旧的、被移动过的副本）。
@@ -100,6 +100,6 @@ A：是的，每个新下载的包都会被 macOS 当成新文件拦截一次。
 A：可以在「终端」里直接启动看输出：
 
 ```bash
-/Applications/QueMusic.app/Contents/MacOS/QueMusic
+/Applications/SmyunMusic.app/Contents/MacOS/SmyunMusic
 ```
 把输出连同你的 macOS 版本一起提 Issue 即可。

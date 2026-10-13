@@ -98,7 +98,7 @@ jobs:
           LD_LIBRARY_PATH: ${{ env.QT_DIR }}/${{ env.QT_VERSION }}/gcc_64/lib
         run: |
           chmod +x tests/smoke-stderr.sh
-          tests/smoke-stderr.sh build/bin/QueMusic 12
+          tests/smoke-stderr.sh build/bin/SmyunMusic 12
 
       - name: 失败时输出日志（方便定位）
         if: failure()

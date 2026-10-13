@@ -1,10 +1,10 @@
 // SPDX-License-Identifier: Apache-2.0
-// Copyright (c) 2025-2026 QueMusic Contributors
+// Copyright (c) 2025-2026 SmyunMusic Contributors
 //
 import QtQuick
 import QtQuick.Controls.Basic
 import QtQuick.Effects
-import QueMusic 1.0
+import SmyunMusic 1.0
 
 //底部控制栏
 Rectangle {
@@ -173,7 +173,7 @@ Rectangle {
                 anchors.fill: musicpic
                 fillMode: Image.PreserveAspectCrop
                 visible: false
-                source: Playback.player.urlStr || "qrc:/QueMusic/resources/app/musicpic.png"
+                source: Playback.player.urlStr || "qrc:/SmyunMusic/resources/app/musicpic.png"
                 sourceSize: Qt.size(64, 64)
             }
             Rectangle {

@@ -1,5 +1,5 @@
 /* ============================================================================
-   JIZURA for QueMusic — fragment 2/4: the browser surface JIZURA expects
+   JIZURA for SmyunMusic — fragment 2/4: the browser surface JIZURA expects
    ----------------------------------------------------------------------------
    JIZURA is written for a browser: it reads `window`, creates offscreen
    canvases with `document.createElement('canvas')`, measures text with

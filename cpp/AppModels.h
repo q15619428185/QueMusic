@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: Apache-2.0
-// Copyright (c) 2025-2026 QueMusic Contributors
+// Copyright (c) 2025-2026 SmyunMusic Contributors
 //
 // 面向 QML 的数据模型单例。
 //
@@ -18,7 +18,7 @@
 #include "Favorites.h"
 #include "FolderModel.h"
 
-#define QUEMUSIC_DECLARE_MODEL_SINGLETON(CLASS, BASE, FILTER) \
+#define SMYUNMUSIC_DECLARE_MODEL_SINGLETON(CLASS, BASE, FILTER) \
     class CLASS : public BASE                                    \
     {                                                            \
         Q_OBJECT                                                 \
@@ -35,8 +35,8 @@
     }
 
 // 我的歌单 / 本地音乐（过滤类型即模型自身的语义）
-QUEMUSIC_DECLARE_MODEL_SINGLETON(MyFolders, FolderModel, "my");
-QUEMUSIC_DECLARE_MODEL_SINGLETON(LocalFolders, FolderModel, "local");
+SMYUNMUSIC_DECLARE_MODEL_SINGLETON(MyFolders, FolderModel, "my");
+SMYUNMUSIC_DECLARE_MODEL_SINGLETON(LocalFolders, FolderModel, "local");
 
 // 歌单内的歌曲列表（该模型不使用过滤类型）
 class Songs : public SongModel
@@ -53,10 +53,10 @@ public:
 };
 
 // 收藏：歌曲 / 歌单 / 歌手
-QUEMUSIC_DECLARE_MODEL_SINGLETON(FavoriteSongs, FavoritesModel, "song");
-QUEMUSIC_DECLARE_MODEL_SINGLETON(FavoritePlaylists, FavoritesModel, "playlist");
-QUEMUSIC_DECLARE_MODEL_SINGLETON(FavoriteArtists, FavoritesModel, "artist");
+SMYUNMUSIC_DECLARE_MODEL_SINGLETON(FavoriteSongs, FavoritesModel, "song");
+SMYUNMUSIC_DECLARE_MODEL_SINGLETON(FavoritePlaylists, FavoritesModel, "playlist");
+SMYUNMUSIC_DECLARE_MODEL_SINGLETON(FavoriteArtists, FavoritesModel, "artist");
 
-#undef QUEMUSIC_DECLARE_MODEL_SINGLETON
+#undef SMYUNMUSIC_DECLARE_MODEL_SINGLETON
 
 #endif // APPMODELS_H

@@ -1,5 +1,5 @@
 /* ============================================================================
-   JIZURA for QueMusic — fragment 0/4: prelude
+   JIZURA for SmyunMusic — fragment 0/4: prelude
    ----------------------------------------------------------------------------
    The whole plugin runtime is generated into ONE QML JavaScript library file by
    tools/build_bundle.py, in this order:

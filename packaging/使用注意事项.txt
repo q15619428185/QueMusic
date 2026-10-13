@@ -1,4 +1,4 @@
-QueMusic Linux 便携包 —— 使用注意事项
+SmyunMusic Linux 便携包 —— 使用注意事项
 ====================================================================
 
 一、运行环境要求
@@ -15,23 +15,23 @@ QueMusic Linux 便携包 —— 使用注意事项
 
 二、怎么运行
 --------------------------------------------------------------------
-    cd QueMusic-linux-x86_64
+    cd SmyunMusic-linux-x86_64
     ./run.sh
 
-    （请用 ./run.sh 启动。直接点 bin/QueMusic 也行，但那样 run.sh 帮你找 Qt 目录的那步
+    （请用 ./run.sh 启动。直接点 bin/SmyunMusic 也行，但那样 run.sh 帮你找 Qt 目录的那步
       就跳过了，Qt 不在系统标准位置时会报 libQt6Core.so.6 找不到。）
 
 第一次如果提示没有执行权限，先：
     chmod +x run.sh
 
-run.sh 就两件事：切到包目录、启动 bin/QueMusic。
+run.sh 就两件事：切到包目录、启动 bin/SmyunMusic。
 包内所有库（bin/ 与 _deps/）都写好了 $ORIGIN 相对路径，程序自己就能找到，
 其中 FFmpeg 也是包内自带的（就在 bin/ 里），所以宿主机不需要装任何 ffmpeg。
 如果你系统里（或你的 Qt 里）本来就有 ffmpeg 7.x，会优先用你那份；
 没有的话自动用包内自带的，两种情况都能跑，不用你设任何环境变量，
 也不要求解压到固定位置（放哪都行）。
 run.sh 唯一多做的一点，是帮你找到 Qt 的库目录（发行版 Qt 在系统里，它不用管）。
-另外，传给 run.sh 的参数会原样转给 QueMusic。
+另外，传给 run.sh 的参数会原样转给 SmyunMusic。
 
 需要排查问题时，用环境变量（run.sh 不改这些值，你设了就生效）：
     QSG_RHI_BACKEND=vulkan ./run.sh    用 Vulkan 渲染
@@ -44,7 +44,7 @@ run.sh 唯一多做的一点，是帮你找到 Qt 的库目录（发行版 Qt �
 
 三、目录说明
 --------------------------------------------------------------------
-    bin/       QueMusic 主程序 + 本仓库编译出的动态库 + 自带的 FFmpeg 运行库（libav*/libsw*）
+    bin/       SmyunMusic 主程序 + 本仓库编译出的动态库 + 自带的 FFmpeg 运行库（libav*/libsw*）
     _deps/     第三方依赖的构建产物（已剔除纯编译中间产物）
     run.sh     启动脚本
     使用注意事项.txt   本文件

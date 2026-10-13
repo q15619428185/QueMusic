@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: Apache-2.0
-// Copyright (c) 2025-2026 QueMusic Contributors
+// Copyright (c) 2025-2026 SmyunMusic Contributors
 
 // 「自由」歌词界面的自有设置（自动持久化）。
 // 以前是界面根里的 Settings + 文件内 id（cfg），子组件跨边界引用无法被 AOT 编译，改为单例。

@@ -1,6 +1,6 @@
 # 第 2 部分 · C++ 后端层（cpp/，不含 cpp/audio/）
 
-> 本文件是 [QueMusic 项目全景文档索引](README.md) 的一个分片；任务定位与其它部分请见 [README.md](README.md)。
+> 本文件是 [SmyunMusic 项目全景文档索引](README.md) 的一个分片；任务定位与其它部分请见 [README.md](README.md)。
 
 范围：`cpp/*.{h,cpp}`（顶层）、`cpp/webdav/*.{h,cpp}`、`cpp/plugins/*.{h,cpp}`。
 `cpp/audio/` 由另一份文档覆盖，本文只在必要处提及被引用点。
@@ -17,7 +17,7 @@
 | 文件 | 类名 | QML 暴露名 | 一句话职责 |
 |---|---|---|---|
 | `cpp/AccountManager.h` `cpp/AccountManager.cpp` | `AccountManager` | `AccountManager`（`QML_ELEMENT` + `QML_SINGLETON`） | 网易云/酷狗登录态：扫码登录、Cookie 持久化、设备身份、备用登录入口。 |
-| `cpp/AppModels.h` | `MyFolders` `LocalFolders` `Songs` `FavoriteSongs` `FavoritePlaylists` `FavoriteArtists` | 同名（均 `QML_ELEMENT` + `QML_SINGLETON`） | 用宏 `QUEMUSIC_DECLARE_MODEL_SINGLETON` 派生的 QML 模型单例集合。 |
+| `cpp/AppModels.h` | `MyFolders` `LocalFolders` `Songs` `FavoriteSongs` `FavoritePlaylists` `FavoriteArtists` | 同名（均 `QML_ELEMENT` + `QML_SINGLETON`） | 用宏 `SMYUNMUSIC_DECLARE_MODEL_SINGLETON` 派生的 QML 模型单例集合。 |
 | `cpp/ColorExtractor.h` `cpp/ColorExtractor.cpp` | `ColorExtractor` | `ColorExtractor`（`QML_ELEMENT`） | 封面主色提取，工作线程执行，带 QCache 与代次丢弃。 |
 | `cpp/CoverHelper.h` `cpp/CoverHelper.cpp` | `CoverHelper` | `CoverHelper`（`QML_ELEMENT`） | 本地/内嵌封面查找与缓存；顺带提供 TagLib 元数据读取静态接口。 |
 | `cpp/CustomFlow.h` `cpp/CustomFlow.cpp` | `CustomFlow` | `CustomFlow`（`QML_ELEMENT`） | 自实现的 QML 流式布局容器（分行 + 左/右/居中）。 |
@@ -59,7 +59,7 @@
 | `dataDir()` | 优先 `QStandardPaths::AppDataLocation`；该目录**真切一条连接建表试写**失败时退到 `QCoreApplication::applicationDirPath() + "/data"`；两者都失败回退 `preferred` |
 | 迁移 | 换目录时若旧库存在、新库不存在，且旧库 `SELECT count(*) FROM favorites` > 0，则整库 `QFile::copy` 搬迁；旧库保留不删并打日志 |
 | 缓存目录 | `DbService::cacheDir()` = `dataDir() + "/cache"`（自动 `mkpath`）。注意 `LocalMusicScanner::startScan()` 另算了一次 `AppDataLocation + "/cache"`（见第 8 节） |
-| 连接名 | DB 线程：`quemusic_db_worker`；GUI 线程：`shared_player_db`（`playerDatabase()`）；临时：`writable_probe`、`migrate_probe` |
+| 连接名 | DB 线程：`smyunmusic_db_worker`；GUI 线程：`shared_player_db`（`playerDatabase()`）；临时：`writable_probe`、`migrate_probe` |
 
 ### 2.2.2 表与属主
 
@@ -76,7 +76,7 @@
 ### 2.2.3 线程模型
 
 - `DbService::instance()`：函数内 `static DbService *service = new DbService;`，**故意不析构**（规避静态销毁顺序问题）。
-- 构造即 `new DbWorker` → `moveToThread(&thread)`，线程 `setObjectName("quemusic-db")` 并 `start()`；
+- 构造即 `new DbWorker` → `moveToThread(&thread)`，线程 `setObjectName("smyunmusic-db")` 并 `start()`；
   `QThread::started` → `DbWorker::open`，`QThread::finished` → `DbWorker::close`。
 - `submit(Job)`：按 `QMutexLocker` 保护把任务压入 `std::deque`，再 `invokeMethod(worker, "drain", Qt::QueuedConnection)`。
   `drain()` FIFO 取任务执行，**天然串行**，一个连接只在 DB 线程使用。
@@ -116,7 +116,7 @@
 | Q_INVOKABLE | `void addDownload(url, fileName, meta)`、`void retryTask(taskId)`、`void removeTask(taskId)`、`QString effectiveDownloadDir()` |
 | signals | `currentTaskIdChanged`、`hasActiveTasksChanged`、`completedCountChanged`、`taskCountChanged`、`downloadPathChanged` |
 | 枚举 | `DownloadTask::Status { Queued, Downloading, Completed, Error }`（未 `Q_ENUM`，QML 侧拿的是 `int`） |
-| 目录规则 | `effectiveDownloadDir()` = 自定义 `downloadPath` 或 `QStandardPaths::MusicLocation`，再拼 `/QueMusic`；同名文件加 `(1)(2)` 后缀 |
+| 目录规则 | `effectiveDownloadDir()` = 自定义 `downloadPath` 或 `QStandardPaths::MusicLocation`，再拼 `/SmyunMusic`；同名文件加 `(1)(2)` 后缀 |
 
 ### FolderModel / SongModel
 
@@ -227,18 +227,18 @@
 | Q_ENUM | `Level { Debug=0, Info=1, Warning=2, Error=3, Fatal=4 }` |
 | Q_INVOKABLE | `debug(msg, category = QString())`、`info(...)`、`warning(...)`、`error(...)`、`fatal(...)`、`openLogFolder()` |
 | signals | `enabledChanged()`、`minimumLevelChanged()`、`currentLogFileChanged()`、`logPreviewChanged()` |
-| 落盘 | 目录 `<AppDataLocation>/logs`，文件 `QueMusic_yyyyMMdd.log`（UTF-8 + BOM，每日一份，追加写） |
-| 配置 | 与 QML Settings 同一个 ini：`<ConfigLocation>/BroNekoX/QueMusic.ini`，键 `Options/logEnabled`、`Options/logLevel` |
+| 落盘 | 目录 `<AppDataLocation>/logs`，文件 `SmyunMusic_yyyyMMdd.log`（UTF-8 + BOM，每日一份，追加写） |
+| 配置 | 与 QML Settings 同一个 ini：`<ConfigLocation>/BroNekoX/SmyunMusic.ini`，键 `Options/logEnabled`、`Options/logLevel` |
 
 ### SystemTrayManager
 
 | 类别 | 内容 |
 |---|---|
-| Q_PROPERTY | `bool available`（`CONSTANT`）、`bool visible`（可写）、`QString iconSource`（可写）、`QString title`（可写，默认 `"QueMusic"`）、`QString nowPlaying`（可写）、`bool playing`（可写） |
+| Q_PROPERTY | `bool available`（`CONSTANT`）、`bool visible`（可写）、`QString iconSource`（可写）、`QString title`（可写，默认 `"SmyunMusic"`）、`QString nowPlaying`（可写）、`bool playing`（可写） |
 | Q_ENUM | `ActivationReason { Unknown=0, Context=1, DoubleClick=2, Trigger=3, MiddleClick=4 }`、`MessageIcon { NoIcon=0, Information=1, Warning=2, Critical=3 }` |
 | Q_INVOKABLE | `void showMessage(title, body, icon = Information, msecs = 4000)`、`void quitApplication()` |
 | signals | `visibleChanged`、`iconSourceChanged`、`titleChanged`、`nowPlayingChanged`、`playingChanged`、`activated(SystemTrayManager::ActivationReason)`、`showWindowRequested()`、`playPauseRequested()`、`previousRequested()`、`nextRequested()`、`quitRequested()` |
-| 菜单项 | 「显示主界面」/ 当前曲目（禁用、无曲目隐藏）/ 「播放|暂停」/「上一首」/「下一首」/「退出 QueMusic」 |
+| 菜单项 | 「显示主界面」/ 当前曲目（禁用、无曲目隐藏）/ 「播放|暂停」/「上一首」/「下一首」/「退出 SmyunMusic」 |
 
 ### WindowsSmtcManager
 
@@ -299,7 +299,7 @@
 ### 2.5.2 认证与凭据
 
 - 存储：`QSettings`，键 `webdav/servers`（`QVariantList`，每项 `id`(UUID 无花括号)、`name`、`url`、`user`、`password`(密文)）。
-- 加密：Windows 用 DPAPI `CryptProtectData` / `CryptUnprotectData`（描述串 `L"QueMusic"`，绑当前用户），密文 Base64 存 ini。
+- 加密：Windows 用 DPAPI `CryptProtectData` / `CryptUnprotectData`（描述串 `L"SmyunMusic"`，绑当前用户），密文 Base64 存 ini。
   非 Windows 平台**只是 Base64 编码，不是加密**（源码注释：其它平台暂无系统凭据库，Keychain 后续接）。
 - 加密失败必须中止落盘（`encryptPassword` 返回 false → `addServer`/`updateServer` 直接返回），避免把密码写成空串还当成有效配置。
 - `servers()` 读属性会剥掉 `password` 字段，**凭据不进 QML**。
@@ -357,7 +357,7 @@
 ### 2.6.4 扩展点
 
 - **歌词界面插件**：只需提供 QML 入口（默认 `plugin.qml`）。宿主读 `LyricsPlugins.source` 作为 `Loader.source`，因此插件是一个「整屏歌词界面」组件。内置三项（`builtin.*`，不可卸载）：
-  `builtin.default` → `qrc:/QueMusic/layout/MainLyric.qml`、`builtin.free` → `qrc:/QueMusic/lyricsui/LyricsFree.qml`、`builtin.3d(Beta)` → `qrc:/QueMusic/lyricsui/Lyrics3D.qml`。
+  `builtin.default` → `qrc:/SmyunMusic/layout/MainLyric.qml`、`builtin.free` → `qrc:/SmyunMusic/lyricsui/LyricsFree.qml`、`builtin.3d(Beta)` → `qrc:/SmyunMusic/lyricsui/Lyrics3D.qml`。
 - **功能插件**：宿主 `components/PluginHost.qml` 按 `FunctionPlugins.enabledIds` 为每个启用插件起一个加载器；插件可多个同时生效。
 - 两类插件目前**没有**额外的 C++ 扩展接口（无约定函数/无后端回调），扩展点就是 QML 入口文件本身。
 

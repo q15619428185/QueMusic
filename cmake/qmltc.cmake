@@ -1,6 +1,6 @@
 # qmltc（QML 类型编译器）接入 —— 实验性，默认关闭
 # =============================================================================
-# 由 CMakeLists.txt 通过 include() 引入，受 QUEMUSIC_ENABLE_QMLTC 控制（默认 OFF）。
+# 由 CMakeLists.txt 通过 include() 引入，受 SMYUNMUSIC_ENABLE_QMLTC 控制（默认 OFF）。
 #
 # 以下结论全部来自在本机 Qt 6.10.3（开源版）上的实测：
 #
@@ -11,7 +11,7 @@
 #     一旦用到其它模块里由 QML 定义的类型（QtQuick.Controls.*、QtQuick.Dialogs、
 #     Qt5Compat.GraphicalEffects 等）就会报错，例如：
 #       Can't compile the QML base type "TextField" to C++ because it lives in
-#       "QtQuick.Controls.Basic" instead of the current file's "QueMusic" QML module.
+#       "QtQuick.Controls.Basic" instead of the current file's "SmyunMusic" QML module.
 #     本工程 78 个 QML 文件中，56 个直接依赖 QtQuick.Controls 系模块（整个 UI 基于 Controls）。
 #     （QtQuick.Effects / QtQuick.Layouts / QtQuick.Shapes 是纯 C++ 模块，不构成阻塞。）
 #
@@ -26,7 +26,7 @@
 #  5. 运行时收益只在 C++ 侧直接实例化生成的类时出现：
 #     QQmlComponent / engine.load() / Loader { source: ... } 加载文档时依然走 QML 源码。
 #     实测加载被编译文档得到的对象类名为 <File>_QMLTYPE_n，而非 <命名空间>::<File>；
-#     只有 new QueMusic::<File>(&engine, ...) 才真正省掉 QML 解释开销。
+#     只有 new SmyunMusic::<File>(&engine, ...) 才真正省掉 QML 解释开销。
 #
 # 结论：在本工程当前结构下开启 qmltc 既不会带来运行性能提升，也无法通过构建。
 # 因此这里做了安全降级：只要白名单里还存在子目录文件，就打印说明并保持关闭，
@@ -34,7 +34,7 @@
 # 把它加入下方白名单即可自动启用。
 # =============================================================================
 
-if(NOT QUEMUSIC_ENABLE_QMLTC)
+if(NOT SMYUNMUSIC_ENABLE_QMLTC)
     return()
 endif()
 
@@ -72,7 +72,7 @@ endforeach()
 
 if(_qmltc_subdir_files)
     message(WARNING
-        "QUEMUSIC_ENABLE_QMLTC=ON，但以下文件位于 QML 模块的子目录中，"
+        "SMYUNMUSIC_ENABLE_QMLTC=ON，但以下文件位于 QML 模块的子目录中，"
         "qmltc（Qt 6.10）无法编译它们，本次不会启用类型编译：\n  ${_qmltc_subdir_files}\n"
         "把它们移动到 QML 模块根目录（本工程即仓库根）后再重新配置即可启用；"
         "详见 cmake/qmltc.cmake 顶部说明。")
@@ -96,4 +96,4 @@ foreach(qml_file IN LISTS QUE_MUSIC_QML_FILES)
     endif()
 endforeach()
 
-message(STATUS "QueMusic: qmltc 已启用（白名单 ${QUE_MUSIC_QMLTC_ALLOWED}）")
+message(STATUS "SmyunMusic: qmltc 已启用（白名单 ${QUE_MUSIC_QMLTC_ALLOWED}）")

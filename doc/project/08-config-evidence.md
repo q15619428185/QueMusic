@@ -1,12 +1,12 @@
 # 第 8 部分 · 配置落盘实测清单
 
-> 本文件是 [QueMusic 项目全景文档索引](README.md) 的一个分片；任务定位与其它部分请见 [README.md](README.md)。
+> 本文件是 [SmyunMusic 项目全景文档索引](README.md) 的一个分片；任务定位与其它部分请见 [README.md](README.md)。
 
 > 本部分内容来自**实际运行后产生的文件**，不是从源码推断的。源码侧声明清单见第 7 部分。
 
 ## 8.1 文件位置与分组归属
 
-主配置：`%LOCALAPPDATA%\BroNekoX\QueMusic.ini`（由 `main.cpp` 的 `ConfigLocation + "/BroNekoX/QueMusic.ini"` 得到）
+主配置：`%LOCALAPPDATA%\BroNekoX\SmyunMusic.ini`（由 `main.cpp` 的 `ConfigLocation + "/BroNekoX/SmyunMusic.ini"` 得到）
 
 分组 ↔ 生产者对照：
 
@@ -23,7 +23,7 @@
 | `[webdav]` | WebDAV 服务器列表 | `cpp/webdav/WebDavStore.*` |
 | `[Player]` | 疑似遗留 | 仅 `cycleIndex` 一个键，与 `Config.cycleIndex` 重复 |
 
-另有**独立于主配置**的文件：`<exe 目录>\Account.ini`（`AccountManager` 自建，存网易云 / 酷狗的 Cookie 与登录态，不受 `QSettings::setPath` 影响），以及 `%LOCALAPPDATA%\BroNekoX\QueMusicQuality.json`（音质缓存）。
+另有**独立于主配置**的文件：`<exe 目录>\Account.ini`（`AccountManager` 自建，存网易云 / 酷狗的 Cookie 与登录态，不受 `QSettings::setPath` 影响），以及 `%LOCALAPPDATA%\BroNekoX\SmyunMusicQuality.json`（音质缓存）。
 
 ## 8.2 实测存在的键（运行时真值）
 
@@ -54,9 +54,9 @@
 
 1. **INI 里存在大量已废弃的键**。判断某个键是否还是"活的"，唯一依据是**源码里是否还有 `Settings` 属性声明**（见第 7 部分），INI 里的残留不代表功能存在。
 2. **同一个概念可能同时出现在两个分组**（如 `cycleIndex` 在 `[Options]` 与 `[Player]`；`lyricSpacingScale` 在 `[Style]` 与 `[LyricsFree]`）。新增读取逻辑时要选源码里声明的那一份。
-3. `%APPDATA%\BroNekoX\QueMusic.ini` 是**旧版本遗留**，与生效配置无关，不要改它。
+3. `%APPDATA%\BroNekoX\SmyunMusic.ini` 是**旧版本遗留**，与生效配置无关，不要改它。
 4. `Options.gpuRenderMode` / `timerAnimator` / `qmlAnimator` / `softwareRender` / `noWindowKit` 这类渲染开关由 `main.cpp` **在 QApplication 之前**读取，改完必须重启进程（不是重启窗口）。
-5. 数据库是独立文件（`%APPDATA%\BroNekoX\QueMusic\player_data.db`），**不在 INI 里**；`doc/qm-dbcheck.bat` 是收藏写库失败的专用诊断脚本（会尝试删 `-wal`/`-shm` 并用 sqlite3 直接写库验证）。
+5. 数据库是独立文件（`%APPDATA%\BroNekoX\SmyunMusic\player_data.db`），**不在 INI 里**；`doc/qm-dbcheck.bat` 是收藏写库失败的专用诊断脚本（会尝试删 `-wal`/`-shm` 并用 sqlite3 直接写库验证）。
 6. 账号 Cookie 在 `<exe 目录>\Account.ini`，与主配置分离；排查"登录态丢失"要去那里看。
 ---
 

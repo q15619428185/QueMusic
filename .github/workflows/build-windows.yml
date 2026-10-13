@@ -37,5 +37,5 @@ jobs:
       - name: Upload build artifact
         uses: actions/upload-artifact@v4
         with:
-          name: QueMusic-windows-build
-          path: build/bin/QueMusic.exe
+          name: SmyunMusic-windows-build
+          path: build/bin/SmyunMusic.exe

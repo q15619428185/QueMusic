@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: Apache-2.0
-// Copyright (c) 2026 QueMusic Contributors
+// Copyright (c) 2026 SmyunMusic Contributors
 //
 #ifndef SYSTEMTRAYMANAGER_H
 #define SYSTEMTRAYMANAGER_H
@@ -95,7 +95,7 @@ private:
     QAction *m_nowPlayingAction = nullptr; // 需要动态更新文字与可见性
     QAction *m_playAction = nullptr;       // 需要切换“播放/暂停”文字
     QString m_iconSource;
-    QString m_title = QStringLiteral("QueMusic");
+    QString m_title = QStringLiteral("SmyunMusic");
     QString m_nowPlaying;
     bool m_playing = false;
 };

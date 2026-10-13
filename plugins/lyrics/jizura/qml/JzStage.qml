@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: MIT
 //
-// JIZURA × QueMusic — the render stage: the five compositing layers, plus the
+// JIZURA × SmyunMusic — the render stage: the five compositing layers, plus the
 // scaling that maps the planner's design box onto the item (cover or fit).
 
 import QtQuick

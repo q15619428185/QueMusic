@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: Apache-2.0
-// Copyright (c) 2025-2026 QueMusic Contributors
+// Copyright (c) 2025-2026 SmyunMusic Contributors
 //
 // 歌词界面插件：目录逻辑见 PluginStore，这里只保留「同时只用其中一个」的单选状态。
 #pragma once

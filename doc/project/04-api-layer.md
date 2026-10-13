@@ -1,6 +1,6 @@
 # 第 4 部分 · 在线媒体层（api/）
 
-> 本文件是 [QueMusic 项目全景文档索引](README.md) 的一个分片；任务定位与其它部分请见 [README.md](README.md)。
+> 本文件是 [SmyunMusic 项目全景文档索引](README.md) 的一个分片；任务定位与其它部分请见 [README.md](README.md)。
 ## 4.1 总览与架构
 
 在线媒体层位于 `api/`，职责是把三个平台（酷狗 / 网易云 / 哔哩哔哩）的差异**全部吃掉**，只向 QML 暴露一套统一字段与一组统一方法。
@@ -21,7 +21,7 @@
 
 ### 4.1.1 单例注册与生命周期
 
-- `MusicApiService` 用 `QML_NAMED_ELEMENT(MusicApi)` + `QML_SINGLETON` 注册进 QML 模块 `QueMusic`（`qt6_add_qml_module(URI QueMusic)`，`main.cpp` 里 `engine.addImportPath("qrc:/")`）。QML 同模块内**无需 import 即可直接用 `MusicApi`**。
+- `MusicApiService` 用 `QML_NAMED_ELEMENT(MusicApi)` + `QML_SINGLETON` 注册进 QML 模块 `SmyunMusic`（`qt6_add_qml_module(URI SmyunMusic)`，`main.cpp` 里 `engine.addImportPath("qrc:/")`）。QML 同模块内**无需 import 即可直接用 `MusicApi`**。
 - 构造函数签名是 `explicit MusicApiService(QObject *parent)`，**故意不给 parent 默认值**：否则 QML 引擎走「默认构造」分支而不调用 `create()`，`setAccountManager()` 的登录态注入永远不会执行（头文件 82-84 行有明确注释）。
 - 单例工厂：`static MusicApiService *create(QQmlEngine *qmlEngine, QJSEngine *jsEngine)` → `new MusicApiService(qmlEngine)` + `service->setAccountManager(s_accountManager)`。
 - 账号注入：`main.cpp` 顺序为 `AccountManager::create(...)` → `MusicApiService::setSharedAccountManager(accountManager)` → `engine.load(...)`。静态字段 `MusicApiService::s_accountManager`。
@@ -48,7 +48,7 @@ QML → MusicApi.xxx(...)            // source 省略 = -1
   → handleResult(...)               // 统一销账 + 填模型/属性/发信号
 ```
 
-- `DISPATCH(source, expr)` 宏（`MusicApiService.cpp:353`）内部把变量名写成 `quemusicSource`，注释说明是为了避免调用点传入同名变量时被自身初始化式遮蔽（历史上误传 `s` 读到未初始化值）。
+- `DISPATCH(source, expr)` 宏（`MusicApiService.cpp:353`）内部把变量名写成 `smyunmusicSource`，注释说明是为了避免调用点传入同名变量时被自身初始化式遮蔽（历史上误传 `s` 读到未初始化值）。
 - **唯一不走 `DISPATCH` 的入口是 `getCategoryPlaylists`**：它手写 `setLoadState(true)` + `if/else if/else` 三分支（酷狗 `getCategoryPlaylists`、网易云转发 `getMusicPlaylists`、B 站转发 `getMusicPlaylists`），**因此不 `beginRequest()`、不武装看门狗**（计数字段不进位，靠 `handleResult` 的 `endRequest()` 归零把 `loadState` 关掉）。改这里要一并想清楚加载态。
 - 平台类不是指针而是**值成员**：`NeteaseCloudApi m_netease; KugouApi m_kugou; BilibiliApi m_bilibili;`（`MusicApiService.h:280-282`），三者的 `resultReady` 在构造函数里一并 connect 到 `handleResult`。
 - 未实现的平台：`default:` 分支只 `qWarning() << "[api] 未实现的平台:"`，**不会销账**（靠 20s 看门狗兜底）。新增平台必须同时改 `DISPATCH` 宏、`syncSource` 与所有 `if (action == ...)` 分支。
@@ -300,7 +300,7 @@ hash ↔ 音质映射缓存（酷狗用，网易云/B站因 `hashhq==hashsq==has
 
 - 内存：`QHash<QString, QualityAlts> m_alts`（base → {hq, sq}）+ `QHash<QString, QString> m_baseOf`（任意 hash → base）。
 - 来源：`rememberHashes()` 扫列表结果的 `hashhq/hashsq`；`m_alts.size() > 5000` 直接放弃加速（不做无界增长）。
-- 落盘：`ConfigLocation/BroNekoX/QueMusicQuality.json`，结构 `{ "hq": {base: hqHash}, "sq": {base: sqHash} }`，`scheduleSaveQualityCache()` 1500ms 去抖（`m_altsSaveTimer`），析构时若 dirty 再存一次。
+- 落盘：`ConfigLocation/BroNekoX/SmyunMusicQuality.json`，结构 `{ "hq": {base: hqHash}, "sq": {base: sqHash} }`，`scheduleSaveQualityCache()` 1500ms 去抖（`m_altsSaveTimer`），析构时若 dirty 再存一次。
 - 队列/收藏统一用**普通 hash 当身份**（`m_baseOf.value(playHash, playHash)`），否则同一首歌会因音质不同在队列里出现多条。
 
 ---
@@ -518,7 +518,7 @@ getComments / getPersonalFm / getPersonalRadar
 | 能力 | 字节模式（byte mode）；纠错等级 `L`、`M`；版本 1-10（注释：「登录二维码足够」） |
 | 导出 | 顶层 `function qrcode(text, ecl)` → `modules[row][col]` 布尔二维数组（`true` = 黑块）；内部另有 `make()` / `selectVersion()` / `QRCodeModel` 等 |
 | 导出约定 | 注释明确：**顶层必须用 `function` 声明导出**（QML 的 JS import 只暴露顶层函数/变量名） |
-| 加载者 | `components/QRCodeView.qml:7` `import "qrc:/QueMusic/api/qrcode.js" as QRCode`，调用 `QRCode.qrcode(root.qrText, "M")` 后用 `Canvas` 逐格 `fillRect` 绘制；`qrText` 变化即 `requestPaint()`，生成异常时 `console.warn` 并退化为纯色背景 |
+| 加载者 | `components/QRCodeView.qml:7` `import "qrc:/SmyunMusic/api/qrcode.js" as QRCode`，调用 `QRCode.qrcode(root.qrText, "M")` 后用 `Canvas` 逐格 `fillRect` 绘制；`qrText` 变化即 `requestPaint()`，生成异常时 `console.warn` 并退化为纯色背景 |
 | 宿主 | `SettingsView.qml:95`（网易云扫码，`qrText: AccountManager.neteaseQrText`）与 `SettingsView.qml:325`（酷狗扫码，`qrText: AccountManager.kugouQrText`） |
 | 构建 | 作为 QML 模块文件参与 `qt6_add_qml_module(... QML_FILES api/qrcode.js ...)`（`CMakeLists.txt:140`），并列入 `cmake/qmltc.cmake` 的跳过清单（与 `components/QRCodeView.qml` 一起被 qmltc 跳过） |
 | 风险 | 版本上限 10 决定容量上限；超长 URL 会抛异常 → `QRCodeView` 静默画白屏（不崩溃） |
@@ -578,7 +578,7 @@ target_link_libraries(${PROJECT_NAME} PRIVATE ... QCloudMusicApi cryptopp::crypt
 
 - 酷狗同一首歌的音质是**不同 hash**：列表解析必须提供 `hashhq/hashsq`，否则 `resolveQualityHash()` 没有可升级目标（会原样请求 base）。`ApiCommon::song()` 的空值回退会让「没有高档音质」与「高档 hash 等于 base」不可区分 —— 这是有意的（Kugou 侧用 `pay_type_320/pay_type_sq` 提前判付费并回退 base）。
 - 队列/收藏/播放列表用**普通 hash 当身份**（`m_baseOf`），`urlplay` 回传的也是 `identityHash`；改回「实际请求的 hash」会让同一首歌因音质不同在队列里出现多条。
-- 删除 `QueMusicQuality.json` 只损失一次音质升级（下一轮列表解析会重建），但**格式（`hq`/`sq` 两个对象）不能被别的用途复用**。
+- 删除 `SmyunMusicQuality.json` 只损失一次音质升级（下一轮列表解析会重建），但**格式（`hq`/`sq` 两个对象）不能被别的用途复用**。
 - `Config.soundQuality` 与 `MusicApi.soundQuality` 是两个值：QML `components/QListView.qml::hashOf()` 用 `Config.soundQuality` 预选 hash，`MusicApiService::resolveQualityHash()` 用属性再选一次。两者语义必须一致（0/1/2+），否则会出现「点了 320k 却请求 128k hash」。
 
 ### 4.10.4 错误处理约定
@@ -609,7 +609,7 @@ target_link_libraries(${PROJECT_NAME} PRIVATE ... QCloudMusicApi cryptopp::crypt
 
 1. `MusicApiService` 构造函数**不能**加 `parent` 默认值 → QML 单例会走默认构造、账号注入失效。
 2. `paytype` 必须归一到 `0/3`；平台自家枚举（网易云 `fee`、酷狗 `pay_type`）直传会让 VIP 角标与筛选静默失效。
-3. `DISPATCH(source, expr)` 内层变量名 `quemusicSource` 不要改回短名（曾因变量遮蔽误传未初始化值）。
+3. `DISPATCH(source, expr)` 内层变量名 `smyunmusicSource` 不要改回短名（曾因变量遮蔽误传未初始化值）。
 4. `handleResult` 的 `endRequest()` 必须在函数开头（中间有 `return`；放出口会漏减）。
 5. `appends` 与 `clear` 的责任分工：模型默认只追加，**首页清空由 QML 负责**（如 `SearchPage` 切换 tab 时 `clear()`）；`getHotlistMenu`/`musicToplist`/`toplistList` 例外，在 C++ 内 clear。改错会出现「切 tab 后列表叠加」。
 6. `OnlineListModel::append` 里 `collectRoles()` 必须在 `beginInsertRows()` 之前。

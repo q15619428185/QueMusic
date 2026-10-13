@@ -1,4 +1,4 @@
-# 🎵 QueMusic Project
+# 🎵 SmyunMusic Project
 
 <p align="center"><img alt="Logo" src="doc/example/logo.png"></p>
 
@@ -10,12 +10,12 @@
   <img alt="Language" src="https://img.shields.io/badge/Language-C%2B%2B20%20%7C%20QML-orange?style=flat-square">
   <img alt="Platform" src="https://img.shields.io/badge/Platform-Windows%20%7C%20macOS%20%7C%20Linux-lightgrey?style=flat-square">
   <img alt="Version" src="https://img.shields.io/badge/Version-0.6.0-informational?style=flat-square">
-  <img alt="Stars" src="https://img.shields.io/github/stars/BroNekoX/QueMusic?style=flat-square">
-  <img alt="Release" src="https://img.shields.io/github/v/release/BroNekoX/QueMusic?style=flat-square">
-  <img alt="CI" src="https://github.com/BroNekoX/QueMusic/actions/workflows/ci.yml/badge.svg">
+  <img alt="Stars" src="https://img.shields.io/github/stars/BroNekoX/SmyunMusic?style=flat-square">
+  <img alt="Release" src="https://img.shields.io/github/v/release/BroNekoX/SmyunMusic?style=flat-square">
+  <img alt="CI" src="https://github.com/BroNekoX/SmyunMusic/actions/workflows/ci.yml/badge.svg">
 </p>
 
-> QueMusic 是一款把「性能」和「手感」放在第一优先级的开源跨平台音乐播放器。
+> SmyunMusic 是一款把「性能」和「手感」放在第一优先级的开源跨平台音乐播放器。
 > 计算与 I/O 全部交给 C++ 与工作线程，QML 只负责呈现；渲染走 Qt RHI 的 GPU 管线，动效不掉帧，核显也能稳稳跑满 60 FPS。
 > 开发者坚持 **永久免费 & 开源**。
 >
@@ -25,7 +25,7 @@
 
 ## 📋 必读
 
-### QueMusic官网已推出，快速获取文档及下载内容：[quemusic.top](https://quemusic.top)
+### SmyunMusic官网已推出，快速获取文档及下载内容：[smyunmusic.top](https://smyunmusic.top)
 
 #### 国内快速下载本应用及历史版本：
 
@@ -88,13 +88,13 @@
 
 ## 🔨 快速了解
 
-### QueMusic 是什么？
+### SmyunMusic 是什么？
 
-QueMusic 是一个用 **C++20 + Qt 6 + QML** 写成的跨平台桌面音乐播放器，覆盖 Windows / macOS / Linux。
+SmyunMusic 是一个用 **C++20 + Qt 6 + QML** 写成的跨平台桌面音乐播放器，覆盖 Windows / macOS / Linux。
 
 它没有沿用「Web 内核套壳」的常见路线，而是把整条链路都做成了原生实现：音频解码与 DSP 由自研引擎掌管，界面由 Qt RHI 直接对接系统渲染后端，播放、界面、动画三者互不阻塞。
 
-### QueMusic 有哪些不一样？
+### SmyunMusic 有哪些不一样？
 
 - **性能优先**：复杂计算与文件 I/O 全部下沉到 C++ 工作线程，主线程只处理界面；正常使用下内存与 GPU 占用都远低于同类的 Chromium 内核播放器。
 - **界面耐看，动画耐跑**：借助 QML Scene Graph 与自定义贝塞尔曲线动画，转场丝滑且稳定，不靠"堆特效"换观感。
@@ -105,7 +105,7 @@ QueMusic 是一个用 **C++20 + Qt 6 + QML** 写成的跨平台桌面音乐播�
 
 ## ✨ 核心特性
 
-QueMusic 的目标很简单：把每个细节都做扎实。
+SmyunMusic 的目标很简单：把每个细节都做扎实。
 
 | 维度 | 亮点 |
 |------|------|
@@ -121,7 +121,7 @@ QueMusic 的目标很简单：把每个细节都做扎实。
 
 ## Que Graph UI
 
-QueMusic 的界面观感来自 Qt RHI 与 QML Scene Graph，但真正决定"稳不稳"的是组件设计本身。目标很明确：**即使核显，GPU 占用也要低，帧时间也要匀。**
+SmyunMusic 的界面观感来自 Qt RHI 与 QML Scene Graph，但真正决定"稳不稳"的是组件设计本身。目标很明确：**即使核显，GPU 占用也要低，帧时间也要匀。**
 
 - **少嵌套**：能用一个 `Item` 解决的问题不套两层，减少重复绘制与无效变换。
 - **定位越简单越贵不了**：优先级为 `x/y/width/height` → `anchors` → `Row/Column` → `Layouts`，越靠前越省。
@@ -136,7 +136,7 @@ QueMusic 的界面观感来自 Qt RHI 与 QML Scene Graph，但真正决定"稳�
 
 ## Que Audio Engine
 
-音频引擎是 QueMusic 自己握着整条链路的那一层，不依赖系统播放器：
+音频引擎是 SmyunMusic 自己握着整条链路的那一层，不依赖系统播放器：
 
 > **FFmpeg 解码线程 → 无锁环形缓冲 → 音频回调线程（DSP + 设备输出）**
 
@@ -173,7 +173,7 @@ QueMusic 的界面观感来自 Qt RHI 与 QML Scene Graph，但真正决定"稳�
 - **功能插件** — 往界面里加东西：标题栏、底栏、侧栏底部、整窗覆盖层都是开放的扩展点，
   插件用 `api.mount()` 挂自己的按钮或面板（传 `Component` 或 url 都行），可以同时启用多个；
   停用/卸载时宿主回收插件挂出来的一切，插件出错会被自动停用
-- **都写得简单** — `info.json` + 入口 QML 即可；`import QueMusic 1.0` 就能用 `Style` / `Playback` / `SButton`
+- **都写得简单** — `info.json` + 入口 QML 即可；`import SmyunMusic 1.0` 就能用 `Style` / `Playback` / `SButton`
   这些公开单例与组件（歌词界面插件也支持逐字 `info` 与翻译 `translateModel` 两条数据通道）
 
 官方插件仓库与开发规范（含可直接安装的示例插件）：
@@ -188,7 +188,7 @@ QueMusic 的界面观感来自 Qt RHI 与 QML Scene Graph，但真正决定"稳�
 
 内嵌歌词支持 ID3v2 的同步歌词（SYLT）与非同步歌词（USLT），以及 TagLib 能识别的 `LYRICS` 文本元数据（常见于 FLAC、Ogg/Opus、MP4/M4A）。
 
-## QueMusic 性能实测
+## SmyunMusic 性能实测
 
 在 **i5-12400 + UHD 730 核显**、1080P / 60 FPS 歌词界面下：**CPU 平均占用约 4%，GPU 平均占用约 15%**，全程稳定 60 FPS。
 
@@ -228,14 +228,14 @@ QueMusic 的界面观感来自 Qt RHI 与 QML Scene Graph，但真正决定"稳�
   - Windows：`powershell -ExecutionPolicy Bypass -File cmake/fetch_ffmpeg.ps1`（解压到仓库根目录的 `ffmpeg/`，该目录已在 `.gitignore` 中）
   - Linux：`sudo apt install libavcodec-dev libavformat-dev libavutil-dev libswresample-dev pkg-config`
   - Arch：`sudo pacman -S ffmpeg pkgconf`
-  - 也可以 `-DQUEMUSIC_FFMPEG_ROOT=<ffmpeg prefix>` 指定已有安装
+  - 也可以 `-DSMYUNMUSIC_FFMPEG_ROOT=<ffmpeg prefix>` 指定已有安装
 - （可选）**Ninja** 构建系统（推荐，已内置在预设中）
 
 ### 克隆（含子模块）
 
 ```bash
-git clone --recurse-submodules https://github.com/BroNekoX/QueMusic.git
-cd QueMusic
+git clone --recurse-submodules https://github.com/BroNekoX/SmyunMusic.git
+cd SmyunMusic
 ```
 
 > ⚠️ **重要**：本项目使用 QWindowKit、TagLib、Crypto++ 作为 git 子模块，务必加上 `--recurse-submodules`。
@@ -269,8 +269,8 @@ cmake --preset <preset-name>
 cmake --build build/<preset-name> -j 8
 
 # 运行
-./build/<preset-name>/bin/QueMusic        # Linux / macOS
-./build/<preset-name>/bin/QueMusic.exe    # Windows
+./build/<preset-name>/bin/SmyunMusic        # Linux / macOS
+./build/<preset-name>/bin/SmyunMusic.exe    # Windows
 ```
 
 可用预设：
@@ -294,7 +294,7 @@ cmake -B build -G Ninja \
   -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++ \
   -DCMAKE_PREFIX_PATH=/path/to/Qt/6.10.3/llvm-mingw_64
 cmake --build build --parallel
-./build/bin/QueMusic
+./build/bin/SmyunMusic
 
 # MinGW
 cmake -B build -G Ninja \
@@ -307,7 +307,7 @@ cmake -B build -G Ninja \
 cmake -B build -DCMAKE_BUILD_TYPE=Release \
   -DCMAKE_PREFIX_PATH=~/Qt/6.10.3/gcc_64
 cmake --build build -j"$(nproc)"
-./build/bin/QueMusic
+./build/bin/SmyunMusic
 ```
 
 #### macOS
@@ -317,10 +317,10 @@ cmake -B build -DCMAKE_BUILD_TYPE=Release \
       -DCMAKE_PREFIX_PATH=~/Qt/6.10.3/clang_64 \
       -DCMAKE_OSX_DEPLOYMENT_TARGET=11.0
 cmake --build build -j 8
-./build/bin/QueMusic.app/Contents/MacOS/QueMusic
+./build/bin/SmyunMusic.app/Contents/MacOS/SmyunMusic
 ```
 
-> 📦 三种平台的可执行安装包都会随 [Release](https://github.com/BroNekoX/QueMusic/releases) 发布。
+> 📦 三种平台的可执行安装包都会随 [Release](https://github.com/BroNekoX/SmyunMusic/releases) 发布。
 
 ### 打包分发
 
@@ -333,7 +333,7 @@ cmake --build build -j 8
 ## 📁 项目结构
 
 ```
-QueMusic/
+SmyunMusic/
 ├── CMakeLists.txt              # 顶层构建配置
 ├── CMakePresets.json           # 各平台构建预设
 ├── cmake/                      # CMake 模块
@@ -413,14 +413,14 @@ QueMusic/
 - **功能完善（首要）**：补全设置、编辑与歌单管理，增强整体稳定性。
 - **音源插件化**：把播放核心与在线音源解耦，音源作为可插拔模块，由使用者自行配置与负责。
 - **品牌统一**：统一名称与视觉形象，让项目形象更清晰。
-- **社区建设**：推出 QueMusic 官网，与 QQ 群一起把生态做起来。
+- **社区建设**：推出 SmyunMusic 官网，与 QQ 群一起把生态做起来。
 - **性能持续优化**：继续压内存与 GPU 占用，清理性能瓶颈。
 - **沉浸播放**：参考 Folia / MineRadio 的思路，引入 3D 可视化与高度自定义歌词。
 - **UI 打磨**：继续完善自研 QML 组件库，统一设计语言。
 - **国际化**：可选方向（由于主要接入国内音乐平台，不一定推进）。
 - **插件体系**：自定义插件与主题 UI 插件系统。
 
-无论更新到哪一步，QueMusic 都保持开源免费、没有付费内容。但歌曲版权归平台所有，请自行购买 VIP 或付费歌曲，并登录平台账号收听（功能即将更新）。
+无论更新到哪一步，SmyunMusic 都保持开源免费、没有付费内容。但歌曲版权归平台所有，请自行购买 VIP 或付费歌曲，并登录平台账号收听（功能即将更新）。
 
 ---
 
@@ -430,8 +430,8 @@ QueMusic/
 
 | 方式 | 说明 |
 |------|------|
-| 🐛 **报告 Bug** | 提交 [Issue](https://github.com/bronekox/quemusic/issues)，附上复现步骤与环境信息 |
-| 💡 **提出新功能** | 在 [Discussion](https://github.com/bronekox/quemusic/discussions) 中发起讨论 |
+| 🐛 **报告 Bug** | 提交 [Issue](https://github.com/bronekox/smyunmusic/issues)，附上复现步骤与环境信息 |
+| 💡 **提出新功能** | 在 [Discussion](https://github.com/bronekox/smyunmusic/discussions) 中发起讨论 |
 | ⭐ **Star** | 点亮 GitHub Star，支持项目持续开发 |
 | 🧪 **测试** | 构建并试用，反馈兼容性问题 |
 | 🔧 **Pull Request** | 修复 Bug、优化代码、完善功能 —— **欢迎任何人** |
@@ -456,7 +456,7 @@ QueMusic/
 ```
 Apache License
 Version 2.0, January 2004
-Copyright (c) 2025-2026 QueMusic Contributors
+Copyright (c) 2025-2026 SmyunMusic Contributors
 ```
 
 > 💡 **Apache-2.0 要点**：允许商用、修改与分发；衍生作品需保留原始版权声明与 NOTICE；对专利授权有明确条款，为用户提供额外保护。
@@ -530,11 +530,11 @@ Copyright (c) 2025-2026 QueMusic Contributors
 
 ---
 
-## QueMusic Pro 高级版
+## SmyunMusic Pro 高级版
 
 ### 不可能存在的喵！！！
 
-QueMusic 官方版本始终保持开源与永久免费，没有任何 Pro、Ultra、高级版、捐献版等版本，也不存在任何付费、会员、捐献、充值或赞助内容。如果你遇到需要付费的 QueMusic本体，或发现其中存在付费项目，请立即告知开发者。
+SmyunMusic 官方版本始终保持开源与永久免费，没有任何 Pro、Ultra、高级版、捐献版等版本，也不存在任何付费、会员、捐献、充值或赞助内容。如果你遇到需要付费的 SmyunMusic本体，或发现其中存在付费项目，请立即告知开发者。
 
 ---
 
@@ -548,6 +548,6 @@ QueMusic 官方版本始终保持开源与永久免费，没有任何 Pro、Ultr
 ---
 
 <p align="center">
-  <sub>Written for QueMusic Project</sub><br/>
+  <sub>Written for SmyunMusic Project</sub><br/>
   <sub>最后更新：2026-10-09 · 版本 0.6.0</sub>
 </p>

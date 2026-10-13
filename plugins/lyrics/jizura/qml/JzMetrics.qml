@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: MIT
 //
-// JIZURA × QueMusic — Qt font engine provider for the JIZURA runtime.
+// JIZURA × SmyunMusic — Qt font engine provider for the JIZURA runtime.
 //
 // The port measures glyph advances with Qt's font engine instead of
 // canvas.measureText, and needs the em-box ascent/descent to centre text on a

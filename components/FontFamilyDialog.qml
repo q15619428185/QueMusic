@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: Apache-2.0
-// Copyright (c) 2025-2026 QueMusic Contributors
+// Copyright (c) 2025-2026 SmyunMusic Contributors
 //
 // 字体家族选择对话框（继承 QOptionDialog）：可搜索的家族列表，每行用它自己的字体渲染。
 // 用法：currentFamily 指定初始选中项，openFamily() 打开，onAccepted 里读 selectedFamily。
@@ -7,7 +7,7 @@
 pragma ComponentBehavior: Bound
 import QtQuick
 import QtQuick.Controls.Basic
-import QueMusic 1.0
+import SmyunMusic 1.0
 
 QOptionDialog {
     id: root

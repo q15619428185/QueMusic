@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: Apache-2.0
-// Copyright (c) 2025-2026 QueMusic Contributors
+// Copyright (c) 2025-2026 SmyunMusic Contributors
 
 // 扩展点注册表：宿主界面里放一个 PluginSlot 即登记一处「名字 → 容器」，插件用 api.mount 往里挂界面。
 pragma Singleton

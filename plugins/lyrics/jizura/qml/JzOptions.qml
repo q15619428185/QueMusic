@@ -1,16 +1,16 @@
 // SPDX-License-Identifier: MIT
 //
-// JIZURA × QueMusic — the settings block this plugin contributes to the player's
+// JIZURA × SmyunMusic — the settings block this plugin contributes to the player's
 // "播放器样式" dialog (host contract: `property Component styleOptions`).
 //
 // It uses the application's own controls (SettingItem / QDrop / QSlider /
-// QSwitch / QHead from `import QueMusic 1.0`) so the panel matches every other
+// QSwitch / QHead from `import SmyunMusic 1.0`) so the panel matches every other
 // settings page, rather than QtQuick.Controls.
 pragma ComponentBehavior: Bound
 import QtQuick
 import QtQuick.Controls.Basic
 import QtCore
-import QueMusic 1.0
+import SmyunMusic 1.0
 import "../js/labels.js" as Labels
 
 Item {

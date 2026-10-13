@@ -1,8 +1,8 @@
 // SPDX-License-Identifier: Apache-2.0
-// Copyright (c) 2026 QueMusic Contributors
+// Copyright (c) 2026 SmyunMusic Contributors
 //
 import QtQuick
-import QueMusic 1.0
+import SmyunMusic 1.0
 import QtQuick.Controls.Basic
 
 Window {
@@ -13,7 +13,7 @@ Window {
     minimumHeight: 128
     visible: true
     color: "transparent"
-    title: "QueMusic桌面播放器"
+    title: "SmyunMusic桌面播放器"
     transientParent: null
     flags: Qt.Window | Qt.FramelessWindowHint | Qt.WindowStaysOnTopHint
     property bool topWindow: true
@@ -87,7 +87,7 @@ Window {
             y: 16
             width: 64
             height: 64
-            source: Playback.player.urlStr || "qrc:/QueMusic/resources/app/musicpic.png"
+            source: Playback.player.urlStr || "qrc:/SmyunMusic/resources/app/musicpic.png"
             sourceSize: Qt.size(128, 128)
             asynchronous: true
             fillMode: Image.PreserveAspectCrop

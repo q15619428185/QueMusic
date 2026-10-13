@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: Apache-2.0
-// Copyright (c) 2026 QueMusic Contributors
+// Copyright (c) 2026 SmyunMusic Contributors
 //
 // 收藏模型：SQL 走 DbService，isFavorite 用内存 id 集合回答（delegate 每行都会调用）。
 #ifndef FAVORITES_H

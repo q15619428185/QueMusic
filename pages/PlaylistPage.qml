@@ -1,10 +1,10 @@
 // SPDX-License-Identifier: Apache-2.0
-// Copyright (c) 2025-2026 QueMusic Contributors
+// Copyright (c) 2025-2026 SmyunMusic Contributors
 //
 pragma ComponentBehavior: Bound
 import QtQuick
 import QtQuick.Effects
-import QueMusic 1.0
+import SmyunMusic 1.0
 
 Item {
     id: playlistPage
@@ -400,7 +400,7 @@ Item {
                     QPicture {
                         width: 156
                         height: 156
-                        source: (toplistCard.cover || "").replace("{size}","128") || "qrc:/QueMusic/resources/app/musicpic.png"
+                        source: (toplistCard.cover || "").replace("{size}","128") || "qrc:/SmyunMusic/resources/app/musicpic.png"
                         radius: Style.labelRadius
                         radius3: 0
                         radius4: 0
@@ -576,7 +576,7 @@ Item {
                         width: 96
                         height: 96
                         radius: 48
-                        source: (singerCard.cover || "").replace("{size}","128") || "qrc:/QueMusic/resources/app/musicpic.png"
+                        source: (singerCard.cover || "").replace("{size}","128") || "qrc:/SmyunMusic/resources/app/musicpic.png"
                     }
                     Text {
                         anchors.horizontalCenter: parent.horizontalCenter

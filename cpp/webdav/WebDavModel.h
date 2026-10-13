@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: Apache-2.0
-// Copyright (c) 2025-2026 QueMusic Contributors
+// Copyright (c) 2025-2026 SmyunMusic Contributors
 //
 // 远端目录列表模型：角色与 LocalMusicScanner 对齐（列表委托可直接复用），另加 isDir
 #pragma once

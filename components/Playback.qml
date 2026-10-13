@@ -1,11 +1,11 @@
 // SPDX-License-Identifier: Apache-2.0
-// Copyright (c) 2025-2026 QueMusic Contributors
+// Copyright (c) 2025-2026 SmyunMusic Contributors
 //
 // 播放中枢：切歌 / 淡变防爆音 / 音量 / 跳转 / A-B 循环 / 睡眠定时 / 播放历史 / 真随机
 pragma ComponentBehavior: Bound
 pragma Singleton
 import QtQuick
-import QueMusic 1.0
+import SmyunMusic 1.0
 
 QtObject {
     id: root
@@ -14,7 +14,7 @@ QtObject {
     property QueueModel queue
 
     // 当前曲目的标题/歌手与待读歌词路径：原先散在 main.qml，靠 window.xxx 跨文件来回传
-    property string musicTitle: "QueMusic"
+    property string musicTitle: "SmyunMusic"
     property string musicArtist: ""
     // 当前曲目的身份标识（评论等功能按它反查平台）：hash 用未升级品质的原始值
     property string musicHash: ""

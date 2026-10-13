@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: MIT
 //
-// Standalone harness: runs the plugin without QueMusic.
+// Standalone harness: runs the plugin without SmyunMusic.
 //
 //   qml tests/harness.qml
 //   qml tests/harness.qml -- --grab 8 --out tests/out
@@ -19,7 +19,7 @@ Window {
     width: 1280
     height: 720
     visible: true
-    title: "JIZURA × QueMusic — harness"
+    title: "JIZURA × SmyunMusic — harness"
     color: "#0b0b0c"
 
     property real t: 0
@@ -51,7 +51,7 @@ Window {
     // ------------------------------------------------------------- panel mode
     // `--panel` instantiates the plugin's `styleOptions` component so the
     // settings block can be checked (and screenshotted) outside the app's
-    // style dialog.  Needs QueMusic's QML module on the import path.
+    // style dialog.  Needs SmyunMusic's QML module on the import path.
     property bool showPanel: false
 
     Rectangle {

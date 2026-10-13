@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: Apache-2.0
-// Copyright (c) 2025-2026 QueMusic Contributors
+// Copyright (c) 2025-2026 SmyunMusic Contributors
 //
 // 歌词界面主题：自由。默认布局 + 一套自定义项（间隔 / 卡片翻转 / 当前行放大 / 透明度 / 颜色），
 // 数据由宿主注入，改样式一律经 request（宿主白名单），因此可用同接口插件替换。
@@ -12,7 +12,7 @@ import Qt5Compat.GraphicalEffects   // 仅逐字染色仍用 LinearGradient
 import QtMultimedia                  // 背景「视频」样式
 import QtQuick.Dialogs               // 背景图片/视频选择
 import QtCore
-import QueMusic 1.0
+import SmyunMusic 1.0
 
 Item {
     id: mainLyrics
@@ -100,7 +100,7 @@ Item {
     MeshGradientItem {
         anchors.fill: parent
         visible: LyricsFreeConfig.bgStyle === 0 && Style.flowStyle !== 2
-        coverUrl: mainLyrics.coverUrl || "qrc:/QueMusic/resources/app/musicpic.png"
+        coverUrl: mainLyrics.coverUrl || "qrc:/SmyunMusic/resources/app/musicpic.png"
         color1: mainLyrics.mainColor
         color2: mainLyrics.secondColor
         color3: mainLyrics.thirdColor
@@ -202,7 +202,7 @@ Item {
             anchors.fill: musicpic
             fillMode: Image.PreserveAspectCrop
             visible: false
-            source: mainLyrics.coverUrl || "qrc:/QueMusic/resources/app/musicpic.png"
+            source: mainLyrics.coverUrl || "qrc:/SmyunMusic/resources/app/musicpic.png"
             sourceSize: Qt.size(512, 512)
         }
         Rectangle {
@@ -275,7 +275,7 @@ Item {
             y: (mainLyrics.height - height) * 0.5
             x: musicpic.x
             rotation: mainLyrics.playing
-            source: mainLyrics.coverUrl || "qrc:/QueMusic/resources/app/musicpic.png"
+            source: mainLyrics.coverUrl || "qrc:/SmyunMusic/resources/app/musicpic.png"
         }
     }
 
@@ -822,7 +822,7 @@ Item {
                     x: 0
                     y: 36
                     width: parent.width
-                    picModel: ["qrc:/QueMusic/resources/app/musicpic.png","qrc:/QueMusic/resources/app/cd.png"]
+                    picModel: ["qrc:/SmyunMusic/resources/app/musicpic.png","qrc:/SmyunMusic/resources/app/cd.png"]
                     model: ["封面卡片","经典黑胶"]
                     choice: mainLyrics.basicCd ? 1 : 0
                     onTransformed: (choiced) => {

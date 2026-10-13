@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.16)
 
-project(QueMusic VERSION 0.1 LANGUAGES CXX)
+project(SmyunMusic VERSION 0.1 LANGUAGES CXX)
 
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTOMOC_PATH_PREFIX ON)
@@ -9,9 +9,9 @@ set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 # 构建开关（LTO / QML 静态检查 / qmltc；qmltc 为实验性，默认关闭，见 cmake/qmltc.cmake）
-option(QUEMUSIC_ENABLE_LTO "Release 构建启用 LTO/IPO" ON)
-option(QUEMUSIC_QML_LINT "构建时对 QML 执行 qmllint" ON)
-option(QUEMUSIC_ENABLE_QMLTC "启用 qmltc 类型编译（实验性）" OFF)
+option(SMYUNMUSIC_ENABLE_LTO "Release 构建启用 LTO/IPO" ON)
+option(SMYUNMUSIC_QML_LINT "构建时对 QML 执行 qmllint" ON)
+option(SMYUNMUSIC_ENABLE_QMLTC "启用 qmltc 类型编译（实验性）" OFF)
 
 # 统一输出目录：可执行文件与动态库放 bin/，静态库放 lib/
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
@@ -63,13 +63,13 @@ if(NOT MSVC AND NOT APPLE AND NOT CMAKE_BUILD_TYPE MATCHES "^[Dd]ebug$")
 endif()
 
 # QWindowKit运行时库
-set(QUEMUSIC_QWK_RUNTIME_COPY ON)
+set(SMYUNMUSIC_QWK_RUNTIME_COPY ON)
 if(QWINDOWKIT_BUILD_STATIC)
-    set(QUEMUSIC_QWK_RUNTIME_COPY OFF)
+    set(SMYUNMUSIC_QWK_RUNTIME_COPY OFF)
 endif()
 
 # Linux / macOS 要把 QWindowKit 动态库放到可执行文件旁边
-if(NOT WIN32 AND QUEMUSIC_QWK_RUNTIME_COPY)
+if(NOT WIN32 AND SMYUNMUSIC_QWK_RUNTIME_COPY)
     add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
         COMMAND ${CMAKE_COMMAND} -E copy_if_different
             $<TARGET_FILE:QWindowKit::Core>
@@ -79,15 +79,15 @@ if(NOT WIN32 AND QUEMUSIC_QWK_RUNTIME_COPY)
 endif()
 
 # LTO：合并本工程各翻译单元（Qt 动态库不参与）
-if(QUEMUSIC_ENABLE_LTO AND NOT CMAKE_BUILD_TYPE MATCHES "^[Dd]ebug$")
+if(SMYUNMUSIC_ENABLE_LTO AND NOT CMAKE_BUILD_TYPE MATCHES "^[Dd]ebug$")
     include(CheckIPOSupported)
-    check_ipo_supported(RESULT QUEMUSIC_IPO_SUPPORTED OUTPUT QUEMUSIC_IPO_ERROR LANGUAGES CXX)
-    if(QUEMUSIC_IPO_SUPPORTED)
+    check_ipo_supported(RESULT SMYUNMUSIC_IPO_SUPPORTED OUTPUT SMYUNMUSIC_IPO_ERROR LANGUAGES CXX)
+    if(SMYUNMUSIC_IPO_SUPPORTED)
         set_property(TARGET ${PROJECT_NAME} PROPERTY INTERPROCEDURAL_OPTIMIZATION_RELEASE TRUE)
         set_property(TARGET ${PROJECT_NAME} PROPERTY INTERPROCEDURAL_OPTIMIZATION_RELWITHDEBINFO TRUE)
-        message(STATUS "QueMusic: LTO 已启用")
+        message(STATUS "SmyunMusic: LTO 已启用")
     else()
-        message(WARNING "QueMusic: 当前工具链不支持 LTO，已跳过（${QUEMUSIC_IPO_ERROR}）")
+        message(WARNING "SmyunMusic: 当前工具链不支持 LTO，已跳过（${SMYUNMUSIC_IPO_ERROR}）")
     endif()
 endif()
 
@@ -99,8 +99,8 @@ if(WIN32)
 elseif(APPLE)
     set_target_properties(${PROJECT_NAME} PROPERTIES
         MACOSX_BUNDLE TRUE
-        MACOSX_BUNDLE_BUNDLE_NAME "QueMusic"
-        MACOSX_BUNDLE_GUI_IDENTIFIER "com.bronekox.quemusic"
+        MACOSX_BUNDLE_BUNDLE_NAME "SmyunMusic"
+        MACOSX_BUNDLE_GUI_IDENTIFIER "com.bronekox.smyunmusic"
         MACOSX_BUNDLE_BUNDLE_VERSION "${PROJECT_VERSION}"
         MACOSX_BUNDLE_SHORT_VERSION_STRING "${PROJECT_VERSION}"
     )
@@ -159,12 +159,12 @@ set(QUE_MUSIC_QML_FILES
     ${QML_COMPONENTS}
     )
 
-# qmltc 白名单 / 跳过清单（QUEMUSIC_ENABLE_QMLTC=ON 且布局满足条件时才真正启用）
+# qmltc 白名单 / 跳过清单（SMYUNMUSIC_ENABLE_QMLTC=ON 且布局满足条件时才真正启用）
 set(QUE_MUSIC_QMLTC_ACTIVE FALSE)
 include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/qmltc.cmake)
 
 set(QUE_MUSIC_QML_MODULE_OPTIONS)
-if(NOT QUEMUSIC_QML_LINT)
+if(NOT SMYUNMUSIC_QML_LINT)
     list(APPEND QUE_MUSIC_QML_MODULE_OPTIONS NO_LINT)
 endif()
 if(QUE_MUSIC_QMLTC_ACTIVE)
@@ -172,7 +172,7 @@ if(QUE_MUSIC_QMLTC_ACTIVE)
 endif()
 
 qt6_add_qml_module(${PROJECT_NAME} # 默认导入项目的
-    URI QueMusic
+    URI SmyunMusic
     VERSION 1.0
     ${QUE_MUSIC_QML_MODULE_OPTIONS}
     QML_FILES
@@ -332,9 +332,9 @@ target_link_libraries(${PROJECT_NAME}
         Qt6::Concurrent
         Qt6::Widgets
         QCloudMusicApi
-        quemusic::taglib
-        quemusic::zlib
-        quemusic::ffmpeg
+        smyunmusic::taglib
+        smyunmusic::zlib
+        smyunmusic::ffmpeg
         cryptopp::cryptopp
     PUBLIC
         QWindowKit::Quick
@@ -345,8 +345,8 @@ if(WIN32)
     target_link_libraries(${PROJECT_NAME} PRIVATE runtimeobject ole32 shell32 advapi32 crypt32)
 
     # QWindowKit 的 DLL 输出在 _deps 下，需拷到 exe 同目录，否则运行时找不到 QWKCore/QWKQuick
-    # （静态库已链进 exe，无需拷贝，见上方 QUEMUSIC_QWK_RUNTIME_COPY）
-    if(QUEMUSIC_QWK_RUNTIME_COPY)
+    # （静态库已链进 exe，无需拷贝，见上方 SMYUNMUSIC_QWK_RUNTIME_COPY）
+    if(SMYUNMUSIC_QWK_RUNTIME_COPY)
         add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
             COMMAND ${CMAKE_COMMAND} -E copy_if_different
                     $<TARGET_FILE:QWindowKit::Core>
@@ -357,14 +357,14 @@ if(WIN32)
 
     # FFmpeg 运行库须项目自带（解码层直接链接 avcodec/avformat，Qt 部署不再提供）；
     # 缺目录直接报错，不静默跳过，否则应用能启动但无法播放
-    if(NOT EXISTS "${QUEMUSIC_FFMPEG_ROOT}/bin")
+    if(NOT EXISTS "${SMYUNMUSIC_FFMPEG_ROOT}/bin")
         message(FATAL_ERROR
-            "缺少 ${QUEMUSIC_FFMPEG_ROOT}/bin（FFmpeg 运行库）。"
+            "缺少 ${SMYUNMUSIC_FFMPEG_ROOT}/bin（FFmpeg 运行库）。"
             "解码层直接链接 avcodec/avformat，Qt 部署不再提供它们，须由项目自带。")
     endif()
     add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
         COMMAND ${CMAKE_COMMAND} -E copy_directory
-                "${QUEMUSIC_FFMPEG_ROOT}/bin"
+                "${SMYUNMUSIC_FFMPEG_ROOT}/bin"
                 $<TARGET_FILE_DIR:${PROJECT_NAME}>
         COMMENT "Copying FFmpeg runtime libraries next to the executable...")
 endif()

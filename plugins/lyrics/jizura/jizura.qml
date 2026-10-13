@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: MIT
 //
-// JIZURA × QueMusic — lyric interface plugin entry point.
+// JIZURA × SmyunMusic — lyric interface plugin entry point.
 //
 // JIZURA (MIT, https://github.com/hakoniwa/JIZURA) arranges a lyric file into a
 // motion-designed PV.  Its arrangement engine runs unmodified inside QML; every
@@ -469,7 +469,7 @@ Item {
     }
 
     // The panel is loaded through a Loader rather than instantiated inline: it
-    // is the only part of the plugin that imports `QueMusic 1.0`, and if that
+    // is the only part of the plugin that imports `SmyunMusic 1.0`, and if that
     // import ever fails, an inline instantiation would take the whole PV down
     // with it instead of just leaving the settings block empty.
     Component {

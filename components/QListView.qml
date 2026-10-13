@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: Apache-2.0
-// Copyright (c) 2025-2026 QueMusic Contributors
+// Copyright (c) 2025-2026 SmyunMusic Contributors
 //
 // 在线音乐列表：歌曲与歌单共用（isList 区分）。
 // 收藏 / 加入播放列表 / 下一首 / 下载 / 信息弹窗在此内部完成，页面只接 onClicked 与 onEnded。
@@ -7,7 +7,7 @@ pragma ComponentBehavior: Bound
 import QtQuick
 import QtQuick.Controls.Basic
 import QtQuick.Effects
-import QueMusic 1.0
+import SmyunMusic 1.0
 
 ListView {
     id: view
@@ -59,7 +59,7 @@ ListView {
     function artistOf(it: var): string { return it ? (it.artist || it.singer || "") : "" }
     function coverOf(it: var): string {
         const s = it && it.cover ? String(it.cover).replace("{size}", "256") : ""
-        return s !== "" ? s : "qrc:/QueMusic/resources/app/musicpic.png"
+        return s !== "" ? s : "qrc:/SmyunMusic/resources/app/musicpic.png"
     }
     // 按当前音质取 hash，高档缺档时降级
     function hashOf(it: var): string {
@@ -363,7 +363,7 @@ ListView {
             width: 44
             height: 44
             radius: 10
-            source: (listDel.cover || "").replace("{size}","64") || "qrc:/QueMusic/resources/app/musicpic.png"
+            source: (listDel.cover || "").replace("{size}","64") || "qrc:/SmyunMusic/resources/app/musicpic.png"
         }
 
         Text {

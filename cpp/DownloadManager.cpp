@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: Apache-2.0
-// Copyright (c) 2026 QueMusic Contributors
+// Copyright (c) 2026 SmyunMusic Contributors
 //
 #include "DownloadManager.h"
 #include <QStandardPaths>
@@ -61,13 +61,13 @@ void DownloadManager::setDownloadPath(const QString &path)
     emit downloadPathChanged();
 }
 
-// 实际保存音频/元数据的目录：自定义目录或系统音乐目录下统一挂 QueMusic 子目录
+// 实际保存音频/元数据的目录：自定义目录或系统音乐目录下统一挂 SmyunMusic 子目录
 QString DownloadManager::effectiveDownloadDir() const
 {
     QString dir = m_downloadPath;
     if (dir.isEmpty())
         dir = QStandardPaths::writableLocation(QStandardPaths::MusicLocation);
-    return dir + QLatin1String("/QueMusic");
+    return dir + QLatin1String("/SmyunMusic");
 }
 
 // QAbstractListModel

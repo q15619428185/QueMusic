@@ -1,6 +1,6 @@
 # 贡献指南（CONTRIBUTING）
 
-感谢愿意一起把 QueMusic 做得更好。这份文档只讲**怎么让改动被顺利合进来**，读完能省下几轮来回。
+感谢愿意一起把 SmyunMusic 做得更好。这份文档只讲**怎么让改动被顺利合进来**，读完能省下几轮来回。
 
 ## 1. 提 Issue 之前
 
@@ -22,8 +22,8 @@
 
 ```bash
 # 克隆（务必带子模块，否则窗口框架与标签库都缺）
-git clone --recursive https://github.com/BroNekoX/QueMusic.git
-cd QueMusic
+git clone --recursive https://github.com/BroNekoX/SmyunMusic.git
+cd SmyunMusic
 
 cmake -B build -G Ninja -DCMAKE_BUILD_TYPE=Release -DCMAKE_PREFIX_PATH=<你的 Qt 路径>
 cmake --build build -j
@@ -38,7 +38,7 @@ CI 会跑**完全一样**的检查，本地先跑一遍能省一次红：
 <Qt>/bin/qmllint -I build $(find . -name '*.qml' -not -path './build/*' -not -path './ThirdParty/*')
 
 # 2) 启动冒烟：离屏跑一次应用，出现 QML / 绑定 / 着色器错误即失败
-tests/smoke-stderr.sh build/bin/QueMusic 12
+tests/smoke-stderr.sh build/bin/SmyunMusic 12
 ```
 
 > 改了 `.frag` / `.vert` 着色器必须重新编译成 `.qsb`（Qt 6 不做运行时编译），

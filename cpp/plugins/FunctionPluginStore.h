@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: Apache-2.0
-// Copyright (c) 2025-2026 QueMusic Contributors
+// Copyright (c) 2025-2026 SmyunMusic Contributors
 //
 // 功能插件：与歌词界面插件同一套目录结构，但可以同时启用多个。
 // 宿主 components/PluginHost.qml 按 enabledIds 给每个启用的插件起一个加载器。

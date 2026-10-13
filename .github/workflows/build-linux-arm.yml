@@ -4,7 +4,7 @@ name: Build Linux AppImage (arm64)
 #   runner          ubuntu-24.04-arm
 #   Qt              6.10.3 / linux_gcc_arm64（安装目录 gcc_arm64）
 #   linuxdeploy     linuxdeploy-aarch64.AppImage
-#   产物            QueMusic-aarch64.AppImage
+#   产物            SmyunMusic-aarch64.AppImage
 # AppImage 的架构由「运行构建的机器 CPU」决定，所以这里必须用原生 arm64 runner，
 # 不是交叉编译（Qt 的 arm64 包里的 moc/rcc/qmlcachegen 等 host 工具本身也是 arm64，
 #  x86 主机跑不了，交叉编译反而更麻烦）。
@@ -99,8 +99,8 @@ jobs:
           has_glob "$QTDIR/plugins/xcbglintegrations/libqxcb-glx-integration.so"   "X11/XWayland GLX 集成"
 
           # 音频后端解码层。默认走系统开发包（pkg-config）——AppImage 流程不开
-          # QUEMUSIC_FFMPEG_USE_QT，所以这里以 pkg-config 为准；Qt 自带的那套 7.1.3
-          # 只在显式 -DQUEMUSIC_FFMPEG_USE_QT=ON 时才被采用（tar 便携包流程那样）。
+          # SMYUNMUSIC_FFMPEG_USE_QT，所以这里以 pkg-config 为准；Qt 自带的那套 7.1.3
+          # 只在显式 -DSMYUNMUSIC_FFMPEG_USE_QT=ON 时才被采用（tar 便携包流程那样）。
           if pkg-config --exists libavcodec; then
             for m in libavcodec libavformat libavutil libswresample; do
               if pkg-config --exists "$m"; then
@@ -112,7 +112,7 @@ jobs:
             done
           elif [ -e "$QTDIR/lib/libavcodec.so.61" ]; then
             echo "⚠️  没有 libav* 开发包，但 Qt 自带 libavcodec.so.61；"
-            echo "    这种情况需要配置时加 -DQUEMUSIC_FFMPEG_USE_QT=ON 才会用它。"
+            echo "    这种情况需要配置时加 -DSMYUNMUSIC_FFMPEG_USE_QT=ON 才会用它。"
           else
             echo "❌ 既没有 libav*-dev（pkg-config），Qt 也没带 libavcodec.so.61"
             FAIL=1
@@ -134,7 +134,7 @@ jobs:
           cmake -B build \
             -DCMAKE_BUILD_TYPE=Release \
             -DCMAKE_PREFIX_PATH="$HOME/Qt/6.10.3/gcc_arm64" \
-            -DQUEMUSIC_FFMPEG_USE_QT=ON
+            -DSMYUNMUSIC_FFMPEG_USE_QT=ON
 
       - name: Build
         run: |
@@ -172,8 +172,8 @@ jobs:
           mkdir -p AppDir/usr/plugins
           mkdir -p AppDir/usr/lib
 
-          cp packaging/QueMusic.desktop AppDir/usr/share/applications/
-          cp resources/icon.png AppDir/usr/share/icons/hicolor/256x256/apps/quemusic.png
+          cp packaging/SmyunMusic.desktop AppDir/usr/share/applications/
+          cp resources/icon.png AppDir/usr/share/icons/hicolor/256x256/apps/smyunmusic.png
 
           QT_PLUGIN_DIR="$HOME/Qt/6.10.3/gcc_arm64/plugins"
 
@@ -291,10 +291,10 @@ jobs:
           # 显式钉住，避免裸 import QtQuick.Controls 去加载包里不存在的风格。
           export QT_QUICK_CONTROLS_STYLE="${QT_QUICK_CONTROLS_STYLE:-Basic}"
           # 平台插件交给 Qt 自动判断：有 Wayland 就用 Wayland，否则回退 X11
-          # （如需强制 X11：QT_QPA_PLATFORM=xcb ./QueMusic-aarch64.AppImage）
+          # （如需强制 X11：QT_QPA_PLATFORM=xcb ./SmyunMusic-aarch64.AppImage）
           # 图形后端：Linux 上 Qt 默认走 OpenGL；包内已带 xcbglintegrations。
           # 若你的显卡/驱动不支持 OpenGL，可改用 Vulkan：
-          #   QSG_RHI_BACKEND=vulkan ./QueMusic-aarch64.AppImage
+          #   QSG_RHI_BACKEND=vulkan ./SmyunMusic-aarch64.AppImage
           # 输入法：包里的 fcitx5 插件是 ENABLE_QT4=OFF 编出来的，注册 key 只有 "fcitx5"，
           # 所以缺省值必须是 fcitx5（写 fcitx 会匹配不到插件 → 无法输入中文）。
           # 用 ibus 的话自己 QT_IM_MODULE=ibus（包内已带官方 ibus 插件）。
@@ -304,7 +304,7 @@ jobs:
           export SDL_IM_MODULE="${SDL_IM_MODULE:-fcitx5}"
           # 分数缩放（125%/150%）：Qt6 默认把缩放系数取整，会导致窗口忽大忽小
           export QT_SCALE_FACTOR_ROUNDING_POLICY="${QT_SCALE_FACTOR_ROUNDING_POLICY:-PassThrough}"
-          exec "${HERE}/usr/bin/QueMusic" "$@"
+          exec "${HERE}/usr/bin/SmyunMusic" "$@"
           EOF
           chmod +x AppRun.sh
 
@@ -382,24 +382,24 @@ jobs:
           #   libvulkan.so.1 是宿主的 loader+ICD，打进包反而会让 Vulkan 失效。
           ./linuxdeploy-aarch64.AppImage --appimage-extract-and-run \
             --appdir AppDir \
-            --executable build/bin/QueMusic \
-            --desktop-file AppDir/usr/share/applications/QueMusic.desktop \
-            --icon-file AppDir/usr/share/icons/hicolor/256x256/apps/quemusic.png \
+            --executable build/bin/SmyunMusic \
+            --desktop-file AppDir/usr/share/applications/SmyunMusic.desktop \
+            --icon-file AppDir/usr/share/icons/hicolor/256x256/apps/smyunmusic.png \
             --plugin qt \
             --custom-apprun AppRun.sh \
             --exclude-library libwayland-egl.so.1 \
             --exclude-library libvulkan.so.1 \
             --output appimage
 
-          mv QueMusic-*.AppImage QueMusic-aarch64.AppImage 2>/dev/null || true
-          ls -la QueMusic-*.AppImage
+          mv SmyunMusic-*.AppImage SmyunMusic-aarch64.AppImage 2>/dev/null || true
+          ls -la SmyunMusic-*.AppImage
 
       # 校验门禁：关键插件必须真的在包里，缺任何一个用户侧就是
       # 「OpenGL 闪退」「Wayland 缩放异常」或「无法输入中文」，所以这里直接让 CI 失败
       - name: Verify AppImage contents
         run: |
-          file QueMusic-aarch64.AppImage
-          ./QueMusic-aarch64.AppImage --appimage-extract > /dev/null
+          file SmyunMusic-aarch64.AppImage
+          ./SmyunMusic-aarch64.AppImage --appimage-extract > /dev/null
           MISSING=0
           check() {
             if ls $2 > /dev/null 2>&1; then
@@ -417,10 +417,10 @@ jobs:
             fi
           }
           # 先确认产物真的是 aarch64，别把 x86 包当 arm 包发出去
-          check "可执行文件存在"           "squashfs-root/usr/bin/QueMusic"
-          case "$(file -b squashfs-root/usr/bin/QueMusic)" in
+          check "可执行文件存在"           "squashfs-root/usr/bin/SmyunMusic"
+          case "$(file -b squashfs-root/usr/bin/SmyunMusic)" in
             *aarch64*|*ARM\ aarch64*) echo "✅ 二进制确认为 aarch64" ;;
-            *) echo "❌ 二进制不是 aarch64：$(file -b squashfs-root/usr/bin/QueMusic)"; MISSING=1 ;;
+            *) echo "❌ 二进制不是 aarch64：$(file -b squashfs-root/usr/bin/SmyunMusic)"; MISSING=1 ;;
           esac
           check "X11 平台插件 (libqxcb)"   "squashfs-root/usr/plugins/platforms/libqxcb.so"
           check "Wayland 平台插件"         "squashfs-root/usr/plugins/platforms/libqwayland*.so"
@@ -455,13 +455,13 @@ jobs:
           fi
 
           # 只应有一套 ffmpeg（Qt 自带的 7.1.3 = libavcodec.so.61）。
-          # 冒出第二套（系统 6.1 的 .so.60）说明 Configure 没带 -DQUEMUSIC_FFMPEG_USE_QT=ON，
+          # 冒出第二套（系统 6.1 的 .so.60）说明 Configure 没带 -DSMYUNMUSIC_FFMPEG_USE_QT=ON，
           # 会把整套系统编解码栈 + 系统 ICU 一起打进包，体积翻倍。
           AV_VERS="$(ls -1 squashfs-root/usr/lib 2>/dev/null | grep -oE '^libavcodec\.so\.[0-9]+' | sort -u | tr '\n' ' ')"
           if [ "$(echo $AV_VERS | wc -w)" -le 1 ]; then
             echo "✅ 只有一套 ffmpeg：${AV_VERS:-（无）}"
           else
-            echo "❌ 包里出现多套 ffmpeg（$AV_VERS）：确认 Configure 带了 -DQUEMUSIC_FFMPEG_USE_QT=ON"
+            echo "❌ 包里出现多套 ffmpeg（$AV_VERS）：确认 Configure 带了 -DSMYUNMUSIC_FFMPEG_USE_QT=ON"
             MISSING=1
           fi
           exit $MISSING
@@ -469,8 +469,8 @@ jobs:
       - name: Upload AppImage artifact
         uses: actions/upload-artifact@v4
         with:
-          name: QueMusic-aarch64.AppImage
-          path: QueMusic-aarch64.AppImage
+          name: SmyunMusic-aarch64.AppImage
+          path: SmyunMusic-aarch64.AppImage
 
       # 与 build-macos.yml 同款写法：只在「打 tag」时执行，自动挂到该 tag 的 Release。
       # action-gh-release 自带「Release 不存在就创建、已存在就追加文件」，
@@ -479,7 +479,7 @@ jobs:
         if: startsWith(github.ref, 'refs/tags/')
         uses: softprops/action-gh-release@v2
         with:
-          files: QueMusic-aarch64.AppImage
+          files: SmyunMusic-aarch64.AppImage
           generate_release_notes: false
           prerelease: false
         env:

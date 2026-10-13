@@ -1,14 +1,14 @@
 @echo off
 rem ============================================================
-rem QueMusic 收藏写库诊断  —— 双击运行即可，无需管理员
+rem SmyunMusic 收藏写库诊断  —— 双击运行即可，无需管理员
 rem 结果会打印在窗口里，同时写到 桌面\qm-dbcheck.txt
 rem ============================================================
 set OUT=%USERPROFILE%\Desktop\qm-dbcheck.txt
-echo QueMusic 数据库写权限诊断 > "%OUT%"
+echo SmyunMusic 数据库写权限诊断 > "%OUT%"
 echo 时间: %DATE% %TIME% >> "%OUT%"
 echo. >> "%OUT%"
 
-set DB=%APPDATA%\BroNekoX\QueMusic\player_data.db
+set DB=%APPDATA%\BroNekoX\SmyunMusic\player_data.db
 
 echo [1] 数据库文件 >> "%OUT%"
 if exist "%DB%" (
@@ -25,9 +25,9 @@ if exist "%DB%-shm" ( del /f /q "%DB%-shm" && echo    已删除 -shm >> "%OUT%" 
 echo. >> "%OUT%"
 
 echo [3] 目录里能否新建文件 >> "%OUT%"
-echo test > "%APPDATA%\BroNekoX\QueMusic\writetest.tmp" 2>>"%OUT%" && (
+echo test > "%APPDATA%\BroNekoX\SmyunMusic\writetest.tmp" 2>>"%OUT%" && (
     echo    可以新建文件 >> "%OUT%"
-    del /f /q "%APPDATA%\BroNekoX\QueMusic\writetest.tmp"
+    del /f /q "%APPDATA%\BroNekoX\SmyunMusic\writetest.tmp"
 ) || echo    无法新建文件 >> "%OUT%"
 echo. >> "%OUT%"
 
@@ -39,7 +39,7 @@ where sqlite3 >nul 2>>"%OUT%" && (
 echo. >> "%OUT%"
 
 echo [5] 是否被进程占用 >> "%OUT%"
-tasklist | findstr /i "QueMusic" >> "%OUT%" 2>&1
+tasklist | findstr /i "SmyunMusic" >> "%OUT%" 2>&1
 echo. >> "%OUT%"
 
 echo 完成。请把桌面上的 qm-dbcheck.txt 内容发出来。

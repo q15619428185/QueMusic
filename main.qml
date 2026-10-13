@@ -1,9 +1,9 @@
 // SPDX-License-Identifier: Apache-2.0
-// Copyright (c) 2025-2026 QueMusic Contributors
+// Copyright (c) 2025-2026 SmyunMusic Contributors
 //
 pragma ComponentBehavior: Bound
 import QtQuick
-import QueMusic 1.0
+import SmyunMusic 1.0
 import QtCore
 import QtMultimedia
 import QWindowKit 1.0
@@ -16,7 +16,7 @@ Window {
     minimumWidth: 810
     minimumHeight: 540
     color: Theme.primaryColor
-    title: "QueMusic"
+    title: "SmyunMusic"
     Component.onCompleted: {
         Options.queue = playListModel
         Options.dialog = globalDialog
@@ -97,7 +97,7 @@ Window {
                     mainWarn.tiped("发现新版本 v" + remote + "，请在设置-关于中查看", 1);
             }
         }
-        xhr.open("GET", "https://raw.githubusercontent.com/BroNekoX/QueMusic/main/doc/updater.txt");
+        xhr.open("GET", "https://raw.githubusercontent.com/BroNekoX/SmyunMusic/main/doc/updater.txt");
         xhr.send();
     }
 
@@ -238,7 +238,7 @@ Window {
 
             QWKButton {
                 id: returnButton
-                source: Options.darkis ? "qrc:/QueMusic/resources/window-bar/returnd.svg" : "qrc:/QueMusic/resources/window-bar/return.svg"
+                source: Options.darkis ? "qrc:/SmyunMusic/resources/window-bar/returnd.svg" : "qrc:/SmyunMusic/resources/window-bar/return.svg"
                 onClicked: {
                     Options.exit()
                     console.log("Exit")
@@ -317,7 +317,7 @@ Window {
                 largeicon: true
                 property int prevVisibility: Window.Maximized
                 buttonColor: window.visibility === Window.FullScreen ? Theme.containColor : "transparent"
-                source: Options.darkis || titleBar.toBarLyric ? "qrc:/QueMusic/resources/window-bar/airplayd.svg" : "qrc:/QueMusic/resources/window-bar/airplay.svg"
+                source: Options.darkis || titleBar.toBarLyric ? "qrc:/SmyunMusic/resources/window-bar/airplayd.svg" : "qrc:/SmyunMusic/resources/window-bar/airplay.svg"
                 onClicked: {
                     if (window.visibility === Window.FullScreen) {
                         if (prevVisibility === Window.Maximized)
@@ -335,7 +335,7 @@ Window {
             QWKButton {
                 id: settingButton
                 largeicon: true
-                source: Options.darkis || titleBar.toBarLyric ? "qrc:/QueMusic/resources/window-bar/settingd.svg" : "qrc:/QueMusic/resources/window-bar/setting.svg"
+                source: Options.darkis || titleBar.toBarLyric ? "qrc:/SmyunMusic/resources/window-bar/settingd.svg" : "qrc:/SmyunMusic/resources/window-bar/setting.svg"
                 onClicked: {
                     settingsView.active = true;
                 }
@@ -344,7 +344,7 @@ Window {
 
             QWKButton {
                 id: minButton
-                source: Options.darkis || titleBar.toBarLyric ? "qrc:/QueMusic/resources/window-bar/minimized.svg" : "qrc:/QueMusic/resources/window-bar/minimize.svg"
+                source: Options.darkis || titleBar.toBarLyric ? "qrc:/SmyunMusic/resources/window-bar/minimized.svg" : "qrc:/SmyunMusic/resources/window-bar/minimize.svg"
                 onClicked: window.showMinimized();
                 Component.onCompleted: {
                     if(Options.isMacOS) {
@@ -356,8 +356,8 @@ Window {
             }
 
             QWKButton {
-                readonly property string maximized: Options.darkis || titleBar.toBarLyric ? "qrc:/QueMusic/resources/window-bar/maximized.svg" : "qrc:/QueMusic/resources/window-bar/maximize.svg"
-                readonly property string restored: Options.darkis || titleBar.toBarLyric ? "qrc:/QueMusic/resources/window-bar/restored.svg" : "qrc:/QueMusic/resources/window-bar/restore.svg"
+                readonly property string maximized: Options.darkis || titleBar.toBarLyric ? "qrc:/SmyunMusic/resources/window-bar/maximized.svg" : "qrc:/SmyunMusic/resources/window-bar/maximize.svg"
+                readonly property string restored: Options.darkis || titleBar.toBarLyric ? "qrc:/SmyunMusic/resources/window-bar/restored.svg" : "qrc:/SmyunMusic/resources/window-bar/restore.svg"
                 id: maxButton
                 source: window.visibility === Window.Maximized ? restored : maximized
                 onClicked: {
@@ -377,8 +377,8 @@ Window {
             }
 
             QWKButton {
-                readonly property string hover: Options.darkis ? "qrc:/QueMusic/resources/window-bar/close.svg" : "qrc:/QueMusic/resources/window-bar/closed.svg"
-                readonly property string unhover: Options.darkis || titleBar.toBarLyric ? "qrc:/QueMusic/resources/window-bar/closed.svg" : "qrc:/QueMusic/resources/window-bar/close.svg"
+                readonly property string hover: Options.darkis ? "qrc:/SmyunMusic/resources/window-bar/close.svg" : "qrc:/SmyunMusic/resources/window-bar/closed.svg"
+                readonly property string unhover: Options.darkis || titleBar.toBarLyric ? "qrc:/SmyunMusic/resources/window-bar/closed.svg" : "qrc:/SmyunMusic/resources/window-bar/close.svg"
                 id: closeButton
                 source: closeButton.hovered ? hover : unhover
                 hoverColor: "#ee4848"
@@ -419,7 +419,7 @@ Window {
                     sidebar.baseColor = Theme.blurOverlayColor;
                     window.color = Theme.primaryColor;
                     mainContent.color = Theme.blurOverlayColor;
-                    backGround.source = "qrc:/QueMusic/resources/pic/cloudRainbow.png";
+                    backGround.source = "qrc:/SmyunMusic/resources/pic/cloudRainbow.png";
                 } else if(Style.backmode === 3) {
                     backGround.visible = true;
                     sidebar.baseColor = Theme.blurOverlayColor;
@@ -427,10 +427,10 @@ Window {
                     mainContent.color = Theme.blurOverlayColor;
                     switch(Style.backpic) {
                         case 0:
-                            backGround.source = "qrc:/QueMusic/resources/pic/back1.jpg";
+                            backGround.source = "qrc:/SmyunMusic/resources/pic/back1.jpg";
                             break;
                         case 1:
-                            backGround.source = "qrc:/QueMusic/resources/pic/back3.jpg";
+                            backGround.source = "qrc:/SmyunMusic/resources/pic/back3.jpg";
                             break;
                         case 2:
                             backGround.source = Style.backgroundImage;
@@ -699,7 +699,7 @@ Window {
                     colorExtractor.extractColorsFromUrl(localCover);
                 }
             } else if (!jsonCover) {
-                mainMedia.urlStr = "qrc:/QueMusic/resources/app/musicpic.png";
+                mainMedia.urlStr = "qrc:/SmyunMusic/resources/app/musicpic.png";
             }
         }
     }
@@ -796,7 +796,7 @@ Window {
     AudioEngine {
         id: mainMedia
         // 封面初值；urlStr / noTitle / album 由 QML 侧注入（见 MusicApi 回调），onMedia 派生自 mediaStatus
-        urlStr: "qrc:/QueMusic/resources/app/musicpic.png"
+        urlStr: "qrc:/SmyunMusic/resources/app/musicpic.png"
 
         source: ""
         volume: Playback.outVolume
@@ -874,10 +874,10 @@ Window {
     }
     SystemTrayManager {
         id: systemTray
-        iconSource: "qrc:/QueMusic/resources/icon.ico"
-        title: "QueMusic"
+        iconSource: "qrc:/SmyunMusic/resources/icon.ico"
+        title: "SmyunMusic"
         playing: mainMedia.playbackState === AudioEngine.PlayingState
-        nowPlaying: Playback.musicTitle !== "QueMusic"
+        nowPlaying: Playback.musicTitle !== "SmyunMusic"
                     ? Playback.musicTitle + (Playback.musicArtist && Playback.musicArtist !== "Artist"
                                            ? " - " + Playback.musicArtist : "")
                     : ""
@@ -927,14 +927,14 @@ Window {
         active: false
         asynchronous: true
         visible: status === Loader.Ready
-        source: "qrc:/QueMusic/components/DesktopPlayerWindow.qml"
+        source: "qrc:/SmyunMusic/components/DesktopPlayerWindow.qml"
     }
     Loader {
         id: desktopLyricsLoader
         active: false
         asynchronous: true
         visible: status === Loader.Ready
-        source: "qrc:/QueMusic/components/DesktopLyrics.qml"
+        source: "qrc:/SmyunMusic/components/DesktopLyrics.qml"
     }
     QAlertDialog {
         id: globalDialog
@@ -978,7 +978,7 @@ Window {
     }
     QOptionDialog {
         id: picWatch
-        property string source: "qrc:/QueMusic/resources/app/musicpic.png"
+        property string source: "qrc:/SmyunMusic/resources/app/musicpic.png"
         property string fileName: "Picture.png"
         title: "查看图片"
         cancelText: "保存"
@@ -1051,7 +1051,7 @@ Window {
         active: false
         asynchronous: true
         visible: status === Loader.Ready
-        source: "qrc:/QueMusic/components/QTextWindow.qml"
+        source: "qrc:/SmyunMusic/components/QTextWindow.qml"
     }
 
     // 扩展点：整窗覆盖层（插件自己定位，默认不吃鼠标事件）

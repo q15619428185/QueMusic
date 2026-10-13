@@ -1,8 +1,8 @@
 // SPDX-License-Identifier: Apache-2.0
-// Copyright (c) 2026 QueMusic Contributors
+// Copyright (c) 2026 SmyunMusic Contributors
 //
 import QtQuick
-import QueMusic 1.0
+import SmyunMusic 1.0
 
 Item {
     id: root
@@ -58,7 +58,7 @@ Item {
         width: 96
         height: 96
         radius: 16
-        source: root.image || "qrc:/QueMusic/resources/app/musicpic.png"
+        source: root.image || "qrc:/SmyunMusic/resources/app/musicpic.png"
     }
 
     Text {

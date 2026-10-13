@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: Apache-2.0
-// Copyright (c) 2025-2026 QueMusic Contributors
+// Copyright (c) 2025-2026 SmyunMusic Contributors
 //
 // 远端文件缓存：播放时后台把「音频 + 同名歌词 + 同目录封面」落到同一目录，
 // 落地后标签/歌词/封面直接复用本地那套（CoverHelper + LocalLyricsReader）

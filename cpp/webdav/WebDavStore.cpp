@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: Apache-2.0
-// Copyright (c) 2025-2026 QueMusic Contributors
+// Copyright (c) 2025-2026 SmyunMusic Contributors
 //
 #include "WebDavStore.h"
 #include "WebDavClient.h"
@@ -24,7 +24,7 @@ QString encryptText(const QString &plain)
     QByteArray raw = plain.toUtf8();
     DATA_BLOB src{ DWORD(raw.size()), reinterpret_cast<BYTE *>(raw.data()) };
     DATA_BLOB out{ 0, nullptr };
-    if (!CryptProtectData(&src, L"QueMusic", nullptr, nullptr, nullptr, 0, &out))
+    if (!CryptProtectData(&src, L"SmyunMusic", nullptr, nullptr, nullptr, 0, &out))
         return {};
     const QByteArray cipher(reinterpret_cast<const char *>(out.pbData), int(out.cbData));
     LocalFree(out.pbData);

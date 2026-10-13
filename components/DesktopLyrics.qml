@@ -1,9 +1,9 @@
 // SPDX-License-Identifier: Apache-2.0
-// Copyright (c) 2026 QueMusic Contributors
+// Copyright (c) 2026 SmyunMusic Contributors
 //
 import QtQuick
 import Qt5Compat.GraphicalEffects
-import QueMusic 1.0
+import SmyunMusic 1.0
 
 Window {
     id: desktopLyricsWindow
@@ -13,7 +13,7 @@ Window {
     minimumHeight: 120
     visible: true
     color: "transparent"
-    title: "QueMusic 桌面歌词"
+    title: "SmyunMusic 桌面歌词"
     transientParent: null
     flags: Qt.Window | Qt.FramelessWindowHint | Qt.WindowStaysOnTopHint
     property bool active: true   // 外部控制显示/隐藏

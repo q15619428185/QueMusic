@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: Apache-2.0
-// Copyright (c) 2025-2026 QueMusic Contributors
+// Copyright (c) 2025-2026 SmyunMusic Contributors
 //
 // FFmpeg 解码器：解封装 + 解码 + 重采样，统一输出 float32 交错 PCM
 #pragma once

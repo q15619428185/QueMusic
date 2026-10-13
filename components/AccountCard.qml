@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: Apache-2.0
-// Copyright (c) 2026 QueMusic Contributors
+// Copyright (c) 2026 SmyunMusic Contributors
 import QtQuick
-import QueMusic 1.0
+import SmyunMusic 1.0
 
 Rectangle {
     id: root
@@ -11,7 +11,7 @@ Rectangle {
     color: cardArea.containsMouse ? Theme.containColor : Theme.primaryColor
     border.color: Theme.secondaryColor
     border.width: 2
-    property url source: "qrc:/QueMusic/resources/app/header.png"
+    property url source: "qrc:/SmyunMusic/resources/app/header.png"
     property string title: "Account"
     property string text: ""
     property string openUrl: ""

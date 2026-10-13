@@ -1,14 +1,14 @@
-# QueMusic 打包指南
+# SmyunMusic 打包指南
 
-本目录包含 QueMusic 在各平台的打包脚本与配置。
+本目录包含 SmyunMusic 在各平台的打包脚本与配置。
 
 ## 一、各平台打包方式一览
 
 | 平台 | 产物 | 打包位置 | 是否需要本机 |
 |------|------|----------|--------------|
-| **Windows** | `QueMusic-setup.exe`（Inno Setup） | 本机 | ✅ 需要 Windows |
-| **Linux** | `QueMusic-x86_64.AppImage` | 本机（任何发行版） | ✅ 需要 Linux |
-| **macOS** | `QueMusic-0.1.0-macOS-{arm64,x86_64}.dmg` | GitHub Actions 云端 | ❌ 不需要 Mac！ |
+| **Windows** | `SmyunMusic-setup.exe`（Inno Setup） | 本机 | ✅ 需要 Windows |
+| **Linux** | `SmyunMusic-x86_64.AppImage` | 本机（任何发行版） | ✅ 需要 Linux |
+| **macOS** | `SmyunMusic-0.1.0-macOS-{arm64,x86_64}.dmg` | GitHub Actions 云端 | ❌ 不需要 Mac！ |
 
 ## 二、macOS 打包（无需 Mac，用 GitHub Actions）
 
@@ -38,7 +38,7 @@ git push origin v0.1.0
 ### 下载后的 .dmg 使用说明
 macOS 用户首次打开若提示"无法验证开发者"：
 - 右键点击 App → **打开**（选择仍要打开）
-- 或终端执行：`xattr -dr com.apple.quarantine /Applications/QueMusic.app`
+- 或终端执行：`xattr -dr com.apple.quarantine /Applications/SmyunMusic.app`
 
 > 注：由于没有 Apple Developer 证书，App 未签名/未公证，属正常现象。
 > 未来若想消除提示，需要注册 Apple Developer（$99/年）并配置签名与公证。
@@ -59,13 +59,13 @@ bash packaging/build-linux.sh
 2. 用 **aqtinstall 安装 Qt 6.10.3**（与 Windows 版完全一致，避免系统 Qt 版本不一致带来的兼容风险）
 3. 下载 linuxdeploy + qt 插件
 4. 构建 Release 版
-5. 打包出自包含的 **`QueMusic-x86_64.AppImage`**
+5. 打包出自包含的 **`SmyunMusic-x86_64.AppImage`**
 
 ### 试运行
 
 ```bash
-chmod +x QueMusic-x86_64.AppImage
-./QueMusic-x86_64.AppImage
+chmod +x SmyunMusic-x86_64.AppImage
+./SmyunMusic-x86_64.AppImage
 ```
 
 > 若 AppImage 无法运行（缺 FUSE）：
@@ -110,7 +110,7 @@ makepkg -si
 ├── build-macos.yml     # macOS 云端打包（GitHub Actions）
 packaging/
 ├── build-linux.sh      # Linux AppImage 一键打包脚本
-├── QueMusic.desktop    # Linux 桌面入口文件
+├── SmyunMusic.desktop    # Linux 桌面入口文件
 ├── PKGBUILD            # Arch 原生包脚本
 └── README.md           # 本说明
 ```

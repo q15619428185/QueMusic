@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # ============================================================
-# QueMusic - Linux tar 便携包 一键打包（本地用）
+# SmyunMusic - Linux tar 便携包 一键打包（本地用）
 #
 # 与 CI 的 .github/workflows/build-linux-tar.yml 逻辑一致：
 #   1) 用 Qt 6.10.3（aqt，自带 FFmpeg 7.1.3）配置并构建全部目标
@@ -8,7 +8,7 @@
 #   3) 把构建机绝对 RPATH 规整成 $ORIGIN，打成 tar.xz
 #
 # 用法:  bash packaging/build-linux-tar.sh
-# 产物:  QueMusic-linux-<架构>.tar.xz
+# 产物:  SmyunMusic-linux-<架构>.tar.xz
 #        解压后进目录 ./run.sh 即可运行（目标机器需 Qt 6.10+）
 # ============================================================
 set -euo pipefail
@@ -18,11 +18,11 @@ QT_DIR="${QT_DIR:-${HOME}/Qt}"
 QT_PREFIX="${QT_DIR}/${QT_VERSION}/gcc_64"
 BUILD_DIR="${BUILD_DIR:-build}"
 ARCH="$(uname -m)"
-NAME="QueMusic-linux-${ARCH}"
+NAME="SmyunMusic-linux-${ARCH}"
 PACKAGE="${NAME}.tar.xz"
 
 echo "============================================="
-echo " QueMusic Linux tar 便携包"
+echo " SmyunMusic Linux tar 便携包"
 echo " Qt: ${QT_VERSION}  架构: ${ARCH}"
 echo "============================================="
 
@@ -47,13 +47,13 @@ fi
 
 # ---------- 1. 配置 + 构建 ----------
 echo "==> [1/4] 构建（全部目标）..."
-# -DQUEMUSIC_FFMPEG_USE_QT=ON 让产物绑到 Qt 自带的 FFmpeg（libavcodec.so.61 = 7.1.3），
+# -DSMYUNMUSIC_FFMPEG_USE_QT=ON 让产物绑到 Qt 自带的 FFmpeg（libavcodec.so.61 = 7.1.3），
 # 与 CI 的 build-linux-tar.yml 以及「使用注意事项.txt」里写的要求一致；
 # 不加这个开关时会退回系统 ffmpeg（要求就变成系统那个版本了）。
 cmake -B "${BUILD_DIR}" \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_PREFIX_PATH="${QT_PREFIX}" \
-    -DQUEMUSIC_FFMPEG_USE_QT=ON
+    -DSMYUNMUSIC_FFMPEG_USE_QT=ON
 cmake --build "${BUILD_DIR}" -j"$(nproc)"
 
 # ---------- 2. 组装 ----------
@@ -79,7 +79,7 @@ while IFS= read -r f; do
     if file -b "$f" 2>/dev/null | grep -q '^ELF'; then
         patchelf --set-rpath '$ORIGIN' "$f" 2>/dev/null && PATCHED=$((PATCHED + 1)) || true
     fi
-done < <(find "${NAME}" -type f \( -name '*.so' -o -name '*.so.*' -o -name 'QueMusic' \) 2>/dev/null)
+done < <(find "${NAME}" -type f \( -name '*.so' -o -name '*.so.*' -o -name 'SmyunMusic' \) 2>/dev/null)
 echo "    已处理 ${PATCHED} 个 ELF"
 
 # ---------- 4. 打包 ----------

@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: Apache-2.0
-// Copyright (c) 2025-2026 QueMusic Contributors
+// Copyright (c) 2025-2026 SmyunMusic Contributors
 //
 // 播放引擎：FFmpeg 解码线程 → 无锁环形缓冲 → 音频回调线程（DSP + 设备输出）
 #pragma once

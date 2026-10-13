@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: Apache-2.0
-// Copyright (c) 2025-2026 QueMusic Contributors
+// Copyright (c) 2025-2026 SmyunMusic Contributors
 //
 // 3d 歌词主题，三层：① 背景着色器（按预设换文件）② 点云舞台 LyricsStage（C++，GPU 算点位置）
 // ③ 歌词平面 lyricplane.frag（固定 LOD 0 保持字清晰 + 字体发光）。
@@ -7,7 +7,7 @@
 pragma ComponentBehavior: Bound
 import QtQuick
 import QtCore
-import QueMusic 1.0
+import SmyunMusic 1.0
 
 Item {
     id: root

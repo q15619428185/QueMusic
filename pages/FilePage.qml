@@ -1,12 +1,12 @@
 // SPDX-License-Identifier: Apache-2.0
-// Copyright (c) 2025-2026 QueMusic Contributors
+// Copyright (c) 2025-2026 SmyunMusic Contributors
 //
 pragma ComponentBehavior: Bound
 import QtQuick
 import QtQuick.Controls.Basic
 import QtQuick.Dialogs
 import Qt.labs.folderlistmodel
-import QueMusic 1.0
+import SmyunMusic 1.0
 Item {
     id: filePage
 
@@ -1059,8 +1059,8 @@ Item {
 
                     readonly property string coverUrl: {
                         if (listfile.tagCoverUrl !== "") return listfile.tagCoverUrl;
-                        if (!listfile.path) return "qrc:/QueMusic/resources/app/musicpic.png";
-                        return MusicApi.readLocalCoverHint(listfile.path) || "qrc:/QueMusic/resources/app/musicpic.png";
+                        if (!listfile.path) return "qrc:/SmyunMusic/resources/app/musicpic.png";
+                        return MusicApi.readLocalCoverHint(listfile.path) || "qrc:/SmyunMusic/resources/app/musicpic.png";
                     }
                     property string songTitle: listfile.tagTitle || listfile.name
                     property string artistName: listfile.tagArtist || listfile.singer || ""
@@ -1438,8 +1438,8 @@ Item {
                     readonly property string rowPath: listLocalFile.fileUrl ? listLocalFile.fileUrl.toString() : ""
                     readonly property string coverUrl: {
                         if (model.coverUrl !== "") return model.coverUrl;
-                        if (!rowPath) return "qrc:/QueMusic/resources/app/musicpic.png";
-                        return MusicApi.readLocalCoverHint(rowPath) || "qrc:/QueMusic/resources/app/musicpic.png";
+                        if (!rowPath) return "qrc:/SmyunMusic/resources/app/musicpic.png";
+                        return MusicApi.readLocalCoverHint(rowPath) || "qrc:/SmyunMusic/resources/app/musicpic.png";
                     }
                     property string songTitle: listLocalFile.title || listLocalFile.fileName
                     property string artistName: listLocalFile.artist || ""
@@ -1842,7 +1842,7 @@ Item {
                 return coverPick
             if (embeddedCover !== "")
                 return embeddedCover
-            return "qrc:/QueMusic/resources/app/musicpic.png"
+            return "qrc:/SmyunMusic/resources/app/musicpic.png"
         }
 
         function edit(path: string, src: int): void {

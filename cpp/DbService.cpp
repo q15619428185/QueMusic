@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: Apache-2.0
-// Copyright (c) 2026 QueMusic Contributors
+// Copyright (c) 2026 SmyunMusic Contributors
 //
 #include "DbService.h"
 
@@ -16,7 +16,7 @@
 
 namespace {
 
-const QString kConnName = QStringLiteral("quemusic_db_worker");
+const QString kConnName = QStringLiteral("smyunmusic_db_worker");
 
 // 查列，缺了才 ALTER（老库升级无需用户干预）
 void addColumnIfMissing(QSqlDatabase &db, const QString &table, const QString &column, const QString &definition)
@@ -141,7 +141,7 @@ DbService::DbService()
     m_impl->worker->moveToThread(&m_impl->thread);
     QObject::connect(&m_impl->thread, &QThread::started, m_impl->worker, &DbWorker::open);
     QObject::connect(&m_impl->thread, &QThread::finished, m_impl->worker, &DbWorker::close);
-    m_impl->thread.setObjectName(QStringLiteral("quemusic-db"));
+    m_impl->thread.setObjectName(QStringLiteral("smyunmusic-db"));
     m_impl->thread.start();
 }
 

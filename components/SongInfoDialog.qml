@@ -1,11 +1,11 @@
 // SPDX-License-Identifier: Apache-2.0
-// Copyright (c) 2026 QueMusic Contributors
+// Copyright (c) 2026 SmyunMusic Contributors
 //
 // 歌曲 / 歌单信息弹窗：全应用只此一份（原先每个 QListView 各带一个 QOptionDialog）。
 // 字段名各平台不统一，归一化在各平台的 C++ 层完成，这里只做展示。
 pragma ComponentBehavior: Bound
 import QtQuick
-import QueMusic 1.0
+import SmyunMusic 1.0
 
 QOptionDialog {
     id: root
@@ -47,7 +47,7 @@ QOptionDialog {
                 height: 72
                 radius: 14
                 source: root.info && root.info.cover ? String(root.info.cover).replace("{size}", "160")
-                                                     : "qrc:/QueMusic/resources/app/musicpic.png"
+                                                     : "qrc:/SmyunMusic/resources/app/musicpic.png"
                 sourceSize: Qt.size(160, 160)
             }
             Column {

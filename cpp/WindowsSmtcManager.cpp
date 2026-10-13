@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: Apache-2.0
-// Copyright (c) 2026 QueMusic Contributors
+// Copyright (c) 2026 SmyunMusic Contributors
 //
 #include "WindowsSmtcManager.h"
 
@@ -9,12 +9,12 @@
 
 // SMTC 互操作走直连 WinRT ABI（不使用 WRL），因此 MSVC 与 MinGW-w64 都可编译。
 #if defined(Q_OS_WIN)
-#  define QUEMUSIC_SMTC_IMPL 1
+#  define SMYUNMUSIC_SMTC_IMPL 1
 #else
-#  define QUEMUSIC_SMTC_IMPL 0
+#  define SMYUNMUSIC_SMTC_IMPL 0
 #endif
 
-#if QUEMUSIC_SMTC_IMPL
+#if SMYUNMUSIC_SMTC_IMPL
 
 #  ifndef NOMINMAX
 #    define NOMINMAX
@@ -710,7 +710,7 @@ void WindowsSmtcManager::Private::updateMediaInfo(const QString &title,
     if (!initialized || !displayUpdater)
         return;
 
-    const QString titleStr = title.isEmpty() ? QStringLiteral("QueMusic") : title;
+    const QString titleStr = title.isEmpty() ? QStringLiteral("SmyunMusic") : title;
     const QString artistStr = artist.isEmpty() ? QStringLiteral("未知歌手") : artist;
 
     displayUpdater->put_Type(SmtcAbi::MediaPlaybackType_Music);
@@ -835,7 +835,7 @@ void WindowsSmtcManager::Private::updateTimeline(qint64 positionMs, qint64 durat
     lastTimelinePositionMs = clampedPosition;
 }
 
-#else // QUEMUSIC_SMTC_IMPL
+#else // SMYUNMUSIC_SMTC_IMPL
 
 class WindowsSmtcManager::Private
 {
@@ -843,7 +843,7 @@ public:
     bool initialized = false;
 };
 
-#endif // QUEMUSIC_SMTC_IMPL
+#endif // SMYUNMUSIC_SMTC_IMPL
 
 WindowsSmtcManager::WindowsSmtcManager(QObject *parent)
     : QObject(parent)
@@ -853,7 +853,7 @@ WindowsSmtcManager::WindowsSmtcManager(QObject *parent)
 
 WindowsSmtcManager::~WindowsSmtcManager()
 {
-#if QUEMUSIC_SMTC_IMPL
+#if SMYUNMUSIC_SMTC_IMPL
     if (SmtcAbi::s_smtcManager == this)
         SmtcAbi::s_smtcManager = nullptr;
     d->deinit();
@@ -868,7 +868,7 @@ bool WindowsSmtcManager::isAvailable() const
 
 void WindowsSmtcManager::initialize(QWindow *window)
 {
-#if QUEMUSIC_SMTC_IMPL
+#if SMYUNMUSIC_SMTC_IMPL
     if (d->initialized)
         return;
     if (!window) {
@@ -890,7 +890,7 @@ void WindowsSmtcManager::initialize(QWindow *window)
 
 void WindowsSmtcManager::shutdown()
 {
-#if QUEMUSIC_SMTC_IMPL
+#if SMYUNMUSIC_SMTC_IMPL
     if (SmtcAbi::s_smtcManager == this)
         SmtcAbi::s_smtcManager = nullptr;
     if (d->initialized)
@@ -901,7 +901,7 @@ void WindowsSmtcManager::shutdown()
 
 void WindowsSmtcManager::setControlsEnabled(bool play, bool pause, bool next, bool previous)
 {
-#if QUEMUSIC_SMTC_IMPL
+#if SMYUNMUSIC_SMTC_IMPL
     d->setControlsEnabled(play, pause, next, previous);
 #else
     Q_UNUSED(play); Q_UNUSED(pause); Q_UNUSED(next); Q_UNUSED(previous);
@@ -910,7 +910,7 @@ void WindowsSmtcManager::setControlsEnabled(bool play, bool pause, bool next, bo
 
 void WindowsSmtcManager::setPlaybackStatus(int status)
 {
-#if QUEMUSIC_SMTC_IMPL
+#if SMYUNMUSIC_SMTC_IMPL
     d->setPlaybackStatus(status);
 #else
     Q_UNUSED(status);
@@ -921,7 +921,7 @@ void WindowsSmtcManager::updateMediaInfo(const QString &title, const QString &ar
                                          const QString &album, const QString &cover,
                                          const QString &mediaId)
 {
-#if QUEMUSIC_SMTC_IMPL
+#if SMYUNMUSIC_SMTC_IMPL
     d->updateMediaInfo(title, artist, album, cover, mediaId);
 #else
     Q_UNUSED(title); Q_UNUSED(artist); Q_UNUSED(album); Q_UNUSED(cover); Q_UNUSED(mediaId);
@@ -930,7 +930,7 @@ void WindowsSmtcManager::updateMediaInfo(const QString &title, const QString &ar
 
 void WindowsSmtcManager::updateTimeline(qint64 positionMs, qint64 durationMs)
 {
-#if QUEMUSIC_SMTC_IMPL
+#if SMYUNMUSIC_SMTC_IMPL
     d->updateTimeline(positionMs, durationMs);
 #else
     Q_UNUSED(positionMs); Q_UNUSED(durationMs);
@@ -939,7 +939,7 @@ void WindowsSmtcManager::updateTimeline(qint64 positionMs, qint64 durationMs)
 
 void WindowsSmtcManager::postButtonPressed(int button)
 {
-#if QUEMUSIC_SMTC_IMPL
+#if SMYUNMUSIC_SMTC_IMPL
     // 从 WinRT 工作线程安全地投递到主线程
     QMetaObject::invokeMethod(this, [this, button] {
         using B = SmtcAbi::SystemMediaTransportControlsButton;
@@ -967,7 +967,7 @@ void WindowsSmtcManager::postButtonPressed(int button)
 
 void WindowsSmtcManager::postSeekRequested(qint64 positionMs)
 {
-#if QUEMUSIC_SMTC_IMPL
+#if SMYUNMUSIC_SMTC_IMPL
     QMetaObject::invokeMethod(this, [this, positionMs] {
         emit seekRequested(positionMs);
     }, Qt::QueuedConnection);

@@ -1,8 +1,8 @@
 // SPDX-License-Identifier: Apache-2.0
-// Copyright (c) 2025-2026 QueMusic Contributors
+// Copyright (c) 2025-2026 SmyunMusic Contributors
 //
 import QtQuick
-import QueMusic 1.0
+import SmyunMusic 1.0
 import QtQuick.Effects
 
 Item {
@@ -20,7 +20,7 @@ Item {
     property alias picScale: mask.scale
     property size sourceSize: Qt.size(width,height)
 
-    readonly property url fallbackSource: "qrc:/QueMusic/resources/app/musicpic.png"
+    readonly property url fallbackSource: "qrc:/SmyunMusic/resources/app/musicpic.png"
     property bool loadFailed: false
     onSourceChanged: loadFailed = false
 

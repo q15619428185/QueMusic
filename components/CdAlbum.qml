@@ -3,7 +3,7 @@ import QtQuick.Effects
 
 Item {
     id: root
-    property string source: "qrc:/QueMusic/resources/app/musicpic.png"
+    property string source: "qrc:/SmyunMusic/resources/app/musicpic.png"
     property bool rotation: false
     NumberAnimation {
         target: cdImage
@@ -27,7 +27,7 @@ Item {
     }
 
     Image {
-        source: "qrc:/QueMusic/resources/app/cd.png"
+        source: "qrc:/SmyunMusic/resources/app/cd.png"
         z: 1
         width: root.width
         height: root.width
@@ -44,7 +44,7 @@ Item {
 
     Image {
         id: pointImage
-        source: "qrc:/QueMusic/resources/app/cdpoint.png"
+        source: "qrc:/SmyunMusic/resources/app/cdpoint.png"
         z: 2
         x: root.width * 0.4
         y: root.width * -0.3

@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: Apache-2.0
-// Copyright (c) 2025-2026 QueMusic Contributors
+// Copyright (c) 2025-2026 SmyunMusic Contributors
 
 // 「3D」歌词界面的自有设置（自动持久化），同 LyricsFreeConfig：单例化以便跨组件引用可被 AOT 编译。
 pragma Singleton

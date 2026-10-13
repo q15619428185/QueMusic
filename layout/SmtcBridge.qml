@@ -1,10 +1,10 @@
 // SPDX-License-Identifier: Apache-2.0
-// Copyright (c) 2025-2026 QueMusic Contributors
+// Copyright (c) 2025-2026 SmyunMusic Contributors
 //
 // 系统媒体控件（Windows SMTC）：向系统推送播放状态与曲目信息，并接收系统的播放/暂停/切歌/跳转请求。
 // 原生 WinRT 调用会同步回调进 QML，故统一经 Qt.callLater 延后，避免重入切歌逻辑。
 import QtQuick
-import QueMusic 1.0
+import SmyunMusic 1.0
 
 QtObject {
     id: root

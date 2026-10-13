@@ -1,10 +1,10 @@
 // SPDX-License-Identifier: Apache-2.0
-// Copyright (c) 2025-2026 QueMusic Contributors
+// Copyright (c) 2025-2026 SmyunMusic Contributors
 //
 pragma ComponentBehavior: Bound
 import QtQuick
 import QtQuick.Effects
-import QueMusic 1.0
+import SmyunMusic 1.0
 
 Item {
     id: homePage
@@ -54,7 +54,7 @@ Item {
     function openDaily(): void {
         MusicApi.personalRadar.clear()
         MusicApi.getPersonalRadar(1, 20, MusicApi.songSource)
-        dailyWindow.opened("每日推荐", "qrc:/QueMusic/resources/app/musicpic.png")
+        dailyWindow.opened("每日推荐", "qrc:/SmyunMusic/resources/app/musicpic.png")
         Options.exitIndex = 1
     }
 
@@ -74,7 +74,7 @@ Item {
         MusicApi.globaltagid = tag.tagid
         MusicApi.musicPlaylists.clear()
         MusicApi.getMusicPlaylists(tag.tagid, 1, 20)
-        recommendWindow.opened(tag.title, (tag.cover || "").replace("{size}", "256") || "qrc:/QueMusic/resources/app/musicpic.png")
+        recommendWindow.opened(tag.title, (tag.cover || "").replace("{size}", "256") || "qrc:/SmyunMusic/resources/app/musicpic.png")
         Options.exitIndex = 1
     }
 
@@ -299,7 +299,7 @@ Item {
                                 anchors.margins: 10
                                 radius: Style.labelRadius
                                 sourceSize: Qt.size(192, 192)
-                                source: "qrc:/QueMusic/resources/app/rainbowMusicIcon.png"
+                                source: "qrc:/SmyunMusic/resources/app/rainbowMusicIcon.png"
                             }
                             RectangularShadow {
                                 anchors.fill: parent
@@ -336,7 +336,7 @@ Item {
                             height: 48
                             radius: Style.labelRadius
                             sourceSize: Qt.size(64, 64)
-                            source: Options.lastSongs.cover || "qrc:/QueMusic/resources/app/musicpic.png"
+                            source: Options.lastSongs.cover || "qrc:/SmyunMusic/resources/app/musicpic.png"
                         }
 
                         Text {

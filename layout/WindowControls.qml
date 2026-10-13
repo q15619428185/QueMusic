@@ -1,9 +1,9 @@
 // SPDX-License-Identifier: Apache-2.0
-// Copyright (c) 2025-2026 QueMusic Contributors
+// Copyright (c) 2025-2026 SmyunMusic Contributors
 //
 // 主窗口生命周期：托盘隐藏/恢复、关闭前保存会话与窗口几何、退出流程。
 import QtQuick
-import QueMusic 1.0
+import SmyunMusic 1.0
 
 QtObject {
     id: root
@@ -33,7 +33,7 @@ QtObject {
             const item = q.get(idx)
             Options.lastSongs.name = Playback.musicTitle
             Options.lastSongs.artist = Playback.musicArtist
-            Options.lastSongs.cover = (p && p.urlStr) || "qrc:/QueMusic/resources/app/musicpic.png"
+            Options.lastSongs.cover = (p && p.urlStr) || "qrc:/SmyunMusic/resources/app/musicpic.png"
             Options.lastSongs.hash = item.path
             Options.lastSongs.source = item.source
         }
@@ -60,7 +60,7 @@ QtObject {
         if (!trayTipShown) {
             trayTipShown = true
             if (tray)
-                tray.showMessage("QueMusic", "已最小化到系统托盘，点击托盘图标可恢复",
+                tray.showMessage("SmyunMusic", "已最小化到系统托盘，点击托盘图标可恢复",
                                  SystemTrayManager.Information)
         }
     }

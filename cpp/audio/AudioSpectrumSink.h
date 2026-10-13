@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: Apache-2.0
-// Copyright (c) 2025-2026 QueMusic Contributors
+// Copyright (c) 2025-2026 SmyunMusic Contributors
 //
 // 频谱订阅协议：音频回调线程只持有本文件定义的「句柄」，绝不直接引用订阅者的
 // QObject。裸指针 + destroyed 信号那套做法挡不住竞争——destroyed 是在 QObject

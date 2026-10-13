@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: Apache-2.0
-// Copyright (c) 2025-2026 QueMusic Contributors
+// Copyright (c) 2025-2026 SmyunMusic Contributors
 //
 #include "FfmpegDecoder.h"
 
@@ -91,7 +91,7 @@ bool FfmpegDecoder::open(const QString &pathOrUrl, QString *error, const QByteAr
                     0);
         av_dict_set(&opts, "referer", "https://www.bilibili.com", 0);
     } else {
-        av_dict_set(&opts, "user_agent", "QueMusic", 0);
+        av_dict_set(&opts, "user_agent", "SmyunMusic", 0);
     }
     av_dict_set(&opts, "rw_timeout", "15000000", 0);
     av_dict_set(&opts, "timeout", "15000000", 0);

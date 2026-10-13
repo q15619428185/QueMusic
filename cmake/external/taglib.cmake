@@ -2,8 +2,8 @@
 #
 # vendored 是为了让各平台的元数据解析行为一致，不依赖发行版自带的包。
 #
-# 对外导出 target：quemusic::taglib（静态库 tag + 头文件搜索路径）
-if(TARGET quemusic::taglib)
+# 对外导出 target：smyunmusic::taglib（静态库 tag + 头文件搜索路径）
+if(TARGET smyunmusic::taglib)
     return()
 endif()
 
@@ -14,14 +14,14 @@ set(BUILD_TESTING OFF CACHE BOOL "" FORCE)
 
 # QWindowKit 会改写全局的 BUILD_SHARED_LIBS，这里固定 TagLib 为静态构建，
 # 部署时就不必再额外带一个 libtag 动态库。
-set(_quemusic_build_shared_libs ${BUILD_SHARED_LIBS})
+set(_smyunmusic_build_shared_libs ${BUILD_SHARED_LIBS})
 set(BUILD_SHARED_LIBS OFF)
 add_subdirectory("${_taglib_root}" "${CMAKE_BINARY_DIR}/_deps/taglib-build" EXCLUDE_FROM_ALL)
-set(BUILD_SHARED_LIBS ${_quemusic_build_shared_libs})
-unset(_quemusic_build_shared_libs)
+set(BUILD_SHARED_LIBS ${_smyunmusic_build_shared_libs})
+unset(_smyunmusic_build_shared_libs)
 
-add_library(quemusic_taglib INTERFACE)
-target_include_directories(quemusic_taglib INTERFACE
+add_library(smyunmusic_taglib INTERFACE)
+target_include_directories(smyunmusic_taglib INTERFACE
     "${_taglib_root}/taglib"
     "${_taglib_root}/taglib/toolkit"
     "${_taglib_root}/taglib/mpeg"
@@ -30,7 +30,7 @@ target_include_directories(quemusic_taglib INTERFACE
     "${_taglib_root}/taglib/flac"
     "${_taglib_root}/taglib/mp4"
 )
-target_link_libraries(quemusic_taglib INTERFACE tag)
+target_link_libraries(smyunmusic_taglib INTERFACE tag)
 
-add_library(quemusic::taglib ALIAS quemusic_taglib)
+add_library(smyunmusic::taglib ALIAS smyunmusic_taglib)
 unset(_taglib_root)

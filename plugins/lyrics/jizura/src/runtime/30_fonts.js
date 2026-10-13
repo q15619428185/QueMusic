@@ -1,5 +1,5 @@
 /* ============================================================================
-   JIZURA for QueMusic — fragment 3/4a: fonts, metrics, glyphs
+   JIZURA for SmyunMusic — fragment 3/4a: fonts, metrics, glyphs
    ----------------------------------------------------------------------------
    JIZURA's own src/02_fonts.js is a *browser* font layer: it injects Google
    Fonts stylesheets, loads FontFace objects, and measures advances with

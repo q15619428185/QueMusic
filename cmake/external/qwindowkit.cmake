@@ -8,11 +8,11 @@ endif()
 find_package(QWindowKit QUIET)
 
 if(QWindowKit_FOUND)
-    message(STATUS "[QueMusic] Using system QWindowKit")
+    message(STATUS "[SmyunMusic] Using system QWindowKit")
     return()
 endif()
 
-message(STATUS "[QueMusic] Using bundled QWindowKit from ThirdParty/qwindowkit")
+message(STATUS "[SmyunMusic] Using bundled QWindowKit from ThirdParty/qwindowkit")
 
 set(QWINDOWKIT_BUILD_QUICK    ON  CACHE BOOL "" FORCE)
 set(QWINDOWKIT_BUILD_WIDGETS  OFF CACHE BOOL "" FORCE)

@@ -1,12 +1,12 @@
 // SPDX-License-Identifier: Apache-2.0
-// Copyright (c) 2025-2026 QueMusic Contributors
+// Copyright (c) 2025-2026 SmyunMusic Contributors
 //
 pragma ComponentBehavior: Bound
 import QtQuick
 import QtQuick.Controls.Basic
 import QtQuick.Dialogs
 import QtCore
-import QueMusic 1.0
+import SmyunMusic 1.0
 
 Item {
     id: settingsView
@@ -498,7 +498,7 @@ Item {
                 id: returnButton
                 width: 36
                 height: 36
-                source: Options.darkis ? "qrc:/QueMusic/resources/window-bar/returnd.svg" : "qrc:/QueMusic/resources/window-bar/return.svg"
+                source: Options.darkis ? "qrc:/SmyunMusic/resources/window-bar/returnd.svg" : "qrc:/SmyunMusic/resources/window-bar/return.svg"
                 background: Rectangle {
                     color: returnButton.hovered ? Theme.hoverColor : "transparent"
                     radius: Style.noControlRadius ? Style.labelRadius : 8
@@ -2243,7 +2243,7 @@ Item {
                         anchors.horizontalCenter: parent.horizontalCenter
                         width: 96
                         height: 96
-                        source: "qrc:/QueMusic/resources/icon.ico"
+                        source: "qrc:/SmyunMusic/resources/icon.ico"
                         sourceSize: Qt.size(96, 96)
                     }
 
@@ -2252,7 +2252,7 @@ Item {
                         anchors.horizontalCenter: parent.horizontalCenter
                         height: 56
                         width: implicitWidth// + 96
-                        text: "QueMusic"
+                        text: "SmyunMusic"
                         font.family: Fonts.text
                         font.pixelSize: 56
                         font.bold: false
@@ -2277,7 +2277,7 @@ Item {
                     radius: Style.cubeRadius
                     SettingItem {
                         width: settingStack.standWidth - 32
-                        label: "QueMusic Beta (测试版本)"
+                        label: "SmyunMusic Beta (测试版本)"
                         controlWidth: 120
                         height: 36
                         x: 16
@@ -2373,7 +2373,7 @@ Item {
                         x: 48
                         y: 20
                         width: parent.width - 108
-                        text: "QueMusic Beta（官方版）始终是完全免费且开源的软件，不存在付费，会员，捐献，充值，广告等入口，官方版本不存在Pro，Ultra，高级版等版本，如果你发现软件或软件内有需要付费的内容，请立即与开发者联系。"
+                        text: "SmyunMusic Beta（官方版）始终是完全免费且开源的软件，不存在付费，会员，捐献，充值，广告等入口，官方版本不存在Pro，Ultra，高级版等版本，如果你发现软件或软件内有需要付费的内容，请立即与开发者联系。"
                         wrapMode: Text.Wrap
                         color: Theme.fontColor
                         font.bold: false
@@ -2406,7 +2406,7 @@ Item {
                         id: description
                         anchors.centerIn: parent
                         width: settingStack.standWidth - 48
-                        text: "QueMusic是一个基于Qt QML开发的全能音乐播放器，旨在让听歌变得更简单，在Qt RHI * QML * C++强大组合下，性能卓越，UI美观丝滑，基于C++的在线音源使其拥有强大的稳定在线体验，并且由此实现美观强大的自定义功能，QueMusic希望做一个全能的音乐播放器。"
+                        text: "SmyunMusic是一个基于Qt QML开发的全能音乐播放器，旨在让听歌变得更简单，在Qt RHI * QML * C++强大组合下，性能卓越，UI美观丝滑，基于C++的在线音源使其拥有强大的稳定在线体验，并且由此实现美观强大的自定义功能，SmyunMusic希望做一个全能的音乐播放器。"
                         wrapMode: Text.Wrap
                         color: Theme.textColor
                         font.pixelSize: 13
@@ -2422,7 +2422,7 @@ Item {
                     height: 80
                     AccountCard {
                         width: settingStack.standWidth / 2 - 12
-                        source: "qrc:/QueMusic/resources/app/icons/bronekox.jpg"
+                        source: "qrc:/SmyunMusic/resources/app/icons/bronekox.jpg"
                         title: "BroNekoX Studio"
                         text: "本项目的主要开发负责人"
                         openUrl: "https://github.com/bronekox"
@@ -2517,7 +2517,7 @@ Item {
                     width: settingStack.standWidth
                     AccountCard {
                         width: settingStack.standWidth / 2 - 12
-                        source: "qrc:/QueMusic/resources/app/icons/qwk.png"
+                        source: "qrc:/SmyunMusic/resources/app/icons/qwk.png"
                         title: "QWindowKit"
                         text: "实现全平台完美的无边框窗口"
                         openUrl: "https://github.com/stdware/qwindowkit"
@@ -2525,7 +2525,7 @@ Item {
                     }
                     AccountCard {
                         width: settingStack.standWidth / 2 - 12
-                        source: "qrc:/QueMusic/resources/app/icons/qticon.png"
+                        source: "qrc:/SmyunMusic/resources/app/icons/qticon.png"
                         title: "Qt Community"
                         text: "强大的开源跨平台软件包框架"
                         openUrl: "https://github.com/qt"
@@ -2617,17 +2617,17 @@ Item {
                         text: "Github"
                         iconCharacter: "\uf0dd"
                         onClicked: {
-                            Qt.openUrlExternally("https://github.com/bronekox/quemusic");
+                            Qt.openUrlExternally("https://github.com/bronekox/smyunmusic");
                         }
                     }
 
                     QButton {
                         height: 40
                         radius: 20
-                        text: "QueMusic Web"
+                        text: "SmyunMusic Web"
                         iconCharacter: "\uf0d7"
                         onClicked: {
-                            Qt.openUrlExternally("https://quemusic.top");
+                            Qt.openUrlExternally("https://smyunmusic.top");
                         }
                     }
 
@@ -2637,7 +2637,7 @@ Item {
                         text: "Bug反馈/issue"
                         iconCharacter: "\uf06e"
                         onClicked: {
-                            Qt.openUrlExternally("https://github.com/bronekox/quemusic/issues");
+                            Qt.openUrlExternally("https://github.com/bronekox/smyunmusic/issues");
                         }
                     }
 
@@ -2658,7 +2658,7 @@ Item {
                         anchors.centerIn: parent
                         color: Theme.fontColor
                         font.pixelSize: Style.textmain
-                        text: "Copyright (c) 2025-2026 QueMusic Contributors\n   本项目基于 Apache License 2.0 协议获得许可"
+                        text: "Copyright (c) 2025-2026 SmyunMusic Contributors\n   本项目基于 Apache License 2.0 协议获得许可"
                     }
                 }
             }
@@ -2894,7 +2894,7 @@ Item {
         property int localVersion: Options.versionCode
 
         // 远程 version.txt 的 URL
-        property string remoteVersionUrl: "https://raw.githubusercontent.com/BroNekoX/QueMusic/main/doc/updater.txt"
+        property string remoteVersionUrl: "https://raw.githubusercontent.com/BroNekoX/SmyunMusic/main/doc/updater.txt"
         property int newVersion: Options.versionCode
         property string versionDescription: ""
 
@@ -2935,13 +2935,13 @@ Item {
         QAlertDialog {
             id: updateDialog
             title: "有新版本！"
-            message: "发现QueMusic的新版本：(v" + updater.newVersion + ")，是否前往更新？\n 版本更新日志：" + updater.versionDescription
+            message: "发现SmyunMusic的新版本：(v" + updater.newVersion + ")，是否前往更新？\n 版本更新日志：" + updater.versionDescription
             isInput: false
             blurSource: settingsView
             confirmText: "更新"
 
             onConfirm: {
-                Qt.openUrlExternally("https://github.com/BroNekoX/QueMusic/releases");
+                Qt.openUrlExternally("https://github.com/BroNekoX/SmyunMusic/releases");
             }
         }
     }

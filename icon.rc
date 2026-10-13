@@ -19,13 +19,13 @@ BEGIN
     BEGIN
         BLOCK "080404b0"
         BEGIN
-            VALUE "CompanyName", "QueMusic Contributors"
-            VALUE "FileDescription", "QueMusic"
+            VALUE "CompanyName", "SmyunMusic Contributors"
+            VALUE "FileDescription", "SmyunMusic"
             VALUE "FileVersion", "0.1.0.0"
-            VALUE "InternalName", "QueMusic"
-            VALUE "LegalCopyright", "Copyright (c) 2026 QueMusic Contributors"
-            VALUE "OriginalFilename", "QueMusic.exe"
-            VALUE "ProductName", "QueMusic"
+            VALUE "InternalName", "SmyunMusic"
+            VALUE "LegalCopyright", "Copyright (c) 2026 SmyunMusic Contributors"
+            VALUE "OriginalFilename", "SmyunMusic.exe"
+            VALUE "ProductName", "SmyunMusic"
             VALUE "ProductVersion", "0.1.0.0"
         END
     END

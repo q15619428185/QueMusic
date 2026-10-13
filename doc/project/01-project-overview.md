@@ -1,22 +1,22 @@
 # 第 1 部分 · 项目身份与全局地图
 
-> 本文件是 [QueMusic 项目全景文档索引](README.md) 的一个分片；任务定位与其它部分请见 [README.md](README.md)。
+> 本文件是 [SmyunMusic 项目全景文档索引](README.md) 的一个分片；任务定位与其它部分请见 [README.md](README.md)。
 
 ## 1.1 项目身份卡
 
 | 项 | 值 |
 |---|---|
-| 名称 | QueMusic（project / executable / target 名均为 `QueMusic`） |
+| 名称 | SmyunMusic（project / executable / target 名均为 `SmyunMusic`） |
 | 定位 | C++20 + Qt 6 + QML 原生跨平台桌面音乐播放器（非 Web 套壳） |
 | 版本 | `0.6.0`（`versionCode 60`），QML 侧见 `components/Options.qml` |
 | 插件 API 版本 | `10`（`Options.pluginApi`）；插件清单 `info.json` 里写的是 `apiVersion: 1`（两者语义不同，见第 2 部分） |
 | 许可证 | Apache-2.0（`LICENSE` + `NOTICE` + `THIRD_PARTY_NOTICES.md`） |
-| 组织 / 应用标识 | `BroNekoX` / `com.bronekox.quemusic`（`main.cpp` 设置） |
+| 组织 / 应用标识 | `BroNekoX` / `com.bronekox.smyunmusic`（`main.cpp` 设置） |
 | Qt 版本 | 6.10.3（`CMakePresets.json` 硬编码 `C:/Qt/6.10.3/llvm-mingw_64`） |
 | C++ 标准 | C++20（`CMAKE_CXX_STANDARD 20`） |
 | 最低 CMake | 根 `CMakeLists.txt` 写 3.16，`CMakePresets.json`（version 6）实际需要 ≥3.24 |
 | 平台 | Windows（主力）/ Linux / macOS |
-| QML 模块 URI | `QueMusic`，版本 `1.0`（`qt6_add_qml_module`） |
+| QML 模块 URI | `SmyunMusic`，版本 `1.0`（`qt6_add_qml_module`） |
 | 本地构建目录 | `build/Desktop_Qt_6_10_3_llvm_mingw_64_bit_Release`（Qt Creator 生成，不是 preset 目录 `build/<preset>`） |
 | 当前 git 分支 | `main` |
 
@@ -54,37 +54,37 @@
 
 `main.cpp` 的执行顺序本身有约束，改错会**静默失效**：
 
-1. **Windows 专属** `registerSmtcAppIdentity()`：`SetCurrentProcessExplicitAppUserModelID("BroNekoX.QueMusic")` → 写注册表 `HKCU\Software\Classes\AppUserModelId\BroNekoX.QueMusic` → 建开始菜单 `QueMusic.lnk` 并写入 `PKEY_AppUserModel_ID`。**必须早于任何 UI**。
-2. 读 `ConfigLocation/BroNekoX/QueMusic.ini`，按 `Options/gpuRenderMode`（0 默认 / 1 opengl / 2 vulkan / 3 software）、`Options/timerAnimator`、`Options/qmlAnimator` **在 `QApplication` 构造前** `qputenv`。
+1. **Windows 专属** `registerSmtcAppIdentity()`：`SetCurrentProcessExplicitAppUserModelID("BroNekoX.SmyunMusic")` → 写注册表 `HKCU\Software\Classes\AppUserModelId\BroNekoX.SmyunMusic` → 建开始菜单 `SmyunMusic.lnk` 并写入 `PKEY_AppUserModel_ID`。**必须早于任何 UI**。
+2. 读 `ConfigLocation/BroNekoX/SmyunMusic.ini`，按 `Options/gpuRenderMode`（0 默认 / 1 opengl / 2 vulkan / 3 software）、`Options/timerAnimator`、`Options/qmlAnimator` **在 `QApplication` 构造前** `qputenv`。
    → 这几个渲染开关**改完必须重启进程**（不是重启窗口）。
 3. `QApplication`（**不是** `QGuiApplication`，因为托盘用了 QtWidgets）；`setQuitOnLastWindowClosed(false)` → 常驻托盘，退出统一走 QML 的 `Qt.quit()`。
-4. `QQuickWindow::setDefaultAlphaBuffer(true)`；构造 `QQmlApplicationEngine`；调用 `qml_register_types_QueMusic()`（由 `qt6_add_qml_module` 生成，注册所有 `QML_ELEMENT`）；`engine.addImportPath("qrc:/")`。
-5. 元信息：organization `BroNekoX`、domain `com.bronekox.quemusic`、applicationName `QueMusic`、windowIcon `:/QueMusic/resources/icon.ico`（**必须 `:/` 前缀，`qrc:/` 会加载失败**）。
-6. `QSettings::setDefaultFormat(IniFormat)` + `setPath(IniFormat, UserScope, configPath + "/BroNekoX/QueMusic.ini")`。
+4. `QQuickWindow::setDefaultAlphaBuffer(true)`；构造 `QQmlApplicationEngine`；调用 `qml_register_types_SmyunMusic()`（由 `qt6_add_qml_module` 生成，注册所有 `QML_ELEMENT`）；`engine.addImportPath("qrc:/")`。
+5. 元信息：organization `BroNekoX`、domain `com.bronekox.smyunmusic`、applicationName `SmyunMusic`、windowIcon `:/SmyunMusic/resources/icon.ico`（**必须 `:/` 前缀，`qrc:/` 会加载失败**）。
+6. `QSettings::setDefaultFormat(IniFormat)` + `setPath(IniFormat, UserScope, configPath + "/BroNekoX/SmyunMusic.ini")`。
 
    **实测落盘位置（2026-10-11 本机核对）**：
 
    | 文件 | 大小 / mtime | 状态 |
    |---|---|---|
-   | `%LOCALAPPDATA%\BroNekoX\QueMusic.ini` | 55 KB / 2026-10-10 | ✅ **真正生效的主配置**：`[Options] [Style] [ShortCuts] [Player] [AudioDsp] [Lyrics3D] [LyricsFree] [Plugins] [webdav] [LastMedia]` |
-   | `%APPDATA%\BroNekoX\QueMusic.ini` | 1.4 KB / 2026-09-20 | ⚠️ 旧版本遗留，只有 `[LastMedia]` |
-   | `%LOCALAPPDATA%\BroNekoX\QueMusic\BroNekoX\QueMusic.ini` | 41 B | ⚠️ 早期构建遗留（`[Options] logEnabled/logLevel`） |
+   | `%LOCALAPPDATA%\BroNekoX\SmyunMusic.ini` | 55 KB / 2026-10-10 | ✅ **真正生效的主配置**：`[Options] [Style] [ShortCuts] [Player] [AudioDsp] [Lyrics3D] [LyricsFree] [Plugins] [webdav] [LastMedia]` |
+   | `%APPDATA%\BroNekoX\SmyunMusic.ini` | 1.4 KB / 2026-09-20 | ⚠️ 旧版本遗留，只有 `[LastMedia]` |
+   | `%LOCALAPPDATA%\BroNekoX\SmyunMusic\BroNekoX\SmyunMusic.ini` | 41 B | ⚠️ 早期构建遗留（`[Options] logEnabled/logLevel`） |
 
    运行时数据在 **Roaming**，与配置**不在同一目录**：
 
    | 路径 | 内容 |
    |---|---|
-   | `%APPDATA%\BroNekoX\QueMusic\player_data.db` | SQLite 曲库 / 收藏（含 `-wal` / `-shm`） |
-   | `%APPDATA%\BroNekoX\QueMusic\cache\` | 封面缓存 `cover-<sha1>.jpg`、`cover-<sha1>-64.jpg` |
-   | `%APPDATA%\BroNekoX\QueMusic\logs\QueMusic_YYYYMMDD.log` | 按天日志 |
-   | `%APPDATA%\BroNekoX\QueMusic\plugins\{lyrics,function}\<插件名>\` | 已安装插件 |
+   | `%APPDATA%\BroNekoX\SmyunMusic\player_data.db` | SQLite 曲库 / 收藏（含 `-wal` / `-shm`） |
+   | `%APPDATA%\BroNekoX\SmyunMusic\cache\` | 封面缓存 `cover-<sha1>.jpg`、`cover-<sha1>-64.jpg` |
+   | `%APPDATA%\BroNekoX\SmyunMusic\logs\SmyunMusic_YYYYMMDD.log` | 按天日志 |
+   | `%APPDATA%\BroNekoX\SmyunMusic\plugins\{lyrics,function}\<插件名>\` | 已安装插件 |
 
-   > 排查"设置不生效 / 收藏丢失"时优先看 `%LOCALAPPDATA%\...\QueMusic.ini`（配置）与 `%APPDATA%\BroNekoX\QueMusic\player_data.db`（数据）。注意 `DbService` 在 `AppDataLocation` 不可写时会**回退到 `<exe目录>/data` 并整库迁移**，此时配置与数据会分家。
+   > 排查"设置不生效 / 收藏丢失"时优先看 `%LOCALAPPDATA%\...\SmyunMusic.ini`（配置）与 `%APPDATA%\BroNekoX\SmyunMusic\player_data.db`（数据）。注意 `DbService` 在 `AppDataLocation` 不可写时会**回退到 `<exe目录>/data` 并整库迁移**，此时配置与数据会分家。
 
 7. `LogManager::create()`、`AccountManager::create()`（QML 单例工厂，签名 `create(QQmlEngine*, QJSEngine*)`）。
 8. `MusicApiService::setSharedAccountManager(accountManager)` —— 在线 API 单例拿到账号单例。
 9. `engine.rootContext()->setContextProperty("configDir", configPath)` —— **全项目唯一一个 context property**。
-10. `QWK::registerTypes(&engine)`；`engine.load("qrc:/QueMusic/main.qml")`。
+10. `QWK::registerTypes(&engine)`；`engine.load("qrc:/SmyunMusic/main.qml")`。
 
 > 约定：除 `configDir` 外**一律用 QML 单例而非 context property**。原因写在 `cpp/AppModels.h` 顶部注释里：context property 无法被 `qmlcachegen` 编译期解析，只有按类型名访问才能编译；也不能把多个模型塞进"一个单例的多个属性"，那样会拒绝继续属性查找。
 >
@@ -145,7 +145,7 @@ C++ 侧单例（详见第 2、3、4 部分）：`MusicApi`、`AccountManager`、
 ## 1.5 版本与发布事实
 
 - `Options.version = "0.6.0"`，`Options.versionCode = 60`；`doc/updater.txt` 第一行是 `060 Beta-0.6.0` + 更新日志（供更新器读取，**GBK 编码**）。
-- `CMakeLists.txt` 里 `project(QueMusic VERSION 0.1 ...)` —— 与 QML 侧 0.6.0 **不一致**；发布相关逻辑以 QML 侧为准。
+- `CMakeLists.txt` 里 `project(SmyunMusic VERSION 0.1 ...)` —— 与 QML 侧 0.6.0 **不一致**；发布相关逻辑以 QML 侧为准。
 - 更新日志正文在 `CHANGELOG.md`；README 有功能矩阵、性能实测（i5-12400 + UHD 730，1080P/60FPS 歌词页：CPU ≈4%、GPU ≈15%）与免责声明。
 - README 里的 `centers/` 目录、`components/MusicApi.qml`、`FullCenterView.qml` **在当前代码树中并不存在**（README 已过期，实际沉浸中心是 `layout/PlayerMaxCenter.qml`）。以代码树为准。
 

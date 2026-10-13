@@ -1,9 +1,9 @@
 // SPDX-License-Identifier: Apache-2.0
-// Copyright (c) 2025-2026 QueMusic Contributors
+// Copyright (c) 2025-2026 SmyunMusic Contributors
 //
 pragma ComponentBehavior: Bound
 import QtQuick
-import QueMusic 1.0
+import SmyunMusic 1.0
 
 Item {
     id: favouritePage
@@ -233,7 +233,7 @@ Item {
                     anchors.centerIn: parent
                     visible: FavoritePlaylists.loading
                     playing: visible
-                    source: "qrc:/QueMusic/resources/loader.gif"
+                    source: "qrc:/SmyunMusic/resources/loader.gif"
                 }
                 Text {
                     anchors.centerIn: parent

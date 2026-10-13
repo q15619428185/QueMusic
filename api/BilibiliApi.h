@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: Apache-2.0
-// Copyright (c) 2026 QueMusic Contributors
+// Copyright (c) 2026 SmyunMusic Contributors
 //
 // BilibiliApi — 哔哩哔哩音乐（源码 2）。
 // B 站音频区已下线，音乐载体为音乐区稿件：一条稿件即一首歌（hash 为 bvid），

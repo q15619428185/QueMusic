@@ -3,7 +3,7 @@
 # 用途：CI 门禁（.github/workflows/ci.yml）与本地改完代码后的快速自检。
 #
 # 用法：tests/smoke-stderr.sh <可执行文件路径> [运行秒数]
-#   例：tests/smoke-stderr.sh build/bin/QueMusic 12
+#   例：tests/smoke-stderr.sh build/bin/SmyunMusic 12
 #
 # 只把「代码问题」当失败；环境类噪声（无声卡 / 无 GPU / 无字体）只提示。
 

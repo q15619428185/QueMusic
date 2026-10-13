@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: Apache-2.0
-// Copyright (c) 2025-2026 QueMusic Contributors
+// Copyright (c) 2025-2026 SmyunMusic Contributors
 //
 // 平台自建请求的公共部分：统一 UA/Referer/Cookie、15s 超时、失败也回调（保证 QML 侧复位）
 #pragma once

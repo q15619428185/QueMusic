@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: Apache-2.0
-// Copyright (c) 2026 QueMusic Contributors
+// Copyright (c) 2026 SmyunMusic Contributors
 //
 // 串行化 SQLite 工作线程：连接有线程亲和性，同步查询会冻住 GUI。
 // 用法：submit() 的任务体里只碰 db，结果用 post() 投回对象所属线程。
