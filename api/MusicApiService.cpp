@@ -1342,7 +1342,7 @@ void MusicApiService::handleMusicInfo(const QVariantMap &d, int source)
     const QString identityHash = m_baseOf.value(playHash, playHash);
     if (playUrl.isEmpty()) { // 无可用地址：按原因提示（接口层已保证一定会回结果，这里必须给出提示）
         // 批量下载中：无地址的计入跳过并推进下一首，不逐首弹提示
-        if (m_batchActive && d.value(QStringLiteral("type")).toInt(-1) == 1) {
+        if (m_batchActive && d.value(QStringLiteral("type"), -1).toInt() == 1) {
             finishBatchItem(false);
             return;
         }
