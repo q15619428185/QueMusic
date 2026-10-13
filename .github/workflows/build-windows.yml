@@ -28,6 +28,7 @@ jobs:
         run: |
           cmake -B build -G Ninja `
             -DCMAKE_BUILD_TYPE=Release `
+            -DSMYUNMUSIC_ENABLE_LTO=OFF `
             -DCMAKE_PREFIX_PATH="D:/Qt/6.10.3/mingw_64"
 
       - name: Build
