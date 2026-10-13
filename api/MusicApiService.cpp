@@ -185,6 +185,14 @@ MusicApiService::MusicApiService(QObject *parent)
     m_lyricTimer.setInterval(kLyricTickMs);
     m_lyricTimer.setTimerType(Qt::CoarseTimer);
     connect(&m_lyricTimer, &QTimer::timeout, this, &MusicApiService::advanceLyricIndex);
+
+    // 批量下载：上一首完成后才派发下一首，单首 30s 无响应按跳过兜底
+    m_batchItemTimer.setSingleShot(true);
+    m_batchItemTimer.setInterval(30000);
+    connect(&m_batchItemTimer, &QTimer::timeout, this, [this] {
+        if (m_batchActive && m_batchInFlight)
+            finishBatchItem(false);
+    });
 }
 
 MusicApiService::~MusicApiService()
@@ -495,6 +503,68 @@ void MusicApiService::getPersonalFm(int page, int pageSize, int source)
 {
     beginRequest();
     DISPATCH(source, getPersonalFm(page, pageSize));
+}
+
+// 批量下载：去重后入队，上一首完成后派发下一首（天然串行，防限流）
+void MusicApiService::downloadSongs(const QVariantList &songs)
+{
+    m_batchQueue.clear();
+    m_batchItemTimer.stop();
+    m_batchInFlight = false;
+    QSet<QString> seen;
+    for (const QVariant &sv : songs) {
+        const QVariantMap s = sv.toMap();
+        const QString hash = s.value(QStringLiteral("hash")).toString();
+        if (hash.isEmpty() || seen.contains(hash))
+            continue;
+        seen.insert(hash);
+        QVariantMap item;
+        item.insert(QStringLiteral("hash"), hash);
+        item.insert(QStringLiteral("source"), s.value(QStringLiteral("source"), -1).toInt());
+        m_batchQueue.enqueue(item);
+    }
+    if (m_batchQueue.isEmpty()) {
+        m_batchActive = false;
+        emit warned(QStringLiteral("没有可下载的歌曲"), 0);
+        return;
+    }
+    m_batchActive = true;
+    m_batchTotal = m_batchQueue.size();
+    m_batchOk = 0;
+    m_batchSkip = 0;
+    emit warned(QStringLiteral("开始批量下载，共 %1 首").arg(m_batchTotal), 1);
+    processNextBatchDownload();
+}
+
+void MusicApiService::processNextBatchDownload()
+{
+    if (!m_batchActive || m_batchInFlight)
+        return;
+    if (m_batchQueue.isEmpty()) {
+        m_batchActive = false;
+        emit warned(QStringLiteral("批量下载完成：成功 %1 首，跳过 %2 首（无版权/VIP）")
+                        .arg(m_batchOk).arg(m_batchSkip), 1);
+        return;
+    }
+    const QVariantMap item = m_batchQueue.dequeue();
+    m_batchInFlight = true;
+    m_batchItemTimer.start(); // 单首 30s 无响应按跳过
+    getMusicInfo(item.value(QStringLiteral("hash")).toString(), 1,
+                 item.value(QStringLiteral("source")).toInt());
+}
+
+// 一首处理完毕（ok=已加入下载队列），推进下一首
+void MusicApiService::finishBatchItem(bool ok)
+{
+    if (!m_batchActive || !m_batchInFlight)
+        return;
+    m_batchInFlight = false;
+    m_batchItemTimer.stop();
+    if (ok)
+        ++m_batchOk;
+    else
+        ++m_batchSkip;
+    processNextBatchDownload();
 }
 
 void MusicApiService::getPersonalRadar(int page, int pageSize, int source)
@@ -1195,6 +1265,18 @@ void MusicApiService::handleResult(const QString &action, const QVariant &data, 
             // 本地歌词等待者也要销账，否则该文件之后不再重新匹配
             if (!lyricHash.isEmpty() && m_pendingLocalLyrics.contains(lyricHash))
                 emit localLyricsFailed(m_pendingLocalLyrics.take(lyricHash).filePath);
+            // 下载等待者也要销账：歌词失败不该挡住下载，无词直接下
+            if (!lyricHash.isEmpty() && m_pendingDownloads.contains(lyricHash)) {
+                QVariantMap meta = m_pendingDownloads.take(lyricHash);
+                m_downloader.addDownload(meta.value(QStringLiteral("url")).toString(),
+                                         meta.value(QStringLiteral("fileName")).toString(),
+                                         meta);
+                if (m_batchActive)
+                finishBatchItem(true);
+            else
+                emit warned(QStringLiteral("已添加下载（无歌词）: ")
+                            + meta.value(QStringLiteral("fileName")).toString(), 1);
+            }
         } else {
             QVariantList onlineLyrics = d.value(QStringLiteral("info")).toList();
             // B 站稿件没有字幕：复用在线搜词链路补词（结果覆盖占位歌词）
@@ -1233,8 +1315,11 @@ void MusicApiService::handleResult(const QString &action, const QVariant &data, 
             m_downloader.addDownload(meta.value(QStringLiteral("url")).toString(),
                                      meta.value(QStringLiteral("fileName")).toString(),
                                      meta);
-            emit warned(QStringLiteral("已添加下载: ")
-                        + meta.value(QStringLiteral("fileName")).toString(), 1);
+            if (m_batchActive)
+                finishBatchItem(true); // 批量下载中：推进下一首，最后统一汇总
+            else
+                emit warned(QStringLiteral("已添加下载: ")
+                            + meta.value(QStringLiteral("fileName")).toString(), 1);
         }
     } else {
         qWarning() << "MusicApiService: 未知消息类型:" << action;
@@ -1256,6 +1341,11 @@ void MusicApiService::handleMusicInfo(const QVariantMap &d, int source)
     }
     const QString identityHash = m_baseOf.value(playHash, playHash);
     if (playUrl.isEmpty()) { // 无可用地址：按原因提示（接口层已保证一定会回结果，这里必须给出提示）
+        // 批量下载中：无地址的计入跳过并推进下一首，不逐首弹提示
+        if (m_batchActive && d.value(QStringLiteral("type")).toInt(-1) == 1) {
+            finishBatchItem(false);
+            return;
+        }
         // 网络失败 → 提示检查网络；接口成功但无地址 → 版权/会员问题
         const bool networkFailed = d.contains(QStringLiteral("error"));
         const QString reason = d.value(QStringLiteral("errReason")).toString();

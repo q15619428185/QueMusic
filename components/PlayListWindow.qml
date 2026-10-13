@@ -364,6 +364,30 @@ Item {
                     }
                 }
             }
+            QButton {
+                height: 36; width: 96
+                radius: Style.labelRadius
+                iconCharacter: "\uf019"
+                text: "下载"
+                shadowEnabled: false
+                buttonColor: Theme.sideColor
+                textColor: Theme.fontColor
+                iconColor: Theme.fontColor
+                onClicked: {
+                    // 批量下载当前歌单：逐首取链→取词→下载，无地址的自动跳过
+                    const songs = [];
+                    const model = MusicApi.playlistSong;
+                    const q = Config.soundQuality;
+                    for (let i = 0; i < model.count; ++i) {
+                        const s = model.get(i);
+                        let h = q === 2 ? s.hashsq : q === 1 ? s.hashhq : s.hash;
+                        h = h || s.hash || s.id || "";
+                        if (!h) continue;
+                        songs.push({hash: h, source: s.source !== undefined ? s.source : root.songSource});
+                    }
+                    MusicApi.downloadSongs(songs);
+                }
+            }
             SButton {
                 width: 36
                 height: 36

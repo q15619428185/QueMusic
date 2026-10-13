@@ -12,6 +12,8 @@
 #include <QVariantMap>
 #include <QMap>
 #include <QList>
+#include <QQueue>
+#include <QSet>
 #include <QTimer>
 #include <QtQmlIntegration/qqmlintegration.h>
 
@@ -171,6 +173,9 @@ public:
                                     int source = -1);
     Q_INVOKABLE void getMusicInfo(const QString &hash, int type = 0, int source = -1);
     Q_INVOKABLE void getLyricInfo(const QString &hash, int duration, int source = -1);
+    // 批量下载：逐首走 getMusicInfo(type=1) 链路（取链→取词→下载），上一首完成后派发下一首；
+    // 无播放地址的（VIP/版权）自动跳过，最后汇总提示。songs 为 [{hash, source}] 列表。
+    Q_INVOKABLE void downloadSongs(const QVariantList &songs);
     // 私人漫游（每日推荐式流媒体，网易云 personal_fm / 酷狗推荐榜）
     Q_INVOKABLE void getPersonalFm(int page = 1, int pageSize = 20, int source = -1);
     // 私人雷达（基于用户口味的推荐，网易云 recommend_songs / 酷狗新歌榜）
@@ -309,6 +314,16 @@ private:
 
     // 下载流程：按 hash 暂存待下载元数据，等歌词返回后一起发起下载
     QMap<QString, QVariantMap> m_pendingDownloads;
+    // 批量下载：队列 + 完成后派发下一首（天然串行防限流），单首 30s 超时兜底
+    QQueue<QVariantMap> m_batchQueue;
+    QTimer m_batchItemTimer;
+    bool m_batchActive = false;
+    bool m_batchInFlight = false;
+    int m_batchTotal = 0;
+    int m_batchOk = 0;
+    int m_batchSkip = 0;
+    void processNextBatchDownload();
+    void finishBatchItem(bool ok);
     QMap<int, LocalLyricsRequest> m_localLyricsSearches;
     QMap<QString, LocalLyricsRequest> m_pendingLocalLyrics;
     // 当前请求的 B 站稿件；没有字幕时用它复用在线搜词链路
