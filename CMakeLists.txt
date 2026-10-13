@@ -199,7 +199,7 @@ qt6_add_qml_module(${PROJECT_NAME} # 默认导入项目的
         resources/app/musicpic.png
         resources/app/cd.png
         resources/app/cdpoint.png
-        resources/app/icons/bronekox.jpg
+        resources/app/icons/shumeiyun.png
         resources/app/icons/qticon.png
         resources/app/icons/qwk.png
     SOURCES

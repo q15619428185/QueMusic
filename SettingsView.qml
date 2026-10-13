@@ -2383,7 +2383,7 @@ Item {
                         id: description
                         anchors.centerIn: parent
                         width: settingStack.standWidth - 48
-                        text: "SmyunMusic是一个基于Qt QML开发的全能音乐播放器，旨在让听歌变得更简单，在Qt RHI * QML * C++强大组合下，性能卓越，UI美观丝滑，基于C++的在线音源使其拥有强大的稳定在线体验，并且由此实现美观强大的自定义功能，SmyunMusic希望做一个全能的音乐播放器。"
+                        text: "淑美芸的专属音乐播放器，让听歌变得更简单。丝滑流畅的界面，稳定动听的在线音乐体验，为淑美芸量身打造的音乐小天地，愿每一首歌都合你心意。"
                         wrapMode: Text.Wrap
                         color: Theme.textColor
                         font.pixelSize: 13
@@ -2399,9 +2399,9 @@ Item {
                     height: 80
                     AccountCard {
                         width: settingStack.standWidth / 2 - 12
-                        source: "qrc:/SmyunMusic/resources/app/icons/bronekox.jpg"
-                        title: "BroNekoX Studio"
-                        text: "本项目的主要开发负责人"
+                        source: "qrc:/SmyunMusic/resources/app/icons/shumeiyun.png"
+                        title: "淑美芸"
+                        text: "这台播放器的主人，独享每一首歌"
                         openUrl: ""
                         color: settingStack.cardColor
                     }
@@ -2518,72 +2518,7 @@ Item {
                     }
                 }
 
-                QHead { text: "联系开发者" }
-
-                Rectangle {
-                    width: settingStack.standWidth
-                    height: 200
-                    color: settingStack.cardColor
-                    radius: Style.cubeRadius
-                    Column {
-                        spacing: 8
-                        padding: 16
-                        SettingItem {
-                            width: settingStack.standWidth - 32
-                            label: "QQ"
-                            controlWidth: 120
-                            Text {
-                                anchors.right: parent.right
-                                height: 36
-                                text: "241422517"
-                                color: Theme.textColor
-                                font.pixelSize: 14
-                                verticalAlignment: Text.AlignVCenter
-                            }
-                        }
-                        SettingItem {
-                            width: settingStack.standWidth - 32
-                            label: "邮箱/Email"
-                            controlWidth: 120
-                            Text {
-                                anchors.right: parent.right
-                                height: 36
-                                text: "uihugd@outlook.com"
-                                color: Theme.textColor
-                                font.pixelSize: 14
-                                verticalAlignment: Text.AlignVCenter
-                            }
-                        }
-                        SettingItem {
-                            width: settingStack.standWidth - 32
-                            label: "Bilibili"
-                            controlWidth: 120
-                            Text {
-                                anchors.right: parent.right
-                                height: 36
-                                text: "695207057"
-                                color: Theme.textColor
-                                font.pixelSize: 14
-                                verticalAlignment: Text.AlignVCenter
-                            }
-                        }
-                        SettingItem {
-                            width: settingStack.standWidth - 32
-                            label: "QQ群组"
-                            controlWidth: 120
-                            Text {
-                                anchors.right: parent.right
-                                height: 36
-                                text: "1105114511"
-                                color: Theme.textColor
-                                font.pixelSize: 14
-                                verticalAlignment: Text.AlignVCenter
-                            }
-                        }
-                    }
-                }
-
-                Text { text: "期待您的贡献与反馈"; color: Theme.fontColor; font.pixelSize: Style.textmain }
+                Text { text: "愿音乐常伴你左右，每一天都有好心情"; color: Theme.fontColor; font.pixelSize: Style.textmain }
 
                 Row {
                     spacing: 20
@@ -2605,7 +2540,7 @@ Item {
                         anchors.centerIn: parent
                         color: Theme.fontColor
                         font.pixelSize: Style.textmain
-                        text: "Copyright (c) 2025-2026 SmyunMusic Contributors\n   本项目基于 Apache License 2.0 协议获得许可"
+                        text: "© 2026 淑美芸的专属音乐播放器\n   为热爱音乐的你而作"
                     }
                 }
             }
