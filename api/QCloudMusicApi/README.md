@@ -1,32 +1,32 @@
 # QCloudMusicApi - Qt版 网易云音乐 API
 
-[![GitHub Actions CI Status](https://github.com/s12mmm3/QCloudMusicApi/actions/workflows/windows.yml/badge.svg)](https://github.com/s12mmm3/QCloudMusicApi/actions/workflows/windows.yml)
-[![GitHub Actions CI Status](https://github.com/s12mmm3/QCloudMusicApi/actions/workflows/macos.yml/badge.svg)](https://github.com/s12mmm3/QCloudMusicApi/actions/workflows/macos.yml)
-[![GitHub Actions CI Status](https://github.com/s12mmm3/QCloudMusicApi/actions/workflows/ubuntu.yml/badge.svg)](https://github.com/s12mmm3/QCloudMusicApi/actions/workflows/ubuntu.yml)
-[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fs12mmm3%2FQCloudMusicApi.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Fs12mmm3%2FQCloudMusicApi?ref=badge_shield)
+GitHub Actions CI Status
+GitHub Actions CI Status
+GitHub Actions CI Status
+FOSSA Status
 
-![C++ version](https://img.shields.io/badge/C++-11-00599C?logo=++)
-[![Qt version](https://img.shields.io/badge/Qt-5.12+-41CD52?logo=qt)](https://www.qt.io)
-[![Qt version](https://img.shields.io/badge/Qt-6.0+-41CD52?logo=qt)](https://www.qt.io)
-![GitHub license](https://img.shields.io/github/license/s12mmm3/QCloudMusicApi)
+C++ version
+Qt version
+Qt version
+GitHub license
 
 ## 简介
 
-本项目翻译自Node.js项目[Binaryify/NeteaseCloudMusicApi](https://github.com/Binaryify/NeteaseCloudMusicApi)
+本项目翻译自Node.js项目Binaryify/NeteaseCloudMusicApi
 
 更新尽量与原项目同步，实现了大部分接口；支持[跨语言调用](./doc/BINDINGS.md)，支持跨平台编译，支持多种编译器编译
 
 推荐直接将本仓库嵌入到其他项目中编译使用
 
-使用方式参考[原项目文档](https://binaryify.github.io/NeteaseCloudMusicApi)，参数与返回结果与原项目完全一致
+使用方式参考原项目文档，参数与返回结果与原项目完全一致
 
 ### 样例项目
 
-[QListenTogether](https://github.com/s12mmm3/QListenTogether) - 网易云 一起听客户端
+QListenTogether - 网易云 一起听客户端
 
-[QCloudMusicServer](https://github.com/s12mmm3/QCloudMusicServer) - 网易云API HTTP服务器
+QCloudMusicServer - 网易云API HTTP服务器
 
-[QRadioPlayer](https://github.com/s12mmm3/QRadioPlayer) - 网络广播电台客户端
+QRadioPlayer - 网络广播电台客户端
 
 ### 目录
 
@@ -39,7 +39,7 @@
 
 ## 需求和依赖
 
-- [Qt 5.12+](https://www.qt.io/download-qt-installer)
+- Qt 5.12+
 
 ## 使用说明
 
@@ -120,4 +120,4 @@ cmake --build build -j
 [The MIT License (MIT)](LICENSE)
 
 
-[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fs12mmm3%2FQCloudMusicApi.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2Fs12mmm3%2FQCloudMusicApi?ref=badge_large)
+FOSSA Status

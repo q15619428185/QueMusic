@@ -42,7 +42,7 @@ tests/smoke-stderr.sh build/bin/SmyunMusic 12
 ```
 
 > 改了 `.frag` / `.vert` 着色器必须重新编译成 `.qsb`（Qt 6 不做运行时编译），
-> 否则界面上效果会**静默消失**。插件侧写法见 [QuePlugins 规范](https://github.com/bronekox/queplugins)。
+> 否则界面上效果会**静默消失**。插件侧写法见 QuePlugins 规范。
 
 ## 4. 代码约定
 
@@ -81,9 +81,9 @@ tests/smoke-stderr.sh build/bin/SmyunMusic 12
 
 - 两类插件都是一个文件夹 = 一个插件：**歌词界面插件**换掉沉浸播放页的界面，**功能插件**往界面里加东西。
   每个插件一个 `info.json` + 入口 QML + 建议的预览图（歌词界面插件还可以带着色器）。
-- 规范、示例与提交方式都在插件仓库：[QuePlugins](https://github.com/bronekox/queplugins)
-  （[歌词界面插件规范](https://github.com/bronekox/queplugins/blob/main/docs/lyrics-plugin.md)、
-  [功能插件规范](https://github.com/bronekox/queplugins/blob/main/docs/function-plugin.md)）。
+- 规范、示例与提交方式都在插件仓库：QuePlugins
+  （歌词界面插件规范、
+  功能插件规范）。
 - 宿主侧实现在 `cpp/plugins/`（插件目录扫描与两个单例）与 `components/Plugin*.qml`
   （扩展点、插件接口、加载器、设置页列表）；改契约时插件仓库的规范要一起改。
 - 插件仓库的 PR 走同样的标准：能跑、有截图、有说明。

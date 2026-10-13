@@ -1024,17 +1024,6 @@ Item {
                         }
 
                         SettingItemCard {
-                            label: "自动检查更新"
-                            tip: "在每次启动应用程序时将检查是否有新版本"
-                            controlItem: QSwitch {
-                                anchors.fill: parent
-                                letRight: true
-                                switchTrue: Config.autoUpdate
-                                onToggled: Config.autoUpdate = !Config.autoUpdate
-                            }
-                        }
-
-                        SettingItemCard {
                             label: "默认缓存位置"
                             tip: "设置封面等图片缓存文件的存放目录"
                             controlItem: QButton {
@@ -2293,18 +2282,6 @@ Item {
                                 font.pixelSize: 14
                                 verticalAlignment: Text.AlignVCenter
                             }
-                            QButton {
-                                height: 36
-                                width: 100
-                                text: "检查更新"
-                                buttonColor: Theme.themeColor
-                                textColor: Theme.primaryColor
-                                iconColor: Theme.primaryColor
-                                shadowEnabled: false
-                                onClicked: {
-                                    updater.checkForUpdate();
-                                }
-                            }
                         }
                     }
                 }
@@ -2425,7 +2402,7 @@ Item {
                         source: "qrc:/SmyunMusic/resources/app/icons/bronekox.jpg"
                         title: "BroNekoX Studio"
                         text: "本项目的主要开发负责人"
-                        openUrl: "https://github.com/bronekox"
+                        openUrl: ""
                         color: settingStack.cardColor
                     }
                 }
@@ -2520,7 +2497,7 @@ Item {
                         source: "qrc:/SmyunMusic/resources/app/icons/qwk.png"
                         title: "QWindowKit"
                         text: "实现全平台完美的无边框窗口"
-                        openUrl: "https://github.com/stdware/qwindowkit"
+                        openUrl: ""
                         color: settingStack.cardColor
                     }
                     AccountCard {
@@ -2528,7 +2505,7 @@ Item {
                         source: "qrc:/SmyunMusic/resources/app/icons/qticon.png"
                         title: "Qt Community"
                         text: "强大的开源跨平台软件包框架"
-                        openUrl: "https://github.com/qt"
+                        openUrl: ""
                         color: settingStack.cardColor
                     }
                     AccountCard {
@@ -2536,7 +2513,7 @@ Item {
                         source: ""
                         title: "QCloudMusicApi"
                         text: "网易云音乐第三方API服务框架"
-                        openUrl: "https://github.com/s12mmm3/QCloudMusicApi"
+                        openUrl: ""
                         color: settingStack.cardColor
                     }
                 }
@@ -2610,36 +2587,6 @@ Item {
 
                 Row {
                     spacing: 20
-
-                    QButton {
-                        height: 40
-                        radius: 20
-                        text: "Github"
-                        iconCharacter: "\uf0dd"
-                        onClicked: {
-                            Qt.openUrlExternally("https://github.com/bronekox/smyunmusic");
-                        }
-                    }
-
-                    QButton {
-                        height: 40
-                        radius: 20
-                        text: "SmyunMusic Web"
-                        iconCharacter: "\uf0d7"
-                        onClicked: {
-                            Qt.openUrlExternally("https://smyunmusic.top");
-                        }
-                    }
-
-                    QButton {
-                        height: 40
-                        radius: 20
-                        text: "Bug反馈/issue"
-                        iconCharacter: "\uf06e"
-                        onClicked: {
-                            Qt.openUrlExternally("https://github.com/bronekox/smyunmusic/issues");
-                        }
-                    }
 
                     QButton {
                         height: 40
@@ -2887,62 +2834,4 @@ Item {
         }
     }
 
-    Item {
-        id: updater
-
-        // 从文件或宏定义中获取的本地版本号
-        property int localVersion: Options.versionCode
-
-        // 远程 version.txt 的 URL
-        property string remoteVersionUrl: "https://raw.githubusercontent.com/BroNekoX/SmyunMusic/main/doc/updater.txt"
-        property int newVersion: Options.versionCode
-        property string versionDescription: ""
-
-        function checkForUpdate(): void {
-            console.log("正在检查更新...");
-            Options.warned("正在检查更新", 0);
-
-            const xhr = new XMLHttpRequest();
-            xhr.onreadystatechange = function() {
-                if (xhr.readyState === XMLHttpRequest.DONE) {
-                    if (xhr.status === 200) {
-                        const text = xhr.responseText.trim();
-                        const remoteVersion = parseInt(text.substring(0,3));
-                        console.log("远程版本号:", remoteVersion);
-
-                        if (remoteVersion > localVersion) {
-                            console.log("发现新版本!");
-                            newVersion = remoteVersion;
-                            updater.versionDescription = text.substring(4);
-                            // 显示更新提示对话框
-                            updateDialog.open();
-                        } else {
-                            console.log("当前已是最新版本");
-                            // 可选：显示“已是最新”的提示
-                            Options.warned("当前已是最新版本", 1);
-                        }
-                    } else {
-                        console.error("检查更新失败，HTTP状态码:", xhr.status);
-                        Options.warned("检查更新失败，请稍后重试", 2);
-                    }
-                }
-            }
-            xhr.open("GET", remoteVersionUrl)
-            xhr.send();
-        }
-
-        // 更新提示对话框
-        QAlertDialog {
-            id: updateDialog
-            title: "有新版本！"
-            message: "发现SmyunMusic的新版本：(v" + updater.newVersion + ")，是否前往更新？\n 版本更新日志：" + updater.versionDescription
-            isInput: false
-            blurSource: settingsView
-            confirmText: "更新"
-
-            onConfirm: {
-                Qt.openUrlExternally("https://github.com/BroNekoX/SmyunMusic/releases");
-            }
-        }
-    }
 }

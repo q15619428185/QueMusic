@@ -70,9 +70,6 @@ Window {
             if(Config.cacheUrl)
                 coverHelper.setCacheDir(Config.cacheUrl);
             coverHelper.pruneCache(Config.cacheSize);
-
-            if(Config.autoUpdate)
-                autoUpdateTimer.start();
         });
     }
 
@@ -85,26 +82,6 @@ Window {
         target: MusicApi
         property: "downloadPath"
         value: Config.downloadFolder
-    }
-
-
-    function silentUpdateCheck(): void {
-        const xhr = new XMLHttpRequest();
-        xhr.onreadystatechange = function() {
-            if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
-                const remote = parseInt(xhr.responseText.trim().substring(0, 3));
-                if (remote > Options.versionCode)
-                    mainWarn.tiped("发现新版本 v" + remote + "，请在设置-关于中查看", 1);
-            }
-        }
-        xhr.open("GET", "https://raw.githubusercontent.com/BroNekoX/SmyunMusic/main/doc/updater.txt");
-        xhr.send();
-    }
-
-    Timer {
-        id: autoUpdateTimer
-        interval: 3000
-        onTriggered: window.silentUpdateCheck()
     }
 
 

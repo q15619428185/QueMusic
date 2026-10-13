@@ -2,7 +2,7 @@
 
 把整首歌词自动编排成一段文字 PV，跑在沉浸播放页里。
 
-- **编排层**：原版 [JIZURA](https://github.com/hakoniwa/JIZURA)（MIT）的引擎 —— planner、24 套风格、
+- **编排层**：原版 JIZURA（MIT）的引擎 —— planner、24 套风格、
   104 版式、53 入场、47 出场、60 装饰、62 背景图形、20 转场 —— **一行未改**，在 Qt 的 JS 引擎里运行。
 - **渲染层**：Canvas2D → 显示列表记录器把 JIZURA 的绘制调用变成矢量路径与文字指令，由 **QtQuick.Shapes** 逐帧绘制。
 - 宿主侧只需要标准歌词插件契约。

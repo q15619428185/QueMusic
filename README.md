@@ -4,42 +4,19 @@
 
 <p align="center"><b>基于 C++20 / Qt 6 / QML 构建的现代高性能跨平台音乐播放器</b></p>
 
-<p align="center">
-  <img alt="License" src="https://img.shields.io/badge/License-Apache--2.0-blue?style=flat-square">
-  <img alt="Qt" src="https://img.shields.io/badge/Qt-6.10.3-41CD52?style=flat-square">
-  <img alt="Language" src="https://img.shields.io/badge/Language-C%2B%2B20%20%7C%20QML-orange?style=flat-square">
-  <img alt="Platform" src="https://img.shields.io/badge/Platform-Windows%20%7C%20macOS%20%7C%20Linux-lightgrey?style=flat-square">
-  <img alt="Version" src="https://img.shields.io/badge/Version-0.6.0-informational?style=flat-square">
-  <img alt="Stars" src="https://img.shields.io/github/stars/BroNekoX/SmyunMusic?style=flat-square">
-  <img alt="Release" src="https://img.shields.io/github/v/release/BroNekoX/SmyunMusic?style=flat-square">
-  <img alt="CI" src="https://github.com/BroNekoX/SmyunMusic/actions/workflows/ci.yml/badge.svg">
-</p>
-
 > SmyunMusic 是一款把「性能」和「手感」放在第一优先级的开源跨平台音乐播放器。
 > 计算与 I/O 全部交给 C++ 与工作线程，QML 只负责呈现；渲染走 Qt RHI 的 GPU 管线，动效不掉帧，核显也能稳稳跑满 60 FPS。
 > 开发者坚持 **永久免费 & 开源**。
 >
 > 🚧 项目处于 **开发 / 预览阶段**：功能在持续补齐，部分模块尚未完成，也有已知问题，会一直更新。
 > 欢迎 Star & Fork 一起参与 —— 动手前请读 [贡献指南](CONTRIBUTING.md)（含三平台构建方式与提交前自检），
-> 想做插件（歌词界面 / 功能）可以直接玩 [QuePlugins](https://github.com/bronekox/queplugins) 插件仓库。
+> 想做插件（歌词界面 / 功能）可以直接玩 QuePlugins 插件仓库。
 
 ## 📋 必读
-
-### SmyunMusic官网已推出，快速获取文档及下载内容：[smyunmusic.top](https://smyunmusic.top)
-
-#### 国内快速下载本应用及历史版本：
-
-永久下载链接：[下载](https://pan.baidu.com/s/1Z14cgxzb44mi8HauS8F8zA?pwd=63sn) 提取码: 63sn
-
-下载链接随 Release 同步更新。
-
-#### 加入 QQ 群获取最新消息：1105114511
 
 > [!IMPORTANT]
 > **macOS 用户必读**：如果打开下载的 `.dmg` 时提示「**已损坏，无法打开**」「无法检查其是否包含恶意软件」或「来自身份不明的开发者」，这是 macOS 对**未公证** App 的拦截 —— **不是文件损坏，也不是中毒**。
 > 按 👉 [**macOS 安装说明**](doc/macos-install.md) 操作即可正常打开（一条命令，或不用终端的图形界面做法）。
-
-插件存放位置：[QuePlugins](https://github.com/bronekox/queplugins)
 
 ---
 
@@ -178,7 +155,7 @@ SmyunMusic 的界面观感来自 Qt RHI 与 QML Scene Graph，但真正决定"�
 
 官方插件仓库与开发规范（含可直接安装的示例插件）：
 
-**[QuePlugins](https://github.com/bronekox/queplugins)** · [歌词界面插件规范](https://github.com/bronekox/queplugins/blob/main/docs/lyrics-plugin.md) · [功能插件规范](https://github.com/bronekox/queplugins/blob/main/docs/function-plugin.md)
+**QuePlugins** · 歌词界面插件规范 · 功能插件规范
 
 ---
 
@@ -251,7 +228,7 @@ cd SmyunMusic
 
 #### 1. 使用 just 构建与运行
 
-> 需要先安装 [just](https://github.com/casey/just)，然后：
+> 需要先安装 just，然后：
 
 ```bash
 just setup  # 首次使用：拉取子模块
@@ -320,7 +297,7 @@ cmake --build build -j 8
 ./build/bin/SmyunMusic.app/Contents/MacOS/SmyunMusic
 ```
 
-> 📦 三种平台的可执行安装包都会随 [Release](https://github.com/BroNekoX/SmyunMusic/releases) 发布。
+> 📦 三种平台的可执行安装包都会随 Release 发布。
 
 ### 打包分发
 
@@ -430,8 +407,8 @@ SmyunMusic/
 
 | 方式 | 说明 |
 |------|------|
-| 🐛 **报告 Bug** | 提交 [Issue](https://github.com/bronekox/smyunmusic/issues)，附上复现步骤与环境信息 |
-| 💡 **提出新功能** | 在 [Discussion](https://github.com/bronekox/smyunmusic/discussions) 中发起讨论 |
+| 🐛 **报告 Bug** | 提交 Issue，附上复现步骤与环境信息 |
+| 💡 **提出新功能** | 在 Discussion 中发起讨论 |
 | ⭐ **Star** | 点亮 GitHub Star，支持项目持续开发 |
 | 🧪 **测试** | 构建并试用，反馈兼容性问题 |
 | 🔧 **Pull Request** | 修复 Bug、优化代码、完善功能 —— **欢迎任何人** |
@@ -465,13 +442,13 @@ Copyright (c) 2025-2026 SmyunMusic Contributors
 
 ## 🎨 背景着色器变更
 
-**Beta 0.5.0** 之前的版本使用了 [AMLL-Core(Apple Music Like Lyrics)](https://github.com/amll-dev/applemusic-like-lyrics) 项目的背景着色器并移植到 Qt。
+**Beta 0.5.0** 之前的版本使用了 AMLL-Core(Apple Music Like Lyrics) 项目的背景着色器并移植到 Qt。
 
 开发者清楚这种做法可能触及许可证边界 —— 虽然做了相对合规的处理，但为了让项目走得更稳、更远，最终决定更换实现。
 
 **Beta 0.5.0** 之后的版本改用自研框架的背景着色器，并提供多个可选效果替代此前的 AMLL 背景：
 
-- **Fluid**：移植自 [Paper-design/shaders](https://github.com/paper-design/shaders)，该项目使用 Apache License 2.0，引用完全合规。
+- **Fluid**：移植自 Paper-design/shaders，该项目使用 Apache License 2.0，引用完全合规。
 - **Classic**：自研实现，观感上尽量靠拢 AMLL。参考了 AMLL 的实现思路，但算法、代码与数值均未直接照搬，所用算法均为公开算法。
 
 > **Classic** 的大致思路：
@@ -510,22 +487,22 @@ Copyright (c) 2025-2026 SmyunMusic Contributors
 
 ## 🙏 致谢
 
-- [Qt Project](https://www.qt.io/) — 提供强大的跨平台框架
-- [QWindowKit](https://github.com/stdware/qwindowkit) — 无边框窗口解决方案
-- [qiuliw/Qt6_QWindowKit_QML_demo](https://github.com/qiuliw/Qt6_QWindowKit_QML_demo) — 项目框架参考
-- [QCloudMusicApi](https://github.com/s12mmm3/QCloudMusicApi) — 网易云音乐在线接口实现
-- [Crypto++](https://github.com/weidai11/cryptopp) — 用于 QCloudMusicApi 的加解密
-- [libqrencode](https://github.com/fukuchi/libqrencode) — 二维码生成
-- [TagLib](https://github.com/taglib/taglib) — 本地音乐标签与内嵌歌词解析
-- [SMTC-Bridge-Cpp](https://github.com/Cainongw/SMTC-Bridge-Cpp) — Windows 系统媒体控件（SMTC）桥接参考实现（C++）
-- [smtc_bridge_rust](https://github.com/Cainongw/smtc_bridge_rust) — Windows 系统媒体控件（SMTC）桥接参考实现（Rust）
-- [Paper-design/shaders](https://github.com/paper-design/shaders) — 背景着色器 "Fluid" 的算法移植
+- Qt Project — 提供强大的跨平台框架
+- QWindowKit — 无边框窗口解决方案
+- qiuliw/Qt6_QWindowKit_QML_demo — 项目框架参考
+- QCloudMusicApi — 网易云音乐在线接口实现
+- Crypto++ — 用于 QCloudMusicApi 的加解密
+- libqrencode — 二维码生成
+- TagLib — 本地音乐标签与内嵌歌词解析
+- SMTC-Bridge-Cpp — Windows 系统媒体控件（SMTC）桥接参考实现（C++）
+- smtc_bridge_rust — Windows 系统媒体控件（SMTC）桥接参考实现（Rust）
+- Paper-design/shaders — 背景着色器 "Fluid" 的算法移植
 
 #### 其他对本项目有帮助的
 
-- [EvolveUI](https://evolveui.top/) — 部分组件设计参考
-- [AMLL-Core(Apple Music Like Lyrics)](https://github.com/amll-dev/applemusic-like-lyrics) — 背景着色器实现方法参考
-- [ShaderToy](https://www.shadertoy.com/) — 着色器灵感来源
+- EvolveUI — 部分组件设计参考
+- AMLL-Core(Apple Music Like Lyrics) — 背景着色器实现方法参考
+- ShaderToy — 着色器灵感来源
 - 以及所有贡献者与测试者
 
 ---

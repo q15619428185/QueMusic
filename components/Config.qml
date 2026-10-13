@@ -15,7 +15,6 @@ Settings {
     property int winY: 0
     property int winW: 0
     property int winH: 0
-    property bool autoUpdate: false
     property list<string> searchList: []   // 搜索历史
     property bool openShortCut: true
     property int cycleIndex: 0
