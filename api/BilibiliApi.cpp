@@ -23,6 +23,9 @@
 namespace {
 constexpr int kMusicTid = 3;    // 音乐区总区
 constexpr int kUpLimit = 5;     // 合集检索最多查几个 UP 主
+// B 站时长过滤：只保留 2:30–5:00 的视频，过滤乐评盘点/串烧/超长混剪等非纯歌曲内容
+constexpr int kMinDurationSec = 150;
+constexpr int kMaxDurationSec = 300;
 const char *kUa = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
                   "(KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36";
 const QString kApi = QStringLiteral("https://api.bilibili.com");
@@ -340,8 +343,12 @@ void BilibiliApi::searchVideos(const QString &keyword, int tid, int page, const 
     getSigned(kSearchPath, params, [this, action](const QJsonObject &j) {
         QVariantList info;
         for (const QJsonValue &v : j.value(QStringLiteral("data")).toObject()
-                                       .value(QStringLiteral("result")).toArray())
+                                       .value(QStringLiteral("result")).toArray()) {
+            const int dur = durationSeconds(v.toObject().value(QStringLiteral("duration")));
+            if (dur < kMinDurationSec || dur > kMaxDurationSec)
+                continue; // 时长过滤：只要 2:30–5:00 的纯歌曲时长视频
             info << toSong(v.toObject());
+        }
         emitList(action, info);
     });
 }
