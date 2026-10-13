@@ -34,8 +34,27 @@ jobs:
         shell: pwsh
         run: cmake --build build --parallel
 
+      - name: Deploy (windeployqt)
+        shell: pwsh
+        run: |
+          New-Item -ItemType Directory -Force -Path deploy | Out-Null
+          Copy-Item "build/bin/SmyunMusic.exe" "deploy/"
+          Copy-Item "build/bin/*.dll" "deploy/" -ErrorAction SilentlyContinue
+          D:/Qt/6.10.3/mingw_64/bin/windeployqt.exe --release --compiler-runtime `
+            --qmldir "${{ github.workspace }}" `
+            --qmldir "${{ github.workspace }}/pages" `
+            --qmldir "${{ github.workspace }}/components" `
+            --qmldir "${{ github.workspace }}/layout" `
+            --qmldir "${{ github.workspace }}/lyricsui" `
+            --dir deploy deploy/SmyunMusic.exe
+
+      - name: Package portable zip
+        shell: pwsh
+        run: |
+          Compress-Archive -Path deploy/* -DestinationPath SmyunMusic-windows-portable.zip -Force
+
       - name: Upload build artifact
         uses: actions/upload-artifact@v4
         with:
-          name: SmyunMusic-windows-build
-          path: build/bin/SmyunMusic.exe
+          name: SmyunMusic-windows-portable
+          path: SmyunMusic-windows-portable.zip
