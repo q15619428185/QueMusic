@@ -2432,7 +2432,7 @@ Item {
                         }
                         SettingItem {
                             width: settingStack.standWidth - 32
-                            label: "QuePlugin API版本"
+                            label: "插件 API 版本"
                             controlWidth: 120
                             Text {
                                 anchors.right: parent.right

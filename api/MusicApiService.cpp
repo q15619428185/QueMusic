@@ -162,7 +162,7 @@ MusicApiService::MusicApiService(QObject *parent)
 
     // 音质初值：QML 侧还有 Binding 同步，这里读 ini 只为保证 Binding 生效前也正确
     QSettings opt(QStandardPaths::writableLocation(QStandardPaths::ConfigLocation)
-                      + QStringLiteral("/BroNekoX/SmyunMusic.ini"),
+                      + QStringLiteral("/Smyun/SmyunMusic.ini"),
                   QSettings::IniFormat);
     m_soundQuality = opt.value(QStringLiteral("Options/soundQuality"), 1).toInt();
 
@@ -264,7 +264,7 @@ void MusicApiService::rememberHashes(const QVariantList &items)
 QString MusicApiService::qualityCachePath() const
 {
     const QString dir = QStandardPaths::writableLocation(QStandardPaths::ConfigLocation)
-                        + QStringLiteral("/BroNekoX");
+                        + QStringLiteral("/Smyun");
     QDir().mkpath(dir);
     return dir + QStringLiteral("/SmyunMusicQuality.json");
 }

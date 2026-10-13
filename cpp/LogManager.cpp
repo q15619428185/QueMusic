@@ -29,10 +29,10 @@ LogManager::LogManager(QObject *parent)
     QString baseDir = QStandardPaths::writableLocation(QStandardPaths::AppDataLocation) + QStringLiteral("/logs");
     m_logDir = QDir(baseDir).absolutePath();
 
-    // 3) 读取配置（与 QML Settings 共享同一 ini：configDir + /BroNekoX/SmyunMusic.ini）
+    // 3) 读取配置（与 QML Settings 共享同一 ini：configDir + /Smyun/SmyunMusic.ini）
     {
         const QString configPath = QStandardPaths::writableLocation(QStandardPaths::ConfigLocation);
-        QSettings settings(configPath + QStringLiteral("/BroNekoX/SmyunMusic.ini"), QSettings::IniFormat);
+        QSettings settings(configPath + QStringLiteral("/Smyun/SmyunMusic.ini"), QSettings::IniFormat);
         m_enabled = settings.value(QStringLiteral("Options/logEnabled"), true).toBool();
         m_minimumLevel = settings.value(QStringLiteral("Options/logLevel"), int(Level::Info)).toInt();
         m_minimumLevel = qBound(int(Level::Debug), m_minimumLevel, int(Level::Fatal));
@@ -223,7 +223,7 @@ void LogManager::ensureLogFile()
 void LogManager::persistSettings() const
 {
     const QString configPath = QStandardPaths::writableLocation(QStandardPaths::ConfigLocation);
-    QSettings settings(configPath + QStringLiteral("/BroNekoX/SmyunMusic.ini"), QSettings::IniFormat);
+    QSettings settings(configPath + QStringLiteral("/Smyun/SmyunMusic.ini"), QSettings::IniFormat);
     settings.setValue(QStringLiteral("Options/logEnabled"), m_enabled);
     settings.setValue(QStringLiteral("Options/logLevel"), m_minimumLevel);
 }

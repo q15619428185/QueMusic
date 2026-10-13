@@ -30,7 +30,7 @@ extern void qml_register_types_SmyunMusic();
 
 static void registerSmtcAppIdentity()
 {
-    const wchar_t *appId = L"BroNekoX.SmyunMusic";
+    const wchar_t *appId = L"Smyun.SmyunMusic";
 
     // 1) 设置当前进程的显式 AppUserModelID（需在展示任何 UI 之前调用）
     typedef HRESULT (WINAPI *SetAppUserModelIDFn)(PCWSTR);
@@ -48,7 +48,7 @@ static void registerSmtcAppIdentity()
     // 2) 注册表 DisplayName + IconUri（通知等系统部件解析显示名/图标用）
     HKEY key = nullptr;
     if (RegCreateKeyExW(HKEY_CURRENT_USER,
-                        L"Software\\Classes\\AppUserModelId\\BroNekoX.SmyunMusic",
+                        L"Software\\Classes\\AppUserModelId\\Smyun.SmyunMusic",
                         0, nullptr, 0, KEY_SET_VALUE, nullptr, &key, nullptr) == ERROR_SUCCESS) {
         const wchar_t *displayName = L"SmyunMusic";
         RegSetValueExW(key, L"DisplayName", 0, REG_SZ,
@@ -116,7 +116,7 @@ int main(int argc, char *argv[])
 #endif
     // 渲染后端 / 垂直同步 / 动画驱动开关（须在 QApplication 之前设环境变量）
     QString configPath = QStandardPaths::writableLocation(QStandardPaths::ConfigLocation);
-    QSettings opt(configPath + QStringLiteral("/BroNekoX/SmyunMusic.ini"), QSettings::IniFormat);
+    QSettings opt(configPath + QStringLiteral("/Smyun/SmyunMusic.ini"), QSettings::IniFormat);
     switch (opt.value(QStringLiteral("Options/gpuRenderMode"), 0).toInt()) {
     case 1: qputenv("QSG_RHI_BACKEND", "opengl"); break;
     case 2: qputenv("QSG_RHI_BACKEND", "vulkan"); break;
@@ -138,8 +138,8 @@ int main(int argc, char *argv[])
     qml_register_types_SmyunMusic();   // 注册 QML_ELEMENT 类型
     engine.addImportPath(QStringLiteral("qrc:/"));
 
-    application.setOrganizationName("BroNekoX");
-    application.setOrganizationDomain("com.bronekox.smyunmusic");
+    application.setOrganizationName("Smyun");
+    application.setOrganizationDomain("com.smyun.smyunmusic");
     // QIcon 只识别 ":/xxx" 资源路径（"qrc:/xxx" 会加载失败）
     application.setWindowIcon(QIcon(QStringLiteral(":/SmyunMusic/resources/icon.ico")));
     application.setApplicationName("SmyunMusic");

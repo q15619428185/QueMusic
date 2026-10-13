@@ -8,7 +8,7 @@ echo SmyunMusic 数据库写权限诊断 > "%OUT%"
 echo 时间: %DATE% %TIME% >> "%OUT%"
 echo. >> "%OUT%"
 
-set DB=%APPDATA%\BroNekoX\SmyunMusic\player_data.db
+set DB=%APPDATA%\Smyun\SmyunMusic\player_data.db
 
 echo [1] 数据库文件 >> "%OUT%"
 if exist "%DB%" (
@@ -25,9 +25,9 @@ if exist "%DB%-shm" ( del /f /q "%DB%-shm" && echo    已删除 -shm >> "%OUT%" 
 echo. >> "%OUT%"
 
 echo [3] 目录里能否新建文件 >> "%OUT%"
-echo test > "%APPDATA%\BroNekoX\SmyunMusic\writetest.tmp" 2>>"%OUT%" && (
+echo test > "%APPDATA%\Smyun\SmyunMusic\writetest.tmp" 2>>"%OUT%" && (
     echo    可以新建文件 >> "%OUT%"
-    del /f /q "%APPDATA%\BroNekoX\SmyunMusic\writetest.tmp"
+    del /f /q "%APPDATA%\Smyun\SmyunMusic\writetest.tmp"
 ) || echo    无法新建文件 >> "%OUT%"
 echo. >> "%OUT%"
 

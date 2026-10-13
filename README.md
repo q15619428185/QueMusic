@@ -515,15 +515,6 @@ SmyunMusic 官方版本始终保持开源与永久免费，没有任何 Pro、Ul
 
 ---
 
-## 联系开发者
-
-- QQ：241422517
-- 邮箱：uihugd@outlook.com
-- Bilibili：695207057
-- QQ 群：1105114511
-
----
-
 <p align="center">
   <sub>Written for SmyunMusic Project</sub><br/>
   <sub>最后更新：2026-10-09 · 版本 0.6.0</sub>

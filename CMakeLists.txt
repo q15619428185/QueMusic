@@ -100,7 +100,7 @@ elseif(APPLE)
     set_target_properties(${PROJECT_NAME} PROPERTIES
         MACOSX_BUNDLE TRUE
         MACOSX_BUNDLE_BUNDLE_NAME "SmyunMusic"
-        MACOSX_BUNDLE_GUI_IDENTIFIER "com.bronekox.smyunmusic"
+        MACOSX_BUNDLE_GUI_IDENTIFIER "com.smyun.smyunmusic"
         MACOSX_BUNDLE_BUNDLE_VERSION "${PROJECT_VERSION}"
         MACOSX_BUNDLE_SHORT_VERSION_STRING "${PROJECT_VERSION}"
     )
